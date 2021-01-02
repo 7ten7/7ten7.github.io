@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.5.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.5.0" type="image/png" sizes="32x32"><meta name="google-site-verification" content="QDXQenTtxQ6MwW-M_7k9lw39Kq7F4pwFO0u1QAPYlDE"><meta name="description" content="PHP global 关键词       global 关键词用于访问函数内的全局变量。 要做到这一点，请在（函数内部）变量前面使用 global 关键词。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php笔记(一)">
+<meta property="og:url" content="http://www.7ten7.top/2018/09/13/php%E7%AC%94%E8%AE%B0(%E4%B8%80)/index.html">
+<meta property="og:site_name" content="7TEN7&#39;s Blog">
+<meta property="og:description" content="PHP global 关键词       global 关键词用于访问函数内的全局变量。 要做到这一点，请在（函数内部）变量前面使用 global 关键词。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-09-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-10-28T09:08:55.794Z">
+<meta property="article:author" content="7TEN7">
+<meta property="article:tag" content="php">
+<meta name="twitter:card" content="summary"><title>php笔记(一) | 7TEN7's Blog</title><link ref="canonical" href="http://www.7ten7.top/2018/09/13/php%E7%AC%94%E8%AE%B0(%E4%B8%80)/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.5.0"><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" data-ad-client="ca-pub-4793862971469188" async=""></script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"simple","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: true,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/friends/"><span class="header-nav-menu-item__icon"><i class="fas fa-link"></i></span><span class="header-nav-menu-item__text">友链</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">php笔记(一)</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-09-13</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">812</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">5分</span></span></div></header><div class="post-body">
+        <h4 id="PHP-global-关键词"   >
+          <a href="#PHP-global-关键词" class="heading-link"><i class="fas fa-link"></i></a>PHP global 关键词</h4>
+      <p>global 关键词用于访问函数内的全局变量。</p>
+<p>要做到这一点，请在（函数内部）变量前面使用 global 关键词。<a id="more"></a></p>
+
+        <h4 id="PHP-static-关键词"   >
+          <a href="#PHP-static-关键词" class="heading-link"><i class="fas fa-link"></i></a>PHP static 关键词</h4>
+      <p>通常，当函数完成/执行后，会删除所有变量。不过，有时我需要不删除某个局部变量。实现这一点需要更进一步的工作。</p>
+<p>要完成这一点，请在您首次声明变量时使用 static 关键词。</p>
+
+        <h4 id="PHP-var-dump"   >
+          <a href="#PHP-var-dump" class="heading-link"><i class="fas fa-link"></i></a>PHP var_dump()</h4>
+      <p>返回变量的数据类型和值</p>
+
+        <h4 id="php数组"   >
+          <a href="#php数组" class="heading-link"><i class="fas fa-link"></i></a>php数组</h4>
+      <p>array()创建数组。</p>
+
+        <h4 id="php字符串函数"   >
+          <a href="#php字符串函数" class="heading-link"><i class="fas fa-link"></i></a>php字符串函数</h4>
+      <p>strlen()：返回字符串的长度，以字符计。例:strlen(“Hello world!”)</p>
+<p>strpos()：函数用于检索字符串内指定的字符或文本。例:strpos(“Hello world!”,”world”)<br>如果找到匹配，则会返回首个匹配的字符位置。如果未找到匹配，则将返回 FALSE。</p>
+
+        <h4 id="php常量"   >
+          <a href="#php常量" class="heading-link"><i class="fas fa-link"></i></a>php常量</h4>
+      <p>如需设置常量，请使用 define() 函数 - 它使用三个参数：<br>1.首个参数定义常量的名称<br>2.第二个参数定义常量的值<br>3.可选的第三个参数规定常量名是否对大小写不敏感。默认是 false。</p>
+<hr>
+
+        <h4 id="PHP-foreach-循环"   >
+          <a href="#PHP-foreach-循环" class="heading-link"><i class="fas fa-link"></i></a>PHP foreach 循环</h4>
+      <pre><code>语法：
+foreach ($array as $value) {
+  code to be executed;
+}
+</code></pre><p>每进行一次循环迭代，当前数组元素的值就会被赋值给 $value 变量，并且数组指针会逐一地移动，直到到达最后一个数组元素。</p>
+
+        <h4 id="PHP-关联数组"   >
+          <a href="#PHP-关联数组" class="heading-link"><i class="fas fa-link"></i></a>PHP 关联数组</h4>
+      <p>关联数组是使用您分配给数组的指定键的数组。</p>
+<p>有两种创建关联数组的方法：</p>
+<pre><code>$age=array(&quot;Peter&quot;=&gt;&quot;35&quot;,&quot;Ben&quot;=&gt;&quot;37&quot;,&quot;Joe&quot;=&gt;&quot;43&quot;);
+</code></pre><blockquote>
+<p>其中”Peter”称为键，”35”称为值</p>
+</blockquote>
+<p>或者：</p>
+<pre><code>$age[&apos;Peter&apos;]=&quot;35&quot;;
+$age[&apos;Ben&apos;]=&quot;37&quot;;
+$age[&apos;Joe&apos;]=&quot;43&quot;;
+</code></pre><p>随后可以在脚本中使用指定键：</p>
+
+        <h4 id="遍历关联数组："   >
+          <a href="#遍历关联数组：" class="heading-link"><i class="fas fa-link"></i></a>遍历关联数组：</h4>
+      <p>如需遍历并输出关联数组的所有值，您可以使用 foreach 循环，就像这样：</p>
+<pre><code>&lt;?php
+$age=array(&quot;Bill&quot;=&gt;&quot;35&quot;,&quot;Steve&quot;=&gt;&quot;37&quot;,&quot;Peter&quot;=&gt;&quot;43&quot;);
+
+foreach($age as $x=&gt;$x_value) {
+  echo &quot;Key=&quot; . $x . &quot;, Value=&quot; . $x_value;
+  echo &quot;&lt;br&gt;&quot;;
+}
+?&gt;
+</code></pre>
+        <h4 id="PHP-数组的排序函数"   >
+          <a href="#PHP-数组的排序函数" class="heading-link"><i class="fas fa-link"></i></a>PHP - 数组的排序函数</h4>
+      <ul>
+<li>sort() 以升序对数组排序</li>
+<li>rsort() 以降序对数组排序</li>
+<li>asort() 根据值，以升序对关联数组进行排序</li>
+<li>ksort() 根据键，以升序对关联数组进行排序</li>
+<li>arsort() 根据值，以降序对关联数组进行排序</li>
+<li>krsort() 根据键，以降序对关联数组进行排序</li>
+</ul>
+
+        <h4 id="PHP-全局变量-超全局变量"   >
+          <a href="#PHP-全局变量-超全局变量" class="heading-link"><i class="fas fa-link"></i></a>PHP 全局变量 - 超全局变量</h4>
+      <p>PHP 中的许多预定义变量都是“超全局的”，这意味着它们在一个脚本的全部作用域中都可用。在函数或方法中无需执行 global $variable; 就可以访问它们。</p>
+<p>这些超全局变量是：</p>
+<ul>
+<li>$GLOBALS —— 引用全局作用域中可用的全部变量</li>
+<li>$_SERVER —— 这种超全局变量保存关于报头、路径和脚本位置的信息</li>
+<li>$_REQUEST —— 用于收集 HTML 表单提交的数据</li>
+<li>$_POST —— 广泛用于收集提交 method=”post” 的 HTML 表单后的表单数据。$_POST 也常用于传递变量</li>
+<li>$_GET —— 也可用于收集提交 HTML 表单 (method=”get”) 之后的表单数据</li>
+<li>$_FILES</li>
+<li>$_ENV</li>
+<li>$_COOKIE</li>
+<li>$_SESSION</li>
+</ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://www.7ten7.top">7TEN7</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://www.7ten7.top/2018/09/13/php%E7%AC%94%E8%AE%B0(%E4%B8%80)/">http://www.7ten7.top/2018/09/13/php%E7%AC%94%E8%AE%B0(%E4%B8%80)/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/php/">php</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2018/10/12/MySQL/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">MySQL基础（一）</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2018/07/27/%E4%B8%ADM2018%E6%98%A5C%E5%85%A5%E9%97%A8%E5%92%8C%E8%BF%9B%E9%98%B6%E7%BB%83%E4%B9%A0%E9%9B%86/"><span class="paginator-prev__text">中M2018春C入门和进阶练习集</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP-global-关键词"><span class="toc-number">1.</span> <span class="toc-text">
+          PHP global 关键词</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP-static-关键词"><span class="toc-number">2.</span> <span class="toc-text">
+          PHP static 关键词</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP-var-dump"><span class="toc-number">3.</span> <span class="toc-text">
+          PHP var_dump()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#php数组"><span class="toc-number">4.</span> <span class="toc-text">
+          php数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#php字符串函数"><span class="toc-number">5.</span> <span class="toc-text">
+          php字符串函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#php常量"><span class="toc-number">6.</span> <span class="toc-text">
+          php常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP-foreach-循环"><span class="toc-number">7.</span> <span class="toc-text">
+          PHP foreach 循环</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP-关联数组"><span class="toc-number">8.</span> <span class="toc-text">
+          PHP 关联数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#遍历关联数组："><span class="toc-number">9.</span> <span class="toc-text">
+          遍历关联数组：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP-数组的排序函数"><span class="toc-number">10.</span> <span class="toc-text">
+          PHP - 数组的排序函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP-全局变量-超全局变量"><span class="toc-number">11.</span> <span class="toc-text">
+          PHP 全局变量 - 超全局变量</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/author/author.png" alt="avatar"></div><p class="sidebar-ov-author__text">7TEN7</p></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-rss"><a class="sidebar-ov-feed-rss__link" href="/atom.xml" target="_blank" rel="noopener"><span class="sidebar-ov-feed-rss__icon"><i class="fas fa-rss"></i></span><span>RSS 订阅</span></a></span></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">55</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__devider"></span><span>7TEN7</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="255,255,255" opacity="1" count="200" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'Nzl7LsK4moQuOsIfeWfbc8Rz-gzGzoHsz',
+    appKey: '5xmoJuWrMWHpI7pwtJviyIh6',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.5.0"></script><script src="/js/stun-boot.js?v=2.5.0"></script><script src="/js/scroll.js?v=2.5.0"></script><script src="/js/header.js?v=2.5.0"></script><script src="/js/sidebar.js?v=2.5.0"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/shizuku.model.json"},"display":{"position":"right","width":260,"height":380,"vOffset":5},"mobile":{"show":true},"log":false});</script></body></html>

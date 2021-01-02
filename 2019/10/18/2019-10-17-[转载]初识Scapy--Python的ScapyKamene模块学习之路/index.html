@@ -1,0 +1,453 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.5.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.5.0" type="image/png" sizes="32x32"><meta name="google-site-verification" content="QDXQenTtxQ6MwW-M_7k9lw39Kq7F4pwFO0u1QAPYlDE"><meta name="description" content="原文链接：初识Scapy–Python的Scapy&#x2F;Kamene模块学习之路                     前言       虽说自己是网络专业，但对于协议这一块，一直没有捋的很清楚，像 arp 欺骗之类的攻击方式，有所耳闻，也略知原理，但还达不到张口就来的水平，作为网络专业的学生对此真的是惭愧。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【转载】初识Scapy--Python的Scapy&#x2F;Kamene模块学习之路">
+<meta property="og:url" content="http://www.7ten7.top/2019/10/18/2019-10-17-[%E8%BD%AC%E8%BD%BD]%E5%88%9D%E8%AF%86Scapy--Python%E7%9A%84ScapyKamene%E6%A8%A1%E5%9D%97%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/index.html">
+<meta property="og:site_name" content="7TEN7&#39;s Blog">
+<meta property="og:description" content="原文链接：初识Scapy–Python的Scapy&#x2F;Kamene模块学习之路                     前言       虽说自己是网络专业，但对于协议这一块，一直没有捋的很清楚，像 arp 欺骗之类的攻击方式，有所耳闻，也略知原理，但还达不到张口就来的水平，作为网络专业的学生对此真的是惭愧。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-67e1d486a2137beaf4baed16ac3efdff_hd.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-35b627cc5f401e0653079b6faa19b249_hd.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-997b45db2a1b50c94ce6f0baae3a23a2_hd.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-98a78e10a04ed67fb1443188616554d8_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-12348205529ca03b554dd7b1dd53c497_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-f1a6011ac5bba937aff9f50de4814023_hd.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-2564158ec881ffa1e9c97dc91ccfc419_hd.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-f2be3abdf66569d3724e6bb5b2157e0d_hd.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-2c22e5448e0c74cda460157f161c4812_hd.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-e447fb78d6cd60b0c93054d775e7561a_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-47be23fd72b94b23b059879295e51ff7_hd.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-e4dd6fcb3b8375e2616e209c163cbff2_hd.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-c206109662cb0eb66715214f4cacf806_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-559c136ad27f47cd4dab412f943c50d7_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-db6899af9a8798e443e1182ee060e867_hd.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-39d6902eb9c7f6362bc9febefd9a7308_hd.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-3af2b93731dbeb7156a13a421b9e980d_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-2511b95f10b0620e61eef68b2a26925b_hd.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-a52821b50f772f66dcf34774a5f598cd_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-10804c733d982da7054e17134ef162d3_hd.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-6a5274657131aae472b62d751f0ae544_hd.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-9398406c9132730cdc058f9d97383705_hd.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-c48b6a214df147b870b679a6c25ca866_hd.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-f1c00b93153417dc23cfec56901de5ac_hd.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-d86e013a8ce420f36b59620317473f8a_hd.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-eaa9ed2d08c867558cf3ba3575aaefb1_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-aa2b7794beb37f922a60728015695dd7_hd.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-489e23e74b6096685d72204a228bf178_hd.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-ae5e31c9d8f882ef2bac2dedd5ab0461_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-5028e67355f0f2658c2ce4a06e2d8507_hd.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-f004b4f195fa8edf9915e80bb13278ea_hd.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-e5f6c0a69e0f25524235dac3eaab2510_hd.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-6818d148034f1db25e09f440f83b2466_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-2563866882b68ae54799e266587b55b3_hd.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-1b941c7dc667f503e286c40c0bd4b7a1_hd.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-c7f6f4e486f60e38f6a91c67285694d0_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-efbeabb32b2ac3605c6e254ce40e64d3_hd.jpg">
+<meta property="article:published_time" content="2019-10-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-04-23T12:57:26.306Z">
+<meta property="article:author" content="7TEN7">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="协议">
+<meta property="article:tag" content="转载">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic4.zhimg.com/80/v2-67e1d486a2137beaf4baed16ac3efdff_hd.jpg"><title>【转载】初识Scapy--Python的Scapy/Kamene模块学习之路 | 7TEN7's Blog</title><link ref="canonical" href="http://www.7ten7.top/2019/10/18/2019-10-17-[%E8%BD%AC%E8%BD%BD]%E5%88%9D%E8%AF%86Scapy--Python%E7%9A%84ScapyKamene%E6%A8%A1%E5%9D%97%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.5.0"><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" data-ad-client="ca-pub-4793862971469188" async=""></script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"simple","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: true,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/friends/"><span class="header-nav-menu-item__icon"><i class="fas fa-link"></i></span><span class="header-nav-menu-item__text">友链</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【转载】初识Scapy--Python的Scapy/Kamene模块学习之路</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-10-18</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">4.3k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">26分</span></span></div></header><div class="post-body"><p>原文链接：<span class="exturl"><a class="exturl__link"   href="https://blog.starunity.dev/2019/04/11/learning-scapy-1/"  target="_blank" rel="noopener">初识Scapy–Python的Scapy/Kamene模块学习之路</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h1 id="前言"   >
+          <a href="#前言" class="heading-link"><i class="fas fa-link"></i></a>前言</h1>
+      <p>虽说自己是网络专业，但对于协议这一块，一直没有捋的很清楚，像 arp 欺骗之类的攻击方式，有所耳闻，也略知原理，但还达不到张口就来的水平，作为网络专业的学生对此真的是惭愧。<a id="more"></a></p>
+<p>所以接下来要好好补习下网络协议的知识。把协议什么的弄清楚。之前了解到 python 的 scapy 模块很强大，正好可以跟学习协议的过程结合起来，一起学习下这个模块。</p>
+<p>在搜索有关 scapy 这个模块入门文章时，看到了这篇，感觉写的还挺清晰的。本来想看完之后自己在总结一遍，但写了几百字之后，感觉没有这篇写的清晰。所以就直接把这篇文章转载过来吧。</p>
+
+        <h1 id="Scapy-Kamene是什么"   >
+          <a href="#Scapy-Kamene是什么" class="heading-link"><i class="fas fa-link"></i></a>Scapy/Kamene是什么?</h1>
+      <p>Scapy是基于Python语言的网络报文处理程序，它可以让用户发送、嗅探、解析、以及伪造网络报文，运用Scapy可以进行网路侦测、端口扫描、路由追踪、以及网络攻击。Kamene是Scapy的分支，一开始的Scapy并不支持Python 3，为了支持Python 3就诞生了Scapy3k这个分支，为了方便区分就把Scapy3k更名为了Kamene。注意：最新的Scapy是支持Python 3的(Scapy 2.4.0+)。</p>
+<p>Scapy 官网: <a href="[https://scapy.net/](https://link.zhihu.com/?target=https%3A//scapy.net/">https://scapy.net/</a>)</p>
+<p>Scapy Pypi包主页: <span class="exturl"><a class="exturl__link"   href="https://pypi.org/project/scapy/"  target="_blank" rel="noopener">https://pypi.org/project/scapy/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><strong>注意:</strong> 本系列文章默认你有Python基础</p>
+
+        <h1 id="如何选择Python和Scapy的版本？"   >
+          <a href="#如何选择Python和Scapy的版本？" class="heading-link"><i class="fas fa-link"></i></a>如何选择Python和Scapy的版本？</h1>
+      <p>这是Scapy版本的兼容列表:</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic4.zhimg.com/80/v2-67e1d486a2137beaf4baed16ac3efdff_hd.jpg"  alt="img">
+      </p>
+<p>现在(2019年4月)有相当一部分Linux发行版都不预装Python 2了而改为Python 3 (Fedora 29, Ubuntu 19.04)，而且Python 2也将在2020年停止维护，所以本系列文章完全使用Python 3(外加我也没有怎么学过Python 2)。</p>
+
+        <h1 id="我的实验环境"   >
+          <a href="#我的实验环境" class="heading-link"><i class="fas fa-link"></i></a>我的实验环境:</h1>
+      <ul>
+<li>运行Scapy的主机: Ubuntu 19.04 / Kali linux 2019.1a(不需要额外安装 Scapy)</li>
+<li>端口扫描测试靶机: Metasploittable2-Linux</li>
+</ul>
+<p>它们都是VMware虚拟机，通过桥接模式连接到本地网络，安装VMware虚拟机的方法这里就不介绍了，通过搜索引擎就可以查找到很多资料。当然实验环境可以跟我不一样，但推荐用Linux系统运行Scapy，其他系统的安装方法可以参考官方的<span class="exturl"><a class="exturl__link"   href="https://link.zhihu.com/?target=https%3A//scapy.readthedocs.io/en/latest/installation.html" >文档</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>(英文)。</p>
+
+        <h1 id="安装Scapy-Kamene"   >
+          <a href="#安装Scapy-Kamene" class="heading-link"><i class="fas fa-link"></i></a>安装Scapy/Kamene:</h1>
+      <p>安装Scapy之前需要先安装Python 3 ，有些Linux发行版已经安装好了Python 3 (Ubuntu, Kali)。安装 Python 3 网上也有很多资料了，只要输入你的操作系统加上 Python 3就可以找到。</p>
+<p>安装完Python 3之后再建议把pip的源改为国内的镜像(如果你不在国内的话那就不用改了)，改pip源可以参考这篇文章: <span class="exturl"><a class="exturl__link"   href="https://www.cnblogs.com/ZhangRuoXu/p/6370107.html"  target="_blank" rel="noopener">https://www.cnblogs.com/ZhangRuoXu/p/6370107.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>编辑配置文件:</p>
+<p>mkdir ~/.pip</p>
+<p>vi ~/.pip/pip.conf</p>
+<p>然后输入一下内容，把pip源设为豆瓣的镜像：</p>
+<figure class="highlight ini"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[global]</span></span><br><span class="line"><span class="attr">timeout</span> = <span class="number">60</span></span><br><span class="line"><span class="attr">index-url</span> = https://pypi.doubanio.com/simple</span><br></pre></td></tr></table></div></figure>
+<p>安装Scapy:</p>
+<p>sudo pip3 install scapy</p>
+<p>执行完毕后输入sudo scapy验证安装是否成功，出现以下界面就表示安装成功了(<strong>注意:</strong> Scapy某些功能需用root权限):</p>
+<p>sudo scapy</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic2.zhimg.com/80/v2-35b627cc5f401e0653079b6faa19b249_hd.jpg"  alt="img">
+      </p>
+<p>上面白色的警告提示说: 无法导入matplotlib和PyX模块，没有IPv6路由，没有IPython shell。我们依次安装这几个模块。目前来说我们用不到IPv6，所以不用管它。</p>
+<p><strong>这就是一个Python shell，所以可以用exit()退出它。</strong></p>
+<p>exit()</p>
+<p>安装matplotlib:</p>
+<p>sudo pip3 install matplotlib</p>
+<p>安装PyX:</p>
+<p>sudo pip3 install PyX</p>
+<p>安装IPython:</p>
+<p>sudo pip3 install IPython</p>
+<p>实际上matplotlib和PyX不安装也可以，后面一般不用，要用到时我会另外再说。但是IPython有必要安装一下，安装IPython之后你会发现Python Shell明显流畅了很多，而且自动补全功能也更加完善。</p>
+<p>安装完Scapy后我们就开始使用它吧。</p>
+
+        <h1 id="Scapy-shell的使用"   >
+          <a href="#Scapy-shell的使用" class="heading-link"><i class="fas fa-link"></i></a>Scapy shell的使用</h1>
+      <p>进入Scapy shell:</p>
+<p>sudo scapy</p>
+<p>进入Scapy你可能发现了这和Python的shell有点像，但是颜色又有点不对。事实上这就是一个Python Shell只是更改了颜色选项，然后引入了Scapy模块。</p>
+<p>知道这原理后我们只需要一行代码就可以构造一个Ping的请求包。</p>
+<p>ping = IP(dst=”<span class="exturl"><a class="exturl__link"   href="https://link.zhihu.com/?target=http%3A//www.baidu.com" >http://www.baidu.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>“) / ICMP()</p>
+<p>看到这个你可能会问: “你这一行代码这么就构造一个数据包数据了啊！”，先别急我们慢慢来看这个数据包是这么构成的。</p>
+<p>我们想要灵活使用Scapy需要知道一定的网络知识，下面我们来简单了解一下这些知识。</p>
+<p>现在的网络数据都是分层传输的，以TCP/IP协议族为例网络可分为4层，下图就是TCP/IP协议族的层次图。</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic3.zhimg.com/80/v2-997b45db2a1b50c94ce6f0baae3a23a2_hd.jpg"  alt="img">
+      </p>
+<p>最上面的应用层(Application Layer)，然后传输层(Transport Layer)，然后网络(Internet Layer)，最下面一层是数据链路层(Link/Physical Layer)。</p>
+<p>比如说QQ这个应用它处在应用层，我们发送一条消息时QQ应用会把消息放入自己定义的一个应用协议中，然后交给它的下一层传输层。传输层协议例如UDP(TCP会有一点不一样)，会把自己的报文头加在数据之前，然后再交给下一层网络层。网络层的协议例如IP协议也会把自己的报文头加在数据之前，然后再交给数据数据链路层。数据链路层的协议例如以太网协议(Ethernet)还是会把自己的报文头加在数据之前(以太网协议不仅有头还有尾)，最后再通过网卡发送Bit流到网络中。这个过程就就叫封装，当然有封装就有解封装，解封装就是把封装的过程倒过来。下图就是数据传输过程的图片:</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic1.zhimg.com/80/v2-98a78e10a04ed67fb1443188616554d8_hd.jpg"  alt="img">
+      </p>
+<p>知道了数据传输的过程，那些TCP, UDP, IP, Ethernet是什么东西啊？它们都是网络协议，网络协议就是一些标准，如果你不遵守协议或者协议和别人不一样的话那你就没办法和别人通讯。就像说不同语言的两个人没办法正常沟通一样。</p>
+<p>我这里只是笼统概括了一下如果想深入学习的话可以看这篇文章: <span class="exturl"><a class="exturl__link"   href="https://link.zhihu.com/?target=https%3A//wizardforcel.gitbooks.io/network-basic/content/0.html" >https://wizardforcel.gitbooks.io/network-basic/content/0.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，也可以买一些相关书籍来看。</p>
+<p>Scapy的主要的功能就是操作各种协议的报文，所以我们接下来会学习到一些协议，但是我不会一下子讲太多协议，而是我们需要什么协议就学什么。</p>
+<p>这里提一下报文是什么，报文就是按照一定规则组成的数据，方便构造和解析。报文头就是数据最前面的标识信息，报文 = 报文头 + 数据</p>
+<p>好了了解这些基础知识我们继续看刚刚构造的数据包</p>
+<p>ping = IP(dst=”<span class="exturl"><a class="exturl__link"   href="http://www.baidu.com&quot;"  target="_blank" rel="noopener">www.baidu.com&quot;</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>) / ICMP()</p>
+<p>Scapy中的斜杠’ / ‘就是用来区分网络层次的，一般来说把底层的协议写在左边把高层的协议写在右边，就像下面这样:</p>
+<p>数据链路层协议 / 网络层协议 / 传输层协议 / 应用层协议及数据</p>
+<p>下面是TCP/IP协议族关系表:</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic4.zhimg.com/80/v2-12348205529ca03b554dd7b1dd53c497_hd.jpg"  alt="img">
+      </p>
+<p>一般来说我们不需要关心数据链路层的协议Scapy会为我们自动配置。</p>
+<p>Scapy定义了很多函数和类，通过这些函数和类我们就可以构造数据包。这里的IP可以用来生成一个IP的报文头。</p>
+<p>IP()</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic4.zhimg.com/80/v2-f1a6011ac5bba937aff9f50de4814023_hd.jpg"  alt="img">
+      </p>
+<p>show()方法获取报文字段信息(在Python shell中下划线’_’表示上条语句执行结果)</p>
+<p>_.show()</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic2.zhimg.com/80/v2-2564158ec881ffa1e9c97dc91ccfc419_hd.jpg"  alt="img">
+      </p>
+<p>这里简单介绍一下IP协议。IP协议就是通过IP地址来标识互联网上的主机，我们通过IP地址就可以访问到互联网上的主机(非NAT)。IP协议有2个版本IPv4和IPv6，目前主流的还是IPv4，但是已经有很多地方在使用IPv6了，可能过个几年IPv6就是主流了。</p>
+<p>长度(len)，校验和(chksum)、协议(proto)等字段Scapy都会自动计算，所以我们只有3个字段需要注意一下，ttl、src、dst。</p>
+<ul>
+<li>ttl: 生存时间值(Time To Live)，当数据包每进行进行一次转发时TLL值就会减一，TTL为0时数据包就会被丢弃，TTL的主要作用是避免IP包在网络中的无限循环和收发，节省了网络资源，并能使IP包的发送者能收到告警消息(路由追踪原理)。</li>
+<li>src: 源地址(Source Address)数据发送者的地址</li>
+<li>dst: 目的地址(Destination Address)数据接收者的地址</li>
+</ul>
+<p>所以这段代码就是设置目标地址:</p>
+<p>IP(dst=”<span class="exturl"><a class="exturl__link"   href="http://www.baidu.com&quot;"  target="_blank" rel="noopener">www.baidu.com&quot;</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>)</p>
+<p>有基础的朋友可能会说：“这明明是域名，不是IP地址!“。对，这确实是域名，但是Scapy功能非常强大，当你把dst赋值为域名时Scapy会自动调用一个名为Net的函数来解析域名。</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic2.zhimg.com/80/v2-f2be3abdf66569d3724e6bb5b2157e0d_hd.jpg"  alt="img">
+      </p>
+<p>还可以指定掩码位数:</p>
+<p>list(Net(‘<span class="exturl"><a class="exturl__link"   href="http://www.baidu.com/30&#39;)"  target="_blank" rel="noopener">www.baidu.com/30&#39;)</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>)</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic3.zhimg.com/80/v2-2c22e5448e0c74cda460157f161c4812_hd.jpg"  alt="img">
+      </p>
+<p>然后我们再来看看ICMP协议:</p>
+<p>ICMP(互联网控制消息协议)是互联网协议族的核心协议之一。它用于TCP/IP网络中发送控制消息，提供可能发生在通信环境中的各种问题反馈，通过这些信息，使管理者可以对所发生的问题作出诊断，然后采取适当的措施解决(维基百科)。ping就是基于ICMP协议的。</p>
+<p>生成一个ICMP报文头:</p>
+<p>ICMP()</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic3.zhimg.com/80/v2-e447fb78d6cd60b0c93054d775e7561a_hd.jpg"  alt="img">
+      </p>
+<p>ICMP只有5个字段这些字段分别的意思是(维基百科):</p>
+<ul>
+<li>type：ICMP的类型,标识生成的错误报文。</li>
+<li>code：进一步划分ICMP的类型,该字段用来查找产生错误的原因。例如，ICMP的目标不可达类型可以把这个位设为1至15等来表示不同的意思。</li>
+<li>chksum：校验码部分,这个字段包含有从ICMP报头和数据部分计算得来的，用于检查错误的数据，其中此校验码字段的值视为0。</li>
+<li>id：这个字段包含了ID值，在Echo Reply类型的消息中要返回这个字段。</li>
+<li>Seq：这个字段包含一个序号，同样要在Echo Reply类型的消息中要返回这个字段。</li>
+</ul>
+<p>以下是ICMP type code的对应表:</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic4.zhimg.com/80/v2-47be23fd72b94b23b059879295e51ff7_hd.jpg"  alt="img">
+      </p>
+<p>一般来说只用记住这2个，type为8、code为0是ping的请求，type为0、code为0是ping的响应。</p>
+<p>知道这些之后我们就可以构造一个ICMP请求报文头。注意Scapy会为每个报文设定默认值，调用ICMP函数默认就是构造一个ICMP请求，所以下面两条是等价的:</p>
+<p>ICMP()</p>
+<p>ICMP(type=8, code=0)</p>
+<p>也可以查看对象的type，code属性值</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic3.zhimg.com/80/v2-e4dd6fcb3b8375e2616e209c163cbff2_hd.jpg"  alt="img">
+      </p>
+<p>通过ls函数就可以查看默认值</p>
+<p>ls(&lt;协议名&gt;)</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic3.zhimg.com/80/v2-c206109662cb0eb66715214f4cacf806_hd.jpg"  alt="img">
+      </p>
+<p>也可以同时查看实际值和默认值</p>
+<p>ls(IP(dst=”<span class="exturl"><a class="exturl__link"   href="https://link.zhihu.com/?target=http%3A//www.baidu.com" >http://www.baidu.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>“))</p>
+<p>没有括号的是实际值，有括号的是默认值</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic4.zhimg.com/80/v2-559c136ad27f47cd4dab412f943c50d7_hd.jpg"  alt="img">
+      </p>
+<p>好了现在我们再回头看刚刚构造的ping请求包就应该可以明白其中的意思了:</p>
+<p>ping = IP(dst=”192.168.40.1”) / ICMP()</p>
+<p><strong>注意:</strong> 为了方便演示我把地址换成了自己的网关</p>
+<p>ICMP函数首先构造一个ping请求报文头，然后IP函数构造一个IP报文头设置目标为’192.168.40.1’，最后赋值给变量ping。</p>
+<p>构造完数据包之后那我们就来发送数据包。</p>
+<p>resultpkt = sr1(ping)</p>
+<p>sr1函数发送一个数据包，再接收一个数据包，然后返回响应的数据包。发送成功会显示形如下面信息。</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic4.zhimg.com/80/v2-db6899af9a8798e443e1182ee060e867_hd.jpg"  alt="img">
+      </p>
+<p>Received 3 packets意思是: 收到了3个包</p>
+<p>got 1 answers意思是: 得到了一个应答。也就是我们需要的包。</p>
+<p>rermaining 0 packets意思是: 剩余没有应答得包。</p>
+<p>直接在命令行输入变量名就可以输出接收到的包信息了。</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic1.zhimg.com/80/v2-39d6902eb9c7f6362bc9febefd9a7308_hd.jpg"  alt="img">
+      </p>
+<p>好了得到回显数据之后就可以通过一些方法来访问其中的数据了。</p>
+<p>通过下标访问每个报文数据:</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic2.zhimg.com/80/v2-3af2b93731dbeb7156a13a421b9e980d_hd.jpg"  alt="img">
+      </p>
+<p>这里可能有一点难理解，简单解释一下就是：对于IP协议来说ICMP报文头和Padding实际上就是一堆数据，当我们获取IP报文时它会把IP报文头和数据一起输出。对于获取ICMP报文也是如此，输出ICMP报文头和Padding数据<strong>(报文实际上就是报文头加数据)</strong>。</p>
+<p>通过属性的形式获取字段</p>
+<p>resultpkt[0].src</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic4.zhimg.com/80/v2-2511b95f10b0620e61eef68b2a26925b_hd.jpg"  alt="img">
+      </p>
+<p>resultpkt[1].type</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic2.zhimg.com/80/v2-a52821b50f772f66dcf34774a5f598cd_hd.jpg"  alt="img">
+      </p>
+<p>可以加下标也可以不加，但是推荐加上。例如我们想访问ICMP的校验和(chksum)，不加标访问的是IP的校验和加下标[1]才可以访问ICMP的校验和</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic4.zhimg.com/80/v2-10804c733d982da7054e17134ef162d3_hd.jpg"  alt="img">
+      </p>
+<p>通过fields属性以字典的形式获取报文头</p>
+<p>获取IP报文头:</p>
+<p>resultpkt[0].fields</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic1.zhimg.com/80/v2-6a5274657131aae472b62d751f0ae544_hd.jpg"  alt="img">
+      </p>
+<p>获取ICMP报文头 :</p>
+<p>resultpkt[0].fields</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic2.zhimg.com/80/v2-9398406c9132730cdc058f9d97383705_hd.jpg"  alt="img">
+      </p>
+<p>获取Padding数据:</p>
+<p>resultpkt[2].fields</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic3.zhimg.com/80/v2-c48b6a214df147b870b679a6c25ca866_hd.jpg"  alt="img">
+      </p>
+<p>既然是字典就可以通过键获取对应的值。</p>
+<p>获取IP报文头的源地址:</p>
+<p>resultpkt[0].fields[‘src’]</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic1.zhimg.com/80/v2-f1c00b93153417dc23cfec56901de5ac_hd.jpg"  alt="img">
+      </p>
+<p>获取IP报文头的目标地址:</p>
+<p>resultpkt[0].fields[‘dst’]</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic3.zhimg.com/80/v2-d86e013a8ce420f36b59620317473f8a_hd.jpg"  alt="img">
+      </p>
+<p>获取ICMP报文头的type值和code值:</p>
+<p>resultpkt[0].fields[‘type’]</p>
+<p>resultpkt[0].fields[‘code’]</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic2.zhimg.com/80/v2-eaa9ed2d08c867558cf3ba3575aaefb1_hd.jpg"  alt="img">
+      </p>
+<p>还有一种高级的方法，通过协议下标来访问报文头:</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic4.zhimg.com/80/v2-aa2b7794beb37f922a60728015695dd7_hd.jpg"  alt="img">
+      </p>
+<p>就是把数字下标改为了对应协议的下标功能和数字下标基本一样，但是用协议下标可以增加程序的灵活性和可读性。</p>
+<p>好了这就是Scapy shell的基本用法并，接下来我们讲讲Scapy数据包收发机制。</p>
+
+        <h1 id="Scapy数据包收发机制"   >
+          <a href="#Scapy数据包收发机制" class="heading-link"><i class="fas fa-link"></i></a>Scapy数据包收发机制</h1>
+      <p>Scapy数据包发送函数:</p>
+<ul>
+<li>sr1: 发送一个数据包并接收一个相匹配的数据包</li>
+<li>srp1: 与sr1一样但是关注数据链路层(以后讲ARP协议时会用)</li>
+<li>sr: 发送数据包并接收相匹配的数据包</li>
+<li>srp: 与sr一样但是关注数据链路层(以后讲ARP协议时会用)</li>
+<li>send: 只发送数据包不接收数据包</li>
+<li>sendp: 与send一样但是关注数据链路层(以后讲ARP协议时会用)</li>
+</ul>
+<p>上面提到了匹配这个概念接下来会讲解。</p>
+<p>下图就是Scapy sr函数发收流程图:</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic1.zhimg.com/80/v2-489e23e74b6096685d72204a228bf178_hd.jpg"  alt="img">
+      </p>
+<p>解释一下就是: Scapy sr函数会把数据包批量发送到网络，再获取接收到的所有包(包括其他应用的数据包)，再用发送的包和接收包的进行匹配(通过IP,端口等)把发送的数据包和它相匹配的应答包组成一个元组放入一个列表中(和列表很相似的对象)，再把没有应答的包放入一个列表中(发送了数据包但是没有配到对应的接收包)，最后把两个列表合成一个元组。(没有匹配到的数据包丢弃)</p>
+<p>通过实例理解一下</p>
+<p>生成一组数据包然后通过sr函数发送，timeout参数设置超时时间默认单位为秒，这里设置超时时间为10秒钟。</p>
+<ol>
+<li>result = sr(IP(dst=”10.72.1.0/24”) / ICMP(), timeout=10)</li>
+</ol>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic2.zhimg.com/80/v2-ae5e31c9d8f882ef2bac2dedd5ab0461_hd.jpg"  alt="img">
+      </p>
+<p>直接输入变量名或用type函数就可以看到返回的数据是个元组</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic4.zhimg.com/80/v2-5028e67355f0f2658c2ce4a06e2d8507_hd.jpg"  alt="img">
+      </p>
+<p>通过下标访问results中的数据</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic3.zhimg.com/80/v2-f004b4f195fa8edf9915e80bb13278ea_hd.jpg"  alt="img">
+      </p>
+<p>上图通过result[0]，获取有响应的包的列表，用len函数获取长度，用display方法来展示数据。</p>
+<p>result[0]里的每个素都是元组，每个元组都是由发送的包和它相匹配的应答包组成。</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic1.zhimg.com/80/v2-e5f6c0a69e0f25524235dac3eaab2510_hd.jpg"  alt="img">
+      </p>
+<p>分别访问发送的包和接收的包</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic3.zhimg.com/80/v2-6818d148034f1db25e09f440f83b2466_hd.jpg"  alt="img">
+      </p>
+<p>对于单个数据包的操作就和就前面的一样了</p>
+<p>通过result[1]访问没有相应的请求数据表列表，里面的元素就是单个数据包。</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic4.zhimg.com/80/v2-2563866882b68ae54799e266587b55b3_hd.jpg"  alt="img">
+      </p>
+<p>清楚理解Scapy的发收包机制很重要，以后的学习都是基于这个。</p>
+<p>接下来带来一个干货。</p>
+
+        <h1 id="开发一个ping扫描工具"   >
+          <a href="#开发一个ping扫描工具" class="heading-link"><i class="fas fa-link"></i></a>开发一个ping扫描工具</h1>
+      <p>下面代码的Git仓库地址: <span class="exturl"><a class="exturl__link"   href="https://link.zhihu.com/?target=https%3A//github.com/starunity/Scapy-instance" >https://github.com/starunity/Scapy-instance</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>直接亮代码:</p>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> scapy.all <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pingscan</span><span class="params">(ip)</span>:</span></span><br><span class="line">   <span class="string">"""</span></span><br><span class="line"><span class="string">   pingscan(ip)</span></span><br><span class="line"><span class="string">   Ping the incoming IP.</span></span><br><span class="line"><span class="string">   ip: Pass in an IP like 192.168.1.0 or 192.168.1.0/24</span></span><br><span class="line"><span class="string">   """</span></span><br><span class="line">   answer, uanswer = sr( \</span><br><span class="line">       IP(dst=ip) / ICMP(), \</span><br><span class="line">       timeout=<span class="number">10</span>, verbose=<span class="literal">False</span> \</span><br><span class="line">   )</span><br><span class="line"> </span><br><span class="line">   alive = []</span><br><span class="line"> <span class="keyword">for</span> send, recv <span class="keyword">in</span> answer:</span><br><span class="line"> <span class="keyword">if</span> recv[ICMP].type == recv[ICMP].code == <span class="number">0</span>:</span><br><span class="line">           alive.append(recv[IP].src)</span><br><span class="line"></span><br><span class="line"> <span class="keyword">return</span> alive</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">   ip = input(<span class="string">"Enter IP address:"</span>)</span><br><span class="line">   result = pingscan(ip)</span><br><span class="line"> <span class="keyword">for</span> i <span class="keyword">in</span> result:</span><br><span class="line"> print(<span class="string">"&#123;&#125; is alive."</span>.format(i))</span><br></pre></td></tr></table></div></figure>
+<p>第13行的sr函数里面的verbose参数是用来开启或关闭发收包详情的</p>
+<p>默认开启的效果:</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic2.zhimg.com/80/v2-1b941c7dc667f503e286c40c0bd4b7a1_hd.jpg"  alt="img">
+      </p>
+<p>关闭的效果:</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic1.zhimg.com/80/v2-c7f6f4e486f60e38f6a91c67285694d0_hd.jpg"  alt="img">
+      </p>
+<p>执行结果如下:</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic4.zhimg.com/80/v2-efbeabb32b2ac3605c6e254ce40e64d3_hd.jpg"  alt="img">
+      </p>
+<blockquote>
+<p>把原文的 ping 扫描工具改写了一下，附上自己的代码</p>
+</blockquote>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scapy.all <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pingscan</span><span class="params">(host)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">4</span>):</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            a = time.time()</span><br><span class="line">            answer, uanswer = sr(IP(dst=host) / ICMP(), timeout=<span class="number">3</span>, verbose=<span class="literal">False</span>)</span><br><span class="line">            b = time.time()</span><br><span class="line">        <span class="keyword">except</span> OSError:</span><br><span class="line">            print(<span class="string">'Ping 请求找不到主机'</span>+host+<span class="string">'。请检查该名称，然后重试。'</span>)</span><br><span class="line">            exit()</span><br><span class="line">        delay = (b-a)*<span class="number">1000</span></span><br><span class="line">        <span class="keyword">for</span> send, recv <span class="keyword">in</span> answer:</span><br><span class="line">            <span class="keyword">if</span> recv[ICMP].type == recv[ICMP].code == <span class="number">0</span>:</span><br><span class="line">                print(<span class="string">'来自 '</span>+str(recv[IP].src)+<span class="string">' 的回复：字节='</span>+str(recv[IP].len)+<span class="string">' 时间='</span>+str(int(delay))+<span class="string">'ms TTL='</span>+str(recv[IP].ttl))</span><br><span class="line">        <span class="keyword">for</span> send <span class="keyword">in</span> uanswer:</span><br><span class="line">            <span class="keyword">if</span> send[IP].dst == host:</span><br><span class="line">                print(<span class="string">'请求超时。'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    ip = sys.argv[<span class="number">1</span>]</span><br><span class="line">    pingscan(ip)</span><br></pre></td></tr></table></div></figure>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://www.7ten7.top">7TEN7</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://www.7ten7.top/2019/10/18/2019-10-17-[%E8%BD%AC%E8%BD%BD]%E5%88%9D%E8%AF%86Scapy--Python%E7%9A%84ScapyKamene%E6%A8%A1%E5%9D%97%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/">http://www.7ten7.top/2019/10/18/2019-10-17-[%E8%BD%AC%E8%BD%BD]%E5%88%9D%E8%AF%86Scapy--Python%E7%9A%84ScapyKamene%E6%A8%A1%E5%9D%97%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/python/">python</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/%E5%8D%8F%E8%AE%AE/">协议</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/%E8%BD%AC%E8%BD%BD/">转载</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2019/11/02/2019-11-02-%E7%AC%AC%E4%BA%94%E5%B1%8A%E4%B8%8A%E6%B5%B7%E5%B8%82%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9B/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">第五届上海市大学生网络安全大赛部分WriteUp</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2019/10/16/2019-10-16-bluecms-1.6-%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8/"><span class="paginator-prev__text">bluecms 1.6 审计入门</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">
+          前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Scapy-Kamene是什么"><span class="toc-number">2.</span> <span class="toc-text">
+          Scapy&#x2F;Kamene是什么?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何选择Python和Scapy的版本？"><span class="toc-number">3.</span> <span class="toc-text">
+          如何选择Python和Scapy的版本？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#我的实验环境"><span class="toc-number">4.</span> <span class="toc-text">
+          我的实验环境:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装Scapy-Kamene"><span class="toc-number">5.</span> <span class="toc-text">
+          安装Scapy&#x2F;Kamene:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Scapy-shell的使用"><span class="toc-number">6.</span> <span class="toc-text">
+          Scapy shell的使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Scapy数据包收发机制"><span class="toc-number">7.</span> <span class="toc-text">
+          Scapy数据包收发机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#开发一个ping扫描工具"><span class="toc-number">8.</span> <span class="toc-text">
+          开发一个ping扫描工具</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/author/author.png" alt="avatar"></div><p class="sidebar-ov-author__text">7TEN7</p></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-rss"><a class="sidebar-ov-feed-rss__link" href="/atom.xml" target="_blank" rel="noopener"><span class="sidebar-ov-feed-rss__icon"><i class="fas fa-rss"></i></span><span>RSS 订阅</span></a></span></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">55</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__devider"></span><span>7TEN7</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="255,255,255" opacity="1" count="200" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'Nzl7LsK4moQuOsIfeWfbc8Rz-gzGzoHsz',
+    appKey: '5xmoJuWrMWHpI7pwtJviyIh6',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.5.0"></script><script src="/js/stun-boot.js?v=2.5.0"></script><script src="/js/scroll.js?v=2.5.0"></script><script src="/js/header.js?v=2.5.0"></script><script src="/js/sidebar.js?v=2.5.0"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/shizuku.model.json"},"display":{"position":"right","width":260,"height":380,"vOffset":5},"mobile":{"show":true},"log":false});</script></body></html>

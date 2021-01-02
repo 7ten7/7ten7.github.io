@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.5.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.5.0" type="image/png" sizes="32x32"><meta name="google-site-verification" content="QDXQenTtxQ6MwW-M_7k9lw39Kq7F4pwFO0u1QAPYlDE"><meta name="description" content="一直想好好学审计，以前多多少少看过一些，但都没有自己好好审计过一个 CMS ，也没有一个自己的审计流程和方法。之前一直拿一个最新版本的 CMS 来审计，企图审计出 0day ，但一直没收获。现在转变下思路，从已经有大量漏洞的老 CMS 开始，不去看别人的审计思路，看看自己能不能审计到这些历史漏洞。就从被认为是最简单的，最适合新手入门的 bluecms 1.6 开始。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="bluecms 1.6 审计入门">
+<meta property="og:url" content="http://www.7ten7.top/2019/10/16/2019-10-16-bluecms-1.6-%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="7TEN7&#39;s Blog">
+<meta property="og:description" content="一直想好好学审计，以前多多少少看过一些，但都没有自己好好审计过一个 CMS ，也没有一个自己的审计流程和方法。之前一直拿一个最新版本的 CMS 来审计，企图审计出 0day ，但一直没收获。现在转变下思路，从已经有大量漏洞的老 CMS 开始，不去看别人的审计思路，看看自己能不能审计到这些历史漏洞。就从被认为是最简单的，最适合新手入门的 bluecms 1.6 开始。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H5289ba2e00344a51856d8a037ae6bf70z.jpg">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H9ec8985829c74bdfba7d9f32b88f6789T.jpg">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H3bd6ca667f7c46769a1c44df75c25c46u.jpg">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H9f77a8b71c5146ce83e5c9661b8ef7dda.jpg">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/Hbf9c644f5cbb4d259b70c7b1097a161dO.jpg">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H085e42c7c44d45dc961a632145dac79ew.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H3a2dd76fedd2422fa17976e4baf87967H.jpg">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H711fe5dc516d4943a2dd06a47a7d7e73i.jpg">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H5a2f0083b9b7443aa189e709a210395bW.jpg">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H3d27b3b474dd4104beb45b09340ff60c2.jpg">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H1012b3f5dd584feea76d08e88ff07a4aN.jpg">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H9f5e3dd96bef4bf886a962c7ca8cf3402.jpg">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H49413f6b0cb44090af29623ee4bf1ea2S.jpg">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H286d839de8c54e649bc92f8b9579da92D.jpg">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H0e55f90ce8024cf3b74aadfa7180ef4ba.jpg">
+<meta property="og:image" content="https://pic.superbed.cn/item/5da6d489451253d178cba554.jpg">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H1feb13ab5a9a4c84a4445c43e1414fc6W.jpg">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/Hb5d28aa2247a4200b76f574f101a73a9d.jpg">
+<meta property="article:published_time" content="2019-10-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-04-23T12:57:45.377Z">
+<meta property="article:author" content="7TEN7">
+<meta property="article:tag" content="代码审计">
+<meta property="article:tag" content="PHP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ae01.alicdn.com/kf/H5289ba2e00344a51856d8a037ae6bf70z.jpg"><title>bluecms 1.6 审计入门 | 7TEN7's Blog</title><link ref="canonical" href="http://www.7ten7.top/2019/10/16/2019-10-16-bluecms-1.6-%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.5.0"><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" data-ad-client="ca-pub-4793862971469188" async=""></script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"simple","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: true,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/friends/"><span class="header-nav-menu-item__icon"><i class="fas fa-link"></i></span><span class="header-nav-menu-item__text">友链</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">bluecms 1.6 审计入门</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-10-16</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">2.4k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">16分</span></span></div></header><div class="post-body"><p>一直想好好学审计，以前多多少少看过一些，但都没有自己好好审计过一个 CMS ，也没有一个自己的审计流程和方法。之前一直拿一个最新版本的 CMS 来审计，企图审计出 0day ，但一直没收获。现在转变下思路，从已经有大量漏洞的老 CMS 开始，不去看别人的审计思路，看看自己能不能审计到这些历史漏洞。就从被认为是最简单的，最适合新手入门的 bluecms 1.6 开始。<a id="more"></a></p>
+
+        <h1 id="1-准备"   >
+          <a href="#1-准备" class="heading-link"><i class="fas fa-link"></i></a>1.准备</h1>
+      <p>安装完 CMS 后，先对目录结构进行一个了解</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://ae01.alicdn.com/kf/H5289ba2e00344a51856d8a037ae6bf70z.jpg"  alt="">
+      </p>
+<p>接下来对跟数据库操作相关的类和函数以及是否存在全局过滤和过滤的内容，进行一个了解。这样等下挖掘跟数据库相关的漏洞时，对于哪里有过滤，以及是否能绕过，可以有一个更清晰的认识。</p>
+<figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//全局过滤文件位于 include/common.inc.php 其中主要使用了 deep_addslashes 函数来进行一个过滤</span></span><br><span class="line"><span class="comment">//这里对 $_SERVER 数组没有进行一个过滤，这说明跟 $_SERVER 相关的数据库操作可能存在SQL注入</span></span><br><span class="line"><span class="keyword">if</span>(!get_magic_quotes_gpc())</span><br><span class="line">&#123;</span><br><span class="line">	$_POST = deep_addslashes($_POST);</span><br><span class="line">	$_GET = deep_addslashes($_GET);</span><br><span class="line">	$_COOKIES = deep_addslashes($_COOKIES);</span><br><span class="line">	$_REQUEST = deep_addslashes($_REQUEST);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// deep_addslashes 对传入的参数使用 addslashes 系统函数来进行转义（',",\,NUL）</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deep_addslashes</span><span class="params">($str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(is_array($str))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">foreach</span>($str <span class="keyword">as</span> $key=&gt;$val)</span><br><span class="line">		&#123;</span><br><span class="line">			$str[$key] = deep_addslashes($val);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		$str = addslashes($str);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> $str;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//还有两个暂时没用到的过滤函数，分别作用是反转义和对特殊字符进行HTML实体编码</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deep_stripslashes</span><span class="params">($str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> 	<span class="keyword">if</span>(is_array($str))</span><br><span class="line"> 	&#123;</span><br><span class="line"> 		<span class="keyword">foreach</span>($str <span class="keyword">as</span> $key =&gt; $val)</span><br><span class="line"> 		&#123;</span><br><span class="line"> 			$str[$key] = deep_stripslashes($val);</span><br><span class="line"> 		&#125;</span><br><span class="line"> 	&#125;</span><br><span class="line"> 	<span class="keyword">else</span></span><br><span class="line"> 	&#123;</span><br><span class="line"> 		$str = stripslashes($str);</span><br><span class="line"> 	&#125;</span><br><span class="line"> 	<span class="keyword">return</span> $str;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deep_htmlspecialchars</span><span class="params">($str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> 	<span class="keyword">if</span>(is_array($str))</span><br><span class="line"> 	&#123;</span><br><span class="line">		<span class="keyword">foreach</span>($str <span class="keyword">as</span> $key =&gt; $val)</span><br><span class="line">		&#123;</span><br><span class="line">			$str[$key] =  deep_htmlspecialchars($val);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		$str = htmlspecialchars($str);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> $str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数据库操作类位于 include/mysql.class.php</span></span><br><span class="line"><span class="comment">// 其中跟查询相关的函数中并没有针对sql注入有一个防御，直接是封装了系统函数，对传入的sql语句进行一个查询</span></span><br><span class="line"><span class="comment">// 所以这里如果sql语句是直接拼接了用户传入的参数的话，也会存在注入的可能性</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">query</span><span class="params">($sql)</span></span>&#123;</span><br><span class="line">    	<span class="keyword">if</span>(!$query=@mysql_query($sql, <span class="keyword">$this</span>-&gt;linkid))&#123;</span><br><span class="line">    		<span class="keyword">$this</span>-&gt;dbshow(<span class="string">"Query error:$sql"</span>);</span><br><span class="line">    	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    		<span class="keyword">return</span> $query;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getall</span><span class="params">($sql, $type=MYSQL_ASSOC)</span></span>&#123;</span><br><span class="line">    	$query = <span class="keyword">$this</span>-&gt;query($sql);</span><br><span class="line">    	<span class="keyword">while</span>($row = mysql_fetch_array($query,$type))&#123;</span><br><span class="line">    		$rows[] = $row;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">return</span> $rows;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getone</span><span class="params">($sql, $type=MYSQL_ASSOC)</span></span>&#123;</span><br><span class="line">    	$query = <span class="keyword">$this</span>-&gt;query($sql,<span class="keyword">$this</span>-&gt;linkid);</span><br><span class="line">    	$row = mysql_fetch_array($query, $type);</span><br><span class="line">    	<span class="keyword">return</span> $row;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></div></figure>
+<p>然后再对该 cms 进行一个功能点上的探测，到 cms 的前台和后台查看，改 cms 存在什么功能，这些功能可能导致一些什么样的漏洞，对此有一个大概的了解。在之后漏洞挖掘的过程中，目标会更加明确。</p>
+
+        <h1 id="1-任意文件读取修改"   >
+          <a href="#1-任意文件读取修改" class="heading-link"><i class="fas fa-link"></i></a>1.任意文件读取修改</h1>
+      <p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://ae01.alicdn.com/kf/H9ec8985829c74bdfba7d9f32b88f6789T.jpg"  alt="">
+      </p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://ae01.alicdn.com/kf/H3bd6ca667f7c46769a1c44df75c25c46u.jpg"  alt="">
+      </p>
+<p>后台存在模板编辑的功能，要编辑的模板文件名由用户传入且可控，之后打开的文件只是将模板文件名简单的拼接上一个默认的模板路径，中间并没有经过什么过滤。所以这里就可以通过 ../ 来进行一个目录穿越，实现对任意文件的一个读取。</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://ae01.alicdn.com/kf/H9f77a8b71c5146ce83e5c9661b8ef7dda.jpg"  alt="">
+      </p>
+<p>编辑完之后，对目标文件进行保存也是同样的原理。所以可以修改任意的一个文件内容。</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://ae01.alicdn.com/kf/Hbf9c644f5cbb4d259b70c7b1097a161dO.jpg"  alt="">
+      </p>
+
+        <h1 id="2-储存型-XSS"   >
+          <a href="#2-储存型-XSS" class="heading-link"><i class="fas fa-link"></i></a>2.储存型 XSS</h1>
+      <p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://ae01.alicdn.com/kf/H085e42c7c44d45dc961a632145dac79ew.png"  alt="">
+      </p>
+<p>站点设置这个功能，设置的参数，肯定是存到数据库里的，这里如果没有对数据进行一个校验，那么就可能会造成注入和存储型XSS。</p>
+<figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//修改站点设置的主要逻辑如下，文件位于 admin/setting.php</span></span><br><span class="line"><span class="keyword">foreach</span>($_POST <span class="keyword">as</span> $k =&gt; $v)&#123;</span><br><span class="line"><span class="comment">/* 这里遍历 $_POST 变量，没有对数据额外过滤，只应用了全局过滤中的 deep_addslashes 函数，</span></span><br><span class="line"><span class="comment">而这个函数主要转义了引号来防范了SQL注入，这里拼接的sql语句被引号包围了，所以这里不存在sql注入，</span></span><br><span class="line"><span class="comment">但这个函数并没有针对xss进行过滤 */</span></span><br><span class="line"> 		<span class="keyword">if</span>(!$db-&gt;query(<span class="string">"UPDATE "</span>.table(<span class="string">"config"</span>).<span class="string">" SET value='$v' WHERE name='$k'"</span>))&#123;</span><br><span class="line"> 			showmsg(<span class="string">'更新站点设置失败'</span>, <span class="keyword">true</span>);</span><br><span class="line"> 		&#125;</span><br><span class="line">		<span class="keyword">elseif</span>($k != <span class="string">'act'</span>)&#123;</span><br><span class="line"> 			$config_arr[$k] = $v;</span><br><span class="line"> 		&#125;</span><br><span class="line"> 	&#125;</span><br><span class="line"> 	showmsg(<span class="string">'更新站点成功'</span>, <span class="string">'setting.php'</span>, <span class="keyword">true</span>);</span><br></pre></td></tr></table></div></figure>
+<p>payload如图</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://ae01.alicdn.com/kf/H3a2dd76fedd2422fa17976e4baf87967H.jpg"  alt="">
+      </p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://ae01.alicdn.com/kf/H711fe5dc516d4943a2dd06a47a7d7e73i.jpg"  alt="">
+      </p>
+<p>后台所有信息的修改和添加都是采用相同的方式，对于输入没有过滤 XSS，所有其他信息修改和添加处也存在同样的存储型XSS。</p>
+
+        <h1 id="3-SQL注入"   >
+          <a href="#3-SQL注入" class="heading-link"><i class="fas fa-link"></i></a>3.SQL注入</h1>
+      
+        <h2 id="第一处"   >
+          <a href="#第一处" class="heading-link"><i class="fas fa-link"></i></a>第一处</h2>
+      <p>这处SQL注入在后台用户信息修改处</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://ae01.alicdn.com/kf/H5a2f0083b9b7443aa189e709a210395bW.jpg"  alt="">
+      </p>
+<figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//主要代码在 admin/user.php 第 83 行</span></span><br><span class="line"><span class="keyword">elseif</span>($act == <span class="string">'edit'</span>)</span><br><span class="line"> &#123;</span><br><span class="line">    <span class="comment">/* 这里的SQL语句获取时直接拼接了 get 请求中的 user_id ，虽然 $_GET 数组存在全局过滤引号，但这里是数字</span></span><br><span class="line"><span class="comment">    型注入，不需要用到引号，随意全局过滤对于这处注入也就失效了。 */</span></span><br><span class="line"> 	$sql = <span class="string">"select * from "</span>.table(<span class="string">'user'</span>).<span class="string">" where user_id = "</span>.$_GET[<span class="string">'user_id'</span>]; </span><br><span class="line"> 	$user = $db-&gt;getone($sql);</span><br><span class="line"> 	$sexarr=<span class="keyword">array</span>(<span class="string">'0'</span>=&gt;<span class="string">'保密'</span>,<span class="string">'1'</span>=&gt;<span class="string">'男'</span>,<span class="string">'2'</span>=&gt;<span class="string">'女'</span>);</span><br><span class="line"> 	template_assign(<span class="keyword">array</span>(<span class="string">'sexarr'</span>, <span class="string">'user'</span>, <span class="string">'act'</span>, <span class="string">'current_act'</span>), <span class="keyword">array</span>($sexarr, $user, $act, <span class="string">'编辑会员信息'</span>));</span><br><span class="line"> 	$smarty-&gt;display(<span class="string">'user_info.htm'</span>);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></div></figure>
+<p>payload 如图所示</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://ae01.alicdn.com/kf/H3d27b3b474dd4104beb45b09340ff60c2.jpg"  alt="">
+      </p>
+
+        <h2 id="第二处"   >
+          <a href="#第二处" class="heading-link"><i class="fas fa-link"></i></a>第二处</h2>
+      <p>此处SQL注入为前台SQL注入，前台可直接访问</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://ae01.alicdn.com/kf/H1012b3f5dd584feea76d08e88ff07a4aN.jpg"  alt="">
+      </p>
+<p>这是功能入口</p>
+<p>触发原理跟上一处的 SQL 注入相同</p>
+<figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ad_id = !<span class="keyword">empty</span>($_GET[<span class="string">'ad_id'</span>]) ? trim($_GET[<span class="string">'ad_id'</span>]) : <span class="string">''</span>; <span class="comment">// 没有对 $ad_id 进行一个过滤</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">empty</span>($ad_id))</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">'Error!'</span>;</span><br><span class="line">	<span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$ad = $db-&gt;getone(<span class="string">"SELECT * FROM "</span>.table(<span class="string">'ad'</span>).<span class="string">" WHERE ad_id ="</span>.$ad_id);<span class="comment">//此处是整型注入 不受全局过滤影响</span></span><br></pre></td></tr></table></div></figure>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://ae01.alicdn.com/kf/H9f5e3dd96bef4bf886a962c7ca8cf3402.jpg"  alt="">
+      </p>
+
+        <h1 id="4-反射型XSS"   >
+          <a href="#4-反射型XSS" class="heading-link"><i class="fas fa-link"></i></a>4.反射型XSS</h1>
+      
+        <h2 id="第一处-1"   >
+          <a href="#第一处-1" class="heading-link"><i class="fas fa-link"></i></a>第一处</h2>
+      <p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://ae01.alicdn.com/kf/H49413f6b0cb44090af29623ee4bf1ea2S.jpg"  alt="">
+      </p>
+<p>首先这里本来应该也是存在注入的，原理跟注入相同</p>
+<figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="keyword">empty</span>($_POST[<span class="string">'user_id'</span>]))&#123;</span><br><span class="line"> 		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"> 	&#125;</span><br><span class="line"><span class="comment">// 这三处 delete 语句直接拼接了user_id 明佑进行过滤且无引号保护</span></span><br><span class="line"> 	$db-&gt;query(<span class="string">"DELETE FROM "</span>.table(<span class="string">'user'</span>).<span class="string">" WHERE user_id = "</span>.$_POST[<span class="string">'user_id'</span>]);</span><br><span class="line">	<span class="keyword">if</span>($_POST[<span class="string">'del_info'</span>])&#123;</span><br><span class="line">		$db-&gt;query(<span class="string">"DELETE FROM "</span>.table(<span class="string">'post'</span>).<span class="string">" WHERE user_id = "</span>.$_POST[<span class="string">'user_id'</span>]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>($_POST[<span class="string">'del_coment'</span>])&#123;</span><br><span class="line">		$db-&gt;query(<span class="string">"DELETE FROM "</span>.table(<span class="string">'comment'</span>).<span class="string">" WHERE user_id = "</span>.$_POST[<span class="string">'user_id'</span>]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(defined(<span class="string">'UC_API'</span>) &amp;&amp; @<span class="keyword">include_once</span>(BLUE_ROOT.<span class="string">'uc_client/client.php'</span>))&#123;</span><br><span class="line">		<span class="keyword">echo</span> uc_user_delete($_POST[<span class="string">'username'</span>]);</span><br><span class="line">	&#125;</span><br><span class="line"> 	showmsg(<span class="string">'删除会员成功'</span>,<span class="string">'user.php'</span>);</span><br></pre></td></tr></table></div></figure>
+<p>但是比较尴尬的是不知道这里如何利用，对于 delete 处的注入，我知道可以报错注入，但是这里如果 SQL 查询出错，并不报错，而是直接输出报错的 SQL 语句。也正因如此，所以有了这处的反射性 XSS</p>
+<figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">query</span><span class="params">($sql)</span></span>&#123;</span><br><span class="line">    	<span class="keyword">if</span>(!$query=@mysql_query($sql, <span class="keyword">$this</span>-&gt;linkid))&#123;</span><br><span class="line">    		<span class="keyword">$this</span>-&gt;dbshow(<span class="string">"Query error:$sql"</span>);</span><br><span class="line">    	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    		<span class="keyword">return</span> $query;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">// 这是查询方法 query 的实现，可以看到其中如果 sql 查询出错了，调用 dbshow 方法</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">dbshow</span><span class="params">($msg)</span></span>&#123;</span><br><span class="line">    	<span class="keyword">if</span>($msg)&#123;</span><br><span class="line">    		<span class="keyword">echo</span> <span class="string">"Error："</span>.$msg.<span class="string">"&lt;br&gt;&lt;br&gt;"</span>;</span><br><span class="line">    	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    		<span class="keyword">echo</span> <span class="string">"Errno："</span>.<span class="keyword">$this</span>-&gt;errno().<span class="string">"&lt;br&gt;Error："</span>.<span class="keyword">$this</span>-&gt;error();</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">exit</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">// 当给 dbshow 方法传参，则直接输出Error字符+传入的信息。这里传入的 $sql 是我们查询的sql语句，没有任何的过滤，最后直接输出，就导致了一个反射型的 XSS</span></span><br></pre></td></tr></table></div></figure>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://ae01.alicdn.com/kf/H286d839de8c54e649bc92f8b9579da92D.jpg"  alt="">
+      </p>
+
+        <h2 id="第二处-1"   >
+          <a href="#第二处-1" class="heading-link"><i class="fas fa-link"></i></a>第二处</h2>
+      <p>相同的漏洞，在 “分类信息” 这个功能模块中，在删除的功能这，也有多处相同的漏洞</p>
+<p>漏洞触发点</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://ae01.alicdn.com/kf/H0e55f90ce8024cf3b74aadfa7180ef4ba.jpg"  alt="">
+      </p>
+<figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!$db-&gt;query(<span class="string">"DELETE FROM "</span>.table(<span class="string">'ad_phone'</span>).<span class="string">" WHERE id="</span>.$_GET[<span class="string">'id'</span>]))</span><br><span class="line"> 	&#123;</span><br><span class="line"> 		showmsg(<span class="string">'删除电话广告出错'</span>, <span class="keyword">true</span>);</span><br><span class="line"> 	&#125;</span><br><span class="line"> 	<span class="keyword">else</span></span><br><span class="line"> 	&#123;</span><br><span class="line"> 		showmsg(<span class="string">'删除电话广告成功'</span>, <span class="string">'ad_phone.php'</span>, <span class="keyword">true</span>);</span><br><span class="line"> 	&#125;</span><br></pre></td></tr></table></div></figure>
+<p>原理的话跟前一个相同</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://pic.superbed.cn/item/5da6d489451253d178cba554.jpg"  alt="">
+      </p>
+
+        <h1 id="5-任意文件删除"   >
+          <a href="#5-任意文件删除" class="heading-link"><i class="fas fa-link"></i></a>5.任意文件删除</h1>
+      
+        <h2 id="第一处-2"   >
+          <a href="#第一处-2" class="heading-link"><i class="fas fa-link"></i></a>第一处</h2>
+      <p>触发的功能点在模块管理，友情链接管理处</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://ae01.alicdn.com/kf/H1feb13ab5a9a4c84a4445c43e1414fc6W.jpg"  alt="">
+      </p>
+<figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">// 代码位于 admin/link.php 55-56行</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">在点击提交后，前端会给后端传的参数中 link_logo 为 '站内图片相对路径' 这个输入框中的内容，</span></span><br><span class="line"><span class="comment">link_login2 为一个 hidden 标签，其值是为 logo 的相对路径。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">后端删除的逻辑是，判断 输入框中是否还有值，若没值，则当前 logo 被删除，则获取 link_logo2 中保存的图片地址，然后拼接上网站根目录的路径，形成一个绝对路径地址，然后判断这个地址的文件是否存在，存在则删除。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">这里是从网站根目录进行拼接。而 link_logo2 的值是前段传入，我们可控的，所以造成可以拼接任意文件路径，造成任意文件删除。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">修复：限定目录为 link_logo 存储的目录，且过滤 . / 等特殊字符</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">	<span class="keyword">if</span> (!<span class="keyword">empty</span>($_POST[<span class="string">'link_logo'</span>]))&#123;</span><br><span class="line">        <span class="keyword">if</span> (strpos($_POST[<span class="string">'link_logo'</span>], <span class="string">'http://'</span>) != <span class="keyword">false</span> &amp;&amp; strpos($_POST[<span class="string">'link_logo'</span>], <span class="string">'https://'</span>) != <span class="keyword">false</span>)&#123;</span><br><span class="line">           showmsg(<span class="string">'只支持本站相对路径地址'</span>);</span><br><span class="line">         &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">           $link_logo = trim($_POST[<span class="string">'link_logo'</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(file_exists(BLUE_ROOT.$_POST[<span class="string">'link_logo2'</span>]))&#123;</span><br><span class="line">			@unlink(BLUE_ROOT.$_POST[<span class="string">'link_logo2'</span>]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="第二处-2"   >
+          <a href="#第二处-2" class="heading-link"><i class="fas fa-link"></i></a>第二处</h2>
+      <p>这里是在查看</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://ae01.alicdn.com/kf/Hb5d28aa2247a4200b76f574f101a73a9d.jpg"  alt="">
+      </p>
+<figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 漏洞位置位于 admin/info.php 431-434行</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">也是直接拼接变量造成的，全局过滤的字符中，不包括 . / 所以这里这样直接拼接，产生了任意文件删除</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">if</span> (file_exists(BLUE_ROOT.$_POST[<span class="string">'lit_pic'</span>]))</span><br><span class="line">	&#123;</span><br><span class="line">		@unlink(BLUE_ROOT.$_POST[<span class="string">'lit_pic'</span>]);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a>总结</h1>
+      <p>这个 CMS 漏洞产生的原因，都是全局过滤只转义了单引号，双引号，反斜杠，这样只能防御住字符型的注入，对于数字型的注入没有办法。</p>
+<p>然后后对 XSS，虽然在全局函数里，定义了相关的过滤函数，但在后台的相关功能中都没有使用起来，所以造成了这样 XSS 漏洞。</p>
+<p>文件操作相关的漏洞，没有解决好路径拼接和目录穿越的问题。</p>
+<p>毕竟这个 CMS 是快要10年前的东西了。整体结构也比较简单，各功能模块的实现也比较类似，源码看了一半，也大概知道哪里可能会存在什么样的一个问题了。所以最后源码也没看完。相较于现在的这些 MVC 框架，这个整体结构和写法上，就看着简单多了。</p>
+<p>对于入门审计，这个 CMS 确实是一个不错的选择。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://www.7ten7.top">7TEN7</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://www.7ten7.top/2019/10/16/2019-10-16-bluecms-1.6-%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8/">http://www.7ten7.top/2019/10/16/2019-10-16-bluecms-1.6-%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/PHP/">PHP</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2019/10/18/2019-10-17-%5B%E8%BD%AC%E8%BD%BD%5D%E5%88%9D%E8%AF%86Scapy--Python%E7%9A%84ScapyKamene%E6%A8%A1%E5%9D%97%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">【转载】初识Scapy--Python的Scapy/Kamene模块学习之路</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2019/09/29/2019-09-29-docker%E5%88%9D%E4%BD%93%E9%AA%8C/"><span class="paginator-prev__text">docker初体验</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-准备"><span class="toc-number">1.</span> <span class="toc-text">
+          1.准备</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-任意文件读取修改"><span class="toc-number">2.</span> <span class="toc-text">
+          1.任意文件读取修改</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-储存型-XSS"><span class="toc-number">3.</span> <span class="toc-text">
+          2.储存型 XSS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-SQL注入"><span class="toc-number">4.</span> <span class="toc-text">
+          3.SQL注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一处"><span class="toc-number">4.1.</span> <span class="toc-text">
+          第一处</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二处"><span class="toc-number">4.2.</span> <span class="toc-text">
+          第二处</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-反射型XSS"><span class="toc-number">5.</span> <span class="toc-text">
+          4.反射型XSS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一处-1"><span class="toc-number">5.1.</span> <span class="toc-text">
+          第一处</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二处-1"><span class="toc-number">5.2.</span> <span class="toc-text">
+          第二处</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-任意文件删除"><span class="toc-number">6.</span> <span class="toc-text">
+          5.任意文件删除</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一处-2"><span class="toc-number">6.1.</span> <span class="toc-text">
+          第一处</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二处-2"><span class="toc-number">6.2.</span> <span class="toc-text">
+          第二处</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">7.</span> <span class="toc-text">
+          总结</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/author/author.png" alt="avatar"></div><p class="sidebar-ov-author__text">7TEN7</p></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-rss"><a class="sidebar-ov-feed-rss__link" href="/atom.xml" target="_blank" rel="noopener"><span class="sidebar-ov-feed-rss__icon"><i class="fas fa-rss"></i></span><span>RSS 订阅</span></a></span></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">55</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__devider"></span><span>7TEN7</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="255,255,255" opacity="1" count="200" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'Nzl7LsK4moQuOsIfeWfbc8Rz-gzGzoHsz',
+    appKey: '5xmoJuWrMWHpI7pwtJviyIh6',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.5.0"></script><script src="/js/stun-boot.js?v=2.5.0"></script><script src="/js/scroll.js?v=2.5.0"></script><script src="/js/header.js?v=2.5.0"></script><script src="/js/sidebar.js?v=2.5.0"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/shizuku.model.json"},"display":{"position":"right","width":260,"height":380,"vOffset":5},"mobile":{"show":true},"log":false});</script></body></html>

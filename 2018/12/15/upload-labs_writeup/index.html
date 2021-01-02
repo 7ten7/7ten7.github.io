@@ -1,0 +1,298 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.5.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.5.0" type="image/png" sizes="32x32"><meta name="google-site-verification" content="QDXQenTtxQ6MwW-M_7k9lw39Kq7F4pwFO0u1QAPYlDE"><meta name="description" content="Pass-01        本题是前端JS的验证，对于前端的验证，是不存在安全的，它只能避免用户的错误上传，但并不能保证安全。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="upload-labs_writup">
+<meta property="og:url" content="http://www.7ten7.top/2018/12/15/upload-labs_writeup/index.html">
+<meta property="og:site_name" content="7TEN7&#39;s Blog">
+<meta property="og:description" content="Pass-01        本题是前端JS的验证，对于前端的验证，是不存在安全的，它只能避免用户的错误上传，但并不能保证安全。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.imgur.com/QgwKVZs.png">
+<meta property="og:image" content="https://i.imgur.com/nlZEpzh.png">
+<meta property="og:image" content="https://i.imgur.com/kGaG1MU.png">
+<meta property="og:image" content="https://i.imgur.com/DD6vrvH.png">
+<meta property="og:image" content="https://i.imgur.com/DiCyGqV.png">
+<meta property="og:image" content="https://i.imgur.com/j2FOLfs.png">
+<meta property="article:published_time" content="2018-12-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-01-02T12:16:11.964Z">
+<meta property="article:author" content="7TEN7">
+<meta property="article:tag" content="writeup">
+<meta property="article:tag" content="upload-labs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/QgwKVZs.png"><title>upload-labs_writup | 7TEN7's Blog</title><link ref="canonical" href="http://www.7ten7.top/2018/12/15/upload-labs_writeup/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.5.0"><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" data-ad-client="ca-pub-4793862971469188" async=""></script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"simple","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: true,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/friends/"><span class="header-nav-menu-item__icon"><i class="fas fa-link"></i></span><span class="header-nav-menu-item__text">友链</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">upload-labs_writup</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-12-15</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.2k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">7分</span></span></div></header><div class="post-body">
+        <h1 id="Pass-01"   >
+          <a href="#Pass-01" class="heading-link"><i class="fas fa-link"></i></a>Pass-01</h1>
+      <blockquote>
+<p>本题是前端JS的验证，对于前端的验证，是不存在安全的，它只能避免用户的错误上传，但并不能保证安全。<a id="more"></a></p>
+</blockquote>
+<p>由于本题只能上传图片，所以先将 php 文件的后缀改为 jpg ，然后抓包，更改文件后缀为 php ，这样就绕过了前端的检测，然后上传到服务器时，依然解析为 php</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/QgwKVZs.png"  alt="">
+      </p>
+
+        <h1 id="Pass-02"   >
+          <a href="#Pass-02" class="heading-link"><i class="fas fa-link"></i></a>Pass-02</h1>
+      <p>本题是后端的验证，由服务器端根据 MIME 类型来判断上传的文件是否合法。由于 content-type 的内容可以被轻易更改，所以安全性也不高。</p>
+<blockquote>
+<p>MIME是描述消息内容的一项标准，其实就是用来描述文件的类型的，在 http 中用 content-type 字段来标识，在 php 中可以用 $_FILES[‘upload_file’][‘type’] 来获得上传文件的类型</p>
+</blockquote>
+
+        <h2 id="常见-MIME-类型"   >
+          <a href="#常见-MIME-类型" class="heading-link"><i class="fas fa-link"></i></a>常见 MIME 类型</h2>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>内容类型</th>
+<th>文件扩展名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>application/msword</td>
+<td>doc</td>
+<td>Microsoft Word</td>
+</tr>
+<tr>
+<td>2</td>
+<td>application/octet-stream</td>
+<td>bin dms lha lzh exe class</td>
+<td>可执行程序</td>
+</tr>
+<tr>
+<td>3</td>
+<td>application/pdf</td>
+<td>pdf</td>
+<td>Adobe Acrobat</td>
+</tr>
+<tr>
+<td>4</td>
+<td>application/postscript</td>
+<td>ai eps ps</td>
+<td>PostScript</td>
+</tr>
+<tr>
+<td>5</td>
+<td>appication/powerpoint</td>
+<td>ppt</td>
+<td>Microsoft Powerpoint</td>
+</tr>
+<tr>
+<td>6</td>
+<td>appication/rtf</td>
+<td>rtf</td>
+<td>rtf 格式 </td>
+</tr>
+<tr>
+<td>7</td>
+<td>appication/x-compress</td>
+<td>z</td>
+<td>unix 压缩文件</td>
+</tr>
+<tr>
+<td>8</td>
+<td>application/x-gzip</td>
+<td>gz</td>
+<td>gzip</td>
+</tr>
+<tr>
+<td>9</td>
+<td>application/x-gtar</td>
+<td>gtar</td>
+<td>tar 文档 (gnu 格式 )</td>
+</tr>
+<tr>
+<td>10</td>
+<td>application/x-shockwave-flash</td>
+<td>swf</td>
+<td>MacroMedia Flash</td>
+</tr>
+<tr>
+<td>11</td>
+<td>application/x-tar</td>
+<td>tar</td>
+<td>tar(4.3BSD)</td>
+</tr>
+<tr>
+<td>12</td>
+<td>application/zip</td>
+<td>zip</td>
+<td>winzip</td>
+</tr>
+<tr>
+<td>13</td>
+<td>audio/basic</td>
+<td>au snd</td>
+<td>sun/next 声音文件</td>
+</tr>
+<tr>
+<td>14</td>
+<td>audio/mpeg</td>
+<td>mpeg mp2</td>
+<td>Mpeg 声音文件</td>
+</tr>
+<tr>
+<td>15</td>
+<td>audio/x-aiff</td>
+<td>mid midi rmf</td>
+<td>Midi 格式</td>
+</tr>
+<tr>
+<td>16</td>
+<td>audio/x-pn-realaudio</td>
+<td>ram ra</td>
+<td>Real Audio 声音</td>
+</tr>
+<tr>
+<td>17</td>
+<td>audio/x-pn-realaudio-plugin</td>
+<td>rpm</td>
+<td>Real Audio 插件</td>
+</tr>
+<tr>
+<td>18</td>
+<td>audio/x-wav</td>
+<td>wav</td>
+<td>Microsoft Windows 声音</td>
+</tr>
+<tr>
+<td>19</td>
+<td>image/cgm</td>
+<td>cgm</td>
+<td>计算机图形元文件</td>
+</tr>
+<tr>
+<td>20</td>
+<td>image/gif</td>
+<td>gif</td>
+<td>COMPUSERVE GIF 图像</td>
+</tr>
+<tr>
+<td>21</td>
+<td>image/jpeg</td>
+<td>jpeg jpg jpe</td>
+<td>JPEG 图像</td>
+</tr>
+<tr>
+<td>22</td>
+<td>image/png</td>
+<td>png</td>
+<td>PNG 图像</td>
+</tr>
+</tbody>
+</table></div>
+<p>这关因为上传文件会在服务器端验证 content-type 字段，来确定是否为图像文件，所以只需要抓包更改 content-type 字段为图像类型即可<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/nlZEpzh.png"  alt="">
+      </p>
+<p>此题只需要将 content-type 字段内容更改为图像类型，即可上传任意类型的文件</p>
+
+        <h1 id="Pass-03"   >
+          <a href="#Pass-03" class="heading-link"><i class="fas fa-link"></i></a>Pass-03</h1>
+      <blockquote>
+<p>后缀黑名单验证：列出一些后缀名，与上传的文件的后缀名进行对比，如果上传文件的后缀名与列表中的相同则禁止上传，此验证是服务器端的验证。后缀黑名单验证的安全性较前两者高一些，但是因为总会有些漏网之鱼不在黑名单中，所以依然存在安全问题</p>
+</blockquote>
+
+        <h2 id="method-1"   >
+          <a href="#method-1" class="heading-link"><i class="fas fa-link"></i></a>method 1</h2>
+      <p>当上次的文件没有被重命名，依然保持上传的名字时，可用这种方法绕过。以 pass-2 为例子，演示下此种方法。因为 pass-3 上传的文件用时间和随机数进行了重命名并没有保持原来的名字。</p>
+<p>用 burp 抓包，更改上次文件的名字为 phpinfo.php:jpg<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/kGaG1MU.png"  alt="">
+      <br>上传完毕后，会得到一个内容为空的 phpinfo.php 文件</p>
+<p>再次上次相同文件，抓包，更改上传文件的名字为 phpinfo.&lt;&lt;&lt;<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/DD6vrvH.png"  alt="">
+      <br>这样就上传了我们想要上传的内容</p>
+<p>参考：<span class="exturl"><a class="exturl__link"   href="https://www.waitalone.cn/php-windows-upload.html"  target="_blank" rel="noopener">https://www.waitalone.cn/php-windows-upload.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h2 id="method-2"   >
+          <a href="#method-2" class="heading-link"><i class="fas fa-link"></i></a>method 2</h2>
+      <p>现在来讲下这题的绕过方法，这里可以运用 Apache 的解析漏洞将上传文件的后缀名更改为 .php3 .php5 .phtml 之类的。</p>
+<p>解析漏洞不是所有的情况都存在，以 module 方式使 apache 与 php 结合且设置Apache配置文件中的 AddType application/x-httpd-php [上述后缀] 才会存在此漏洞，以 fastcgi 方式将 apache 与 php 的结合不存在此漏洞。因为之前不知道这个原因，弄了很久也没能复现这个漏洞。</p>
+<p>参考：<span class="exturl"><a class="exturl__link"   href="http://www.91ri.org/7789.html"  target="_blank" rel="noopener">http://www.91ri.org/7789.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h1 id="Pass-04"   >
+          <a href="#Pass-04" class="heading-link"><i class="fas fa-link"></i></a>Pass-04</h1>
+      <blockquote>
+<p>本题同为后缀黑名单过滤，绕过方法为上传 .htaccess 文件</p>
+</blockquote>
+<p>由于本题没有过滤 .htaccess 文件，所以可以上传 .htaccess 文件来使该目录下的所有符合 php 语法规范的文件以 php 进行解析，若不符合 php 语法规范，则按 txt 文件输出</p>
+<p>若要使 .htaccess 文件有效，需要设置 Apache 配置文件<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/DiCyGqV.png"  alt="">
+      <br>将此处设置为 All</p>
+<p>.htacess 文件内容为<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/j2FOLfs.png"  alt="">
+      </p>
+<p>然后将 php 内容的文件存储为图片格式上传，然后在访问上传文件既可以 php 方式解析</p>
+
+        <h1 id="Pass-05"   >
+          <a href="#Pass-05" class="heading-link"><i class="fas fa-link"></i></a>Pass-05</h1>
+      <blockquote>
+<p>后缀黑名单：大小写绕过<br>在 window 下，window 对大小写不敏感，Linux 是对大小写敏感的</p>
+</blockquote>
+<p>所以此题可以通过将后缀更改为 .PhP .phP 等来上传 webshell ，在黑盒测试中，不知道具体过滤了哪些后缀，可以通过 burp 抓包来爆破后缀名</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://www.7ten7.top">7TEN7</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://www.7ten7.top/2018/12/15/upload-labs_writeup/">http://www.7ten7.top/2018/12/15/upload-labs_writeup/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/writeup/">writeup</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/upload-labs/">upload-labs</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2018/12/21/DVWA-web%E9%80%9A%E7%94%A8%E5%9E%8B%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">DVWA-web通用型漏洞</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2018/12/05/MD5%E5%8A%A0%E5%AF%86%E5%90%8E%E7%9A%84SQL%E6%B3%A8%E5%85%A5/"><span class="paginator-prev__text">MD5加密后的SQL注入</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Pass-01"><span class="toc-number">1.</span> <span class="toc-text">
+          Pass-01</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Pass-02"><span class="toc-number">2.</span> <span class="toc-text">
+          Pass-02</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常见-MIME-类型"><span class="toc-number">2.1.</span> <span class="toc-text">
+          常见 MIME 类型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Pass-03"><span class="toc-number">3.</span> <span class="toc-text">
+          Pass-03</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#method-1"><span class="toc-number">3.1.</span> <span class="toc-text">
+          method 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#method-2"><span class="toc-number">3.2.</span> <span class="toc-text">
+          method 2</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Pass-04"><span class="toc-number">4.</span> <span class="toc-text">
+          Pass-04</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Pass-05"><span class="toc-number">5.</span> <span class="toc-text">
+          Pass-05</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/author/author.png" alt="avatar"></div><p class="sidebar-ov-author__text">7TEN7</p></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-rss"><a class="sidebar-ov-feed-rss__link" href="/atom.xml" target="_blank" rel="noopener"><span class="sidebar-ov-feed-rss__icon"><i class="fas fa-rss"></i></span><span>RSS 订阅</span></a></span></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">55</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__devider"></span><span>7TEN7</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="255,255,255" opacity="1" count="200" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'Nzl7LsK4moQuOsIfeWfbc8Rz-gzGzoHsz',
+    appKey: '5xmoJuWrMWHpI7pwtJviyIh6',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.5.0"></script><script src="/js/stun-boot.js?v=2.5.0"></script><script src="/js/scroll.js?v=2.5.0"></script><script src="/js/header.js?v=2.5.0"></script><script src="/js/sidebar.js?v=2.5.0"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/shizuku.model.json"},"display":{"position":"right","width":260,"height":380,"vOffset":5},"mobile":{"show":true},"log":false});</script></body></html>

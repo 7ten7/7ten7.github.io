@@ -1,0 +1,285 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.5.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.5.0" type="image/png" sizes="32x32"><meta name="google-site-verification" content="QDXQenTtxQ6MwW-M_7k9lw39Kq7F4pwFO0u1QAPYlDE"><meta name="description" content="1.Brute Force                           原理       利用密码字典，一个个枚举用户名、密码来完成登录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DVWA-web通用型漏洞">
+<meta property="og:url" content="http://www.7ten7.top/2018/12/21/DVWA-web%E9%80%9A%E7%94%A8%E5%9E%8B%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="7TEN7&#39;s Blog">
+<meta property="og:description" content="1.Brute Force                           原理       利用密码字典，一个个枚举用户名、密码来完成登录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.imgur.com/QoDMYrf.png">
+<meta property="og:image" content="https://i.imgur.com/6SfCHMN.png">
+<meta property="og:image" content="https://i.imgur.com/RMUR9x9.png">
+<meta property="og:image" content="https://i.imgur.com/0AQCUsr.png">
+<meta property="og:image" content="https://i.imgur.com/Hsxfr2W.png">
+<meta property="og:image" content="https://i.imgur.com/UQi2TAD.png">
+<meta property="og:image" content="https://i.imgur.com/oiywFbN.png">
+<meta property="og:image" content="https://i.imgur.com/RLcklhc.png">
+<meta property="article:published_time" content="2018-12-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-05-04T17:01:53.003Z">
+<meta property="article:author" content="7TEN7">
+<meta property="article:tag" content="Web漏洞">
+<meta property="article:tag" content="DVWA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/QoDMYrf.png"><title>DVWA-web通用型漏洞 | 7TEN7's Blog</title><link ref="canonical" href="http://www.7ten7.top/2018/12/21/DVWA-web%E9%80%9A%E7%94%A8%E5%9E%8B%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.5.0"><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" data-ad-client="ca-pub-4793862971469188" async=""></script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"simple","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: true,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/friends/"><span class="header-nav-menu-item__icon"><i class="fas fa-link"></i></span><span class="header-nav-menu-item__text">友链</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">DVWA-web通用型漏洞</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-12-21</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.4k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">8分</span></span></div></header><div class="post-body">
+        <h1 id="1-Brute-Force"   >
+          <a href="#1-Brute-Force" class="heading-link"><i class="fas fa-link"></i></a>1.Brute Force</h1>
+      
+        <h2 id="原理"   >
+          <a href="#原理" class="heading-link"><i class="fas fa-link"></i></a>原理</h2>
+      <p>利用密码字典，一个个枚举用户名、密码来完成登录<br><a id="more"></a></p>
+
+        <h2 id="防范"   >
+          <a href="#防范" class="heading-link"><i class="fas fa-link"></i></a>防范</h2>
+      <ol>
+<li>增加密码的复杂程度</li>
+<li>增加登录验证码</li>
+<li>限制输入错误密码的次数</li>
+<li>…</li>
+</ol>
+
+        <h1 id="2-Command-Injection"   >
+          <a href="#2-Command-Injection" class="heading-link"><i class="fas fa-link"></i></a>2.Command Injection</h1>
+      
+        <h2 id="原理-1"   >
+          <a href="#原理-1" class="heading-link"><i class="fas fa-link"></i></a>原理</h2>
+      <p>在Web应用中，有时候会用到一些命令执行的函数，如php中system、exec、shell_exec等，当对用户输入的命令没有进行限制或者过滤不严导致用户可以执行任意命令时，就会造成命令执行漏洞。</p>
+
+        <h2 id="利用"   >
+          <a href="#利用" class="heading-link"><i class="fas fa-link"></i></a>利用</h2>
+      <p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/QoDMYrf.png"  alt="">
+      </p>
+
+        <h1 id="3-File-Inclusion"   >
+          <a href="#3-File-Inclusion" class="heading-link"><i class="fas fa-link"></i></a>3.File Inclusion</h1>
+      
+        <h2 id="原理-2"   >
+          <a href="#原理-2" class="heading-link"><i class="fas fa-link"></i></a>原理</h2>
+      <p>如果允许客户端用户输入控制动态包含在服务器端的文件，会导致恶意代码的执行及敏感信息泄露，主要包括本地文件包含和远程文件包含两种形式。</p>
+
+        <h3 id="涉及的主要函数"   >
+          <a href="#涉及的主要函数" class="heading-link"><i class="fas fa-link"></i></a>涉及的主要函数</h3>
+      
+        <h4 id="include、require"   >
+          <a href="#include、require" class="heading-link"><i class="fas fa-link"></i></a>include、require</h4>
+      <p>include:当代码执行到它的时候才加载文件,发生错误的时候只是给一个警告,然后继续往下执行</p>
+<p>require:只要程序一执行就会立即调用文件,发生错误的时候会输出错误信息,并且终止脚本的运行</p>
+
+        <h4 id="include-once、require-once"   >
+          <a href="#include-once、require-once" class="heading-link"><i class="fas fa-link"></i></a>include_once、require_once</h4>
+      <p>include_once:与 include 相同，若文件中代码已被包含则不会再次包含</p>
+<p>require_once:与 require 相同，若文件中代码已被包含则不会再次包含</p>
+
+        <h2 id="利用-1"   >
+          <a href="#利用-1" class="heading-link"><i class="fas fa-link"></i></a>利用</h2>
+      
+        <h3 id="本地包含"   >
+          <a href="#本地包含" class="heading-link"><i class="fas fa-link"></i></a>本地包含</h3>
+      <p>包含读出目标机上其它文件<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/6SfCHMN.png"  alt="">
+      </p>
+
+        <h3 id="远程包含"   >
+          <a href="#远程包含" class="heading-link"><i class="fas fa-link"></i></a>远程包含</h3>
+      <p>如果目标主机的allow_url_fopen和allow_url_include为On,就可以有更大的利用空间,可以指定其它 URL上的一个包含PHP代码的webshell来直接运行<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/RMUR9x9.png"  alt="">
+      </p>
+
+        <h1 id="4-File-Upload"   >
+          <a href="#4-File-Upload" class="heading-link"><i class="fas fa-link"></i></a>4.File Upload</h1>
+      
+        <h2 id="什么是文件上传漏洞"   >
+          <a href="#什么是文件上传漏洞" class="heading-link"><i class="fas fa-link"></i></a>什么是文件上传漏洞</h2>
+      <p>当文件上传时，如果服务端的脚本语言没有对上传的文件进行检查和过滤，那假如，渗透者直接上传恶意代码文件，那么就有可能直接控制整个网站，或者说以此为跳板，直接拿下服务器，这就是文件上传漏洞。<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/0AQCUsr.png"  alt="">
+      </p>
+
+        <h2 id="文件上传漏洞的防御及绕过"   >
+          <a href="#文件上传漏洞的防御及绕过" class="heading-link"><i class="fas fa-link"></i></a>文件上传漏洞的防御及绕过</h2>
+      <ol>
+<li>前端限制</li>
+<li>检查拓展名<ul>
+<li>黑名单检测</li>
+<li>白名单检测</li>
+</ul>
+</li>
+<li>检查 HTTP Header 中的 Content-Type</li>
+<li>分析文件头内容来检查文件类型</li>
+<li>限制Web Server对于特定类型文件的行为</li>
+</ol>
+<p>绕过技巧：<a href="http://www.7ten7.top/2018/12/15/upload-labs_writeup/">http://www.7ten7.top/2018/12/15/upload-labs_writeup/</a></p>
+
+        <h1 id="5-SQL-Injection"   >
+          <a href="#5-SQL-Injection" class="heading-link"><i class="fas fa-link"></i></a>5.SQL Injection</h1>
+      
+        <h2 id="原理-3"   >
+          <a href="#原理-3" class="heading-link"><i class="fas fa-link"></i></a>原理</h2>
+      <p>通过构建特殊的输入作为参数传入Web应用程序，而这些输入大都是SQL语法里的一些组合，通过执行SQL语句进而执行攻击者所要的操作，其主要原因是程序没有细致地过滤用户输入的数据，致使非法数据侵入系统。</p>
+
+        <h2 id="sql注入带来的威胁"   >
+          <a href="#sql注入带来的威胁" class="heading-link"><i class="fas fa-link"></i></a>sql注入带来的威胁</h2>
+      <ul>
+<li>猜解后台数据库，这是利用最多的方式，盗取网站的敏感信息。</li>
+<li>绕过认证，列如绕过验证登录网站后台。</li>
+<li>注入可以借助数据库的存储过程进行提权等操作</li>
+</ul>
+
+        <h2 id="注入示例"   >
+          <a href="#注入示例" class="heading-link"><i class="fas fa-link"></i></a>注入示例</h2>
+      <p>DVWA-LOW Write up<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/Hsxfr2W.png"  alt="">
+      <br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/UQi2TAD.png"  alt="">
+      <br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/oiywFbN.png"  alt="">
+      <br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/RLcklhc.png"  alt="">
+      </p>
+
+        <h1 id="6-SQL-Injection-Blind"   >
+          <a href="#6-SQL-Injection-Blind" class="heading-link"><i class="fas fa-link"></i></a>6.SQL Injection (Blind)</h1>
+      
+        <h2 id="利用-2"   >
+          <a href="#利用-2" class="heading-link"><i class="fas fa-link"></i></a>利用</h2>
+      <p>页面没有显示位，没有输出SQL语句执行错误信息，只能通过页面返回正常不正常来判断是否存在注入</p>
+
+        <h2 id="常用函数"   >
+          <a href="#常用函数" class="heading-link"><i class="fas fa-link"></i></a>常用函数</h2>
+      <ul>
+<li>length() 返回字符串的长度</li>
+<li>substr() 截取字符串</li>
+<li>ascii() 返回字符串的ASCII码</li>
+</ul>
+
+        <h2 id="布尔盲注利用过程"   >
+          <a href="#布尔盲注利用过程" class="heading-link"><i class="fas fa-link"></i></a>布尔盲注利用过程</h2>
+      <ol>
+<li>判断是整型还是字符型</li>
+<li>获取数据库的个数</li>
+<li>判断第一个数据库名有多少个字符</li>
+<li>判断第一个数据库的第一个字符</li>
+<li>判断数据表同数据库</li>
+<li>判断字段同数据库</li>
+</ol>
+
+        <h1 id="7-XSS"   >
+          <a href="#7-XSS" class="heading-link"><i class="fas fa-link"></i></a>7.XSS</h1>
+      <p> XSS是跨站脚本攻击的缩写，是一种网站应用程序的安全漏洞攻击，是代码注入的一种。</p>
+
+        <h2 id="Reflected"   >
+          <a href="#Reflected" class="heading-link"><i class="fas fa-link"></i></a>Reflected</h2>
+      <p>通过给别人发送带有恶意脚本代码参数的URL，当URL地址被打开时，特有的恶意代码参数被HTML解析、执行。它的特点是非持久化，必须用户点击带有特定参数的链接才能引起。<br>参考:<span class="exturl"><a class="exturl__link"   href="https://yq.aliyun.com/articles/480157"  target="_blank" rel="noopener">https://yq.aliyun.com/articles/480157</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h2 id="Stored"   >
+          <a href="#Stored" class="heading-link"><i class="fas fa-link"></i></a>Stored</h2>
+      <p>恶意脚本代码被存储进被攻击的数据库，当其他用户正常浏览网页时，站点从数据库中读取了非法用户存入非法数据，恶意脚本代码被执行。这种攻击类型通常在留言板等地方出现。</p>
+
+        <h2 id="DOM"   >
+          <a href="#DOM" class="heading-link"><i class="fas fa-link"></i></a>DOM</h2>
+      <p>基于DOM的XSS，通过对具体DOM代码进行分析，根据实际情况构造dom节点进行XSS跨站脚本攻击。</p>
+<p>注：domxss取决于输出位置，并不取决于输出环境，因此domxss既有可能是反射型的，也有可能是存储型的。dom-based与非dom-based，反射和存储是两个不同的分类标准。</p>
+
+        <h1 id="8-CSRF"   >
+          <a href="#8-CSRF" class="heading-link"><i class="fas fa-link"></i></a>8.CSRF</h1>
+      
+        <h2 id="原理-4"   >
+          <a href="#原理-4" class="heading-link"><i class="fas fa-link"></i></a>原理</h2>
+      <p>跨站请求伪造，是指利用受害者尚未失效的身份认证信息（cookie、会话等），诱骗其点击恶意链接或者访问包含攻击代码的页面，在受害人不知情的情况下以受害者的身份向（身份认证信息所对应的）服务器发送请求，从而完成非法操作（如转账、改密等）。CSRF与XSS最大的区别就在于，CSRF并没有盗取cookie而是直接利用。</p>
+
+        <h2 id="利用-3"   >
+          <a href="#利用-3" class="heading-link"><i class="fas fa-link"></i></a>利用</h2>
+      <p>构造攻击页面：</p>
+<figure class="highlight html"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://127.0.0.1/DVWA-master/vulnerabilities/csrf/?password_new=hack&amp;password_conf=hack&amp;Change=Change#"</span> <span class="attr">border</span>=<span class="string">"0"</span> <span class="attr">style</span>=<span class="string">"display:none;"</span>/&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>404<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>file not found.<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+<p>当访问该页面时，密码就被改为了 hack</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://www.7ten7.top">7TEN7</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://www.7ten7.top/2018/12/21/DVWA-web%E9%80%9A%E7%94%A8%E5%9E%8B%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86/">http://www.7ten7.top/2018/12/21/DVWA-web%E9%80%9A%E7%94%A8%E5%9E%8B%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/Web%E6%BC%8F%E6%B4%9E/">Web漏洞</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/DVWA/">DVWA</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2018/12/25/http%E5%A4%B4%E3%80%81cookie%E6%B3%A8%E5%85%A5/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">http 头注入、cookie 注入</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2018/12/15/upload-labs_writeup/"><span class="paginator-prev__text">upload-labs_writup</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Brute-Force"><span class="toc-number">1.</span> <span class="toc-text">
+          1.Brute Force</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">1.1.</span> <span class="toc-text">
+          原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防范"><span class="toc-number">1.2.</span> <span class="toc-text">
+          防范</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Command-Injection"><span class="toc-number">2.</span> <span class="toc-text">
+          2.Command Injection</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#原理-1"><span class="toc-number">2.1.</span> <span class="toc-text">
+          原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用"><span class="toc-number">2.2.</span> <span class="toc-text">
+          利用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-File-Inclusion"><span class="toc-number">3.</span> <span class="toc-text">
+          3.File Inclusion</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#原理-2"><span class="toc-number">3.1.</span> <span class="toc-text">
+          原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#涉及的主要函数"><span class="toc-number">3.1.1.</span> <span class="toc-text">
+          涉及的主要函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#include、require"><span class="toc-number">3.1.1.1.</span> <span class="toc-text">
+          include、require</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#include-once、require-once"><span class="toc-number">3.1.1.2.</span> <span class="toc-text">
+          include_once、require_once</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用-1"><span class="toc-number">3.2.</span> <span class="toc-text">
+          利用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#本地包含"><span class="toc-number">3.2.1.</span> <span class="toc-text">
+          本地包含</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#远程包含"><span class="toc-number">3.2.2.</span> <span class="toc-text">
+          远程包含</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-File-Upload"><span class="toc-number">4.</span> <span class="toc-text">
+          4.File Upload</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是文件上传漏洞"><span class="toc-number">4.1.</span> <span class="toc-text">
+          什么是文件上传漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件上传漏洞的防御及绕过"><span class="toc-number">4.2.</span> <span class="toc-text">
+          文件上传漏洞的防御及绕过</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-SQL-Injection"><span class="toc-number">5.</span> <span class="toc-text">
+          5.SQL Injection</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#原理-3"><span class="toc-number">5.1.</span> <span class="toc-text">
+          原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sql注入带来的威胁"><span class="toc-number">5.2.</span> <span class="toc-text">
+          sql注入带来的威胁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注入示例"><span class="toc-number">5.3.</span> <span class="toc-text">
+          注入示例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-SQL-Injection-Blind"><span class="toc-number">6.</span> <span class="toc-text">
+          6.SQL Injection (Blind)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#利用-2"><span class="toc-number">6.1.</span> <span class="toc-text">
+          利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用函数"><span class="toc-number">6.2.</span> <span class="toc-text">
+          常用函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#布尔盲注利用过程"><span class="toc-number">6.3.</span> <span class="toc-text">
+          布尔盲注利用过程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-XSS"><span class="toc-number">7.</span> <span class="toc-text">
+          7.XSS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Reflected"><span class="toc-number">7.1.</span> <span class="toc-text">
+          Reflected</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stored"><span class="toc-number">7.2.</span> <span class="toc-text">
+          Stored</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DOM"><span class="toc-number">7.3.</span> <span class="toc-text">
+          DOM</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-CSRF"><span class="toc-number">8.</span> <span class="toc-text">
+          8.CSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#原理-4"><span class="toc-number">8.1.</span> <span class="toc-text">
+          原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用-3"><span class="toc-number">8.2.</span> <span class="toc-text">
+          利用</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/author/author.png" alt="avatar"></div><p class="sidebar-ov-author__text">7TEN7</p></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-rss"><a class="sidebar-ov-feed-rss__link" href="/atom.xml" target="_blank" rel="noopener"><span class="sidebar-ov-feed-rss__icon"><i class="fas fa-rss"></i></span><span>RSS 订阅</span></a></span></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">55</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__devider"></span><span>7TEN7</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="255,255,255" opacity="1" count="200" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'Nzl7LsK4moQuOsIfeWfbc8Rz-gzGzoHsz',
+    appKey: '5xmoJuWrMWHpI7pwtJviyIh6',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.5.0"></script><script src="/js/stun-boot.js?v=2.5.0"></script><script src="/js/scroll.js?v=2.5.0"></script><script src="/js/header.js?v=2.5.0"></script><script src="/js/sidebar.js?v=2.5.0"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/shizuku.model.json"},"display":{"position":"right","width":260,"height":380,"vOffset":5},"mobile":{"show":true},"log":false});</script></body></html>

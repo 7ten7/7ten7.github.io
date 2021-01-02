@@ -1,0 +1,287 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.5.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.5.0" type="image/png" sizes="32x32"><meta name="google-site-verification" content="QDXQenTtxQ6MwW-M_7k9lw39Kq7F4pwFO0u1QAPYlDE"><meta name="description" content="一、绘画的基本操作                           1.前提       默认php是不支持绘画技术，需要我们开启php的扩展php_gd2.dll">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP绘图基础">
+<meta property="og:url" content="http://www.7ten7.top/2019/01/26/php%E7%BB%98%E5%9B%BE%E6%8A%80%E6%9C%AF/index.html">
+<meta property="og:site_name" content="7TEN7&#39;s Blog">
+<meta property="og:description" content="一、绘画的基本操作                           1.前提       默认php是不支持绘画技术，需要我们开启php的扩展php_gd2.dll">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-01-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-05-04T17:00:20.201Z">
+<meta property="article:author" content="7TEN7">
+<meta property="article:tag" content="php">
+<meta name="twitter:card" content="summary"><title>PHP绘图基础 | 7TEN7's Blog</title><link ref="canonical" href="http://www.7ten7.top/2019/01/26/php%E7%BB%98%E5%9B%BE%E6%8A%80%E6%9C%AF/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.5.0"><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" data-ad-client="ca-pub-4793862971469188" async=""></script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"simple","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: true,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/friends/"><span class="header-nav-menu-item__icon"><i class="fas fa-link"></i></span><span class="header-nav-menu-item__text">友链</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">PHP绘图基础</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-01-26</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.8k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">13分</span></span></div></header><div class="post-body">
+        <h1 id="一、绘画的基本操作"   >
+          <a href="#一、绘画的基本操作" class="heading-link"><i class="fas fa-link"></i></a>一、绘画的基本操作</h1>
+      
+        <h2 id="1-前提"   >
+          <a href="#1-前提" class="heading-link"><i class="fas fa-link"></i></a>1.前提</h2>
+      <p>默认php是不支持绘画技术，需要我们开启php的扩展<br>php_gd2.dll<a id="more"></a></p>
+
+        <h2 id="2-创建画布"   >
+          <a href="#2-创建画布" class="heading-link"><i class="fas fa-link"></i></a>2.创建画布</h2>
+      <pre><code>语法：imagecreatetruecolor(w,h)
+</code></pre><p>说明：</p>
+<ul>
+<li>W 表示所要创建的画布的宽</li>
+<li>h 表示所要创建的画布的高</li>
+</ul>
+
+        <h2 id="3-分配颜色"   >
+          <a href="#3-分配颜色" class="heading-link"><i class="fas fa-link"></i></a>3.分配颜色</h2>
+      <pre><code>语法：imagecolorallocate(img,r,g,b);
+</code></pre><p>说明：</p>
+<ul>
+<li>img 画布资源(gd资源)</li>
+<li>r,g,b 十进制的颜色表示方式</li>
+<li><p>此函数仅是创建了一个颜色资源，并没有使用</p>
+
+        <h2 id="4-填充颜色"   >
+          <a href="#4-填充颜色" class="heading-link"><i class="fas fa-link"></i></a>4.填充颜色</h2>
+      <p>  语法：imagefill(img,x,y,color);</p>
+</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li>img 画布资源</li>
+<li>x,y 画布上的某个点</li>
+<li>color 所要填充的颜色</li>
+</ul>
+
+        <h2 id="5-基本图形的绘制"   >
+          <a href="#5-基本图形的绘制" class="heading-link"><i class="fas fa-link"></i></a>5.基本图形的绘制</h2>
+      
+        <h3 id="绘制矩形"   >
+          <a href="#绘制矩形" class="heading-link"><i class="fas fa-link"></i></a>绘制矩形</h3>
+      <pre><code>语法：imagerectangle(img,x1,y1,x2,y2,color)
+</code></pre><p>说明：</p>
+<ul>
+<li>rectangle 矩形</li>
+<li>img 画布资源</li>
+<li>x1,y1 左上角顶点的坐标</li>
+<li>x2,y2 右下角顶点的坐标</li>
+<li>color 所要绘制的矩形边角线的颜色</li>
+</ul>
+
+        <h3 id="绘制直线"   >
+          <a href="#绘制直线" class="heading-link"><i class="fas fa-link"></i></a>绘制直线</h3>
+      <pre><code>语法：imageline(img,x1,y1,x2,y2,color)
+</code></pre><p>说明：</p>
+<ul>
+<li>img 画布资源</li>
+<li>x1,y1 所要绘制的直线的起点坐标</li>
+<li>x2,y2 所要绘制的直线的终点坐标</li>
+<li>color 直线的颜色</li>
+</ul>
+
+        <h3 id="绘制字母"   >
+          <a href="#绘制字母" class="heading-link"><i class="fas fa-link"></i></a>绘制字母</h3>
+      <pre><code>语法：imagestring(img,size,x,y,string,color);
+</code></pre><p>说明：</p>
+<ul>
+<li>img 画布资源</li>
+<li>size 文字大小，0至5个等级</li>
+<li>x,y 所要绘制内容的左上角位置</li>
+<li>string 所要绘制的内容</li>
+<li>color 所要绘制的内容的颜色</li>
+</ul>
+<p>问题：</p>
+<ul>
+<li>imagestring 只适合绘制字母，不能绘制汉字</li>
+<li>imagestring 所要绘制的字母的大小最大为5</li>
+<li>imagestring 不能选择字体</li>
+<li>imagestring 不能设置绘制的角度</li>
+</ul>
+
+        <h3 id="绘制汉字"   >
+          <a href="#绘制汉字" class="heading-link"><i class="fas fa-link"></i></a>绘制汉字</h3>
+      <pre><code>语法：imagettftext(img,size,angle,x,y,color,font,text);
+</code></pre><p>说明：</p>
+<ul>
+<li>img 画布资源</li>
+<li>size 大小，单位像素</li>
+<li>angle 角度</li>
+<li>x,y 所要绘制的内容的左下角坐标</li>
+<li>color 所要绘制的内容的颜色</li>
+<li>font 所要绘制的内容的字体</li>
+<li>text 所要绘制的内容</li>
+</ul>
+<blockquote>
+<p>扩展：windows操作系统的字体位于c:/windows/fonts</p>
+</blockquote>
+
+        <h2 id="6-输出画布"   >
+          <a href="#6-输出画布" class="heading-link"><i class="fas fa-link"></i></a>6.输出画布</h2>
+      <figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">imagejpeg(img,[,filename])</span><br><span class="line">imagepng(img,[,filename])</span><br><span class="line">imagegif(img,[,filename])</span><br></pre></td></tr></table></div></figure>
+<p>说明：</p>
+<ul>
+<li>img 画布资源</li>
+<li>filename 表示是所要保存的文件名，可以省略，如果省略表示输出到浏览器</li>
+<li>在输出到浏览器之前必须设置 head(‘content-type:image/gif’)</li>
+<li>在将画布输出到浏览器时，不要有任何多余的输出。</li>
+<li>如果无法显示图片，需要将head()注释掉，才能看到错误信息</li>
+</ul>
+
+        <h2 id="7-从图片创建画布"   >
+          <a href="#7-从图片创建画布" class="heading-link"><i class="fas fa-link"></i></a>7.从图片创建画布</h2>
+      <figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">imagecreatefromjpeg(file)</span><br><span class="line">imagecreatefrompng(file)</span><br><span class="line">imagecreatefromgif(file)</span><br></pre></td></tr></table></div></figure>
+<p>说明：</p>
+<ul>
+<li>file是说要读取的图片文件，</li>
+<li>以上函数会使用file图片的宽高来创建一个画布，并将图片的原内容读取到画布中。</li>
+</ul>
+<p>注意：<br><strong>什么样类型的图片文件就必须使用相应的创建函数。如何获取图片的类型</strong></p>
+<figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$info = getimagesize(file)</span><br><span class="line">$info[<span class="string">'mime'</span>]</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="二、验证码"   >
+          <a href="#二、验证码" class="heading-link"><i class="fas fa-link"></i></a>二、验证码</h1>
+      
+        <h2 id="1-什么是验证码"   >
+          <a href="#1-什么是验证码" class="heading-link"><i class="fas fa-link"></i></a>1.什么是验证码</h2>
+      <p>CAPTCHA 全自动区分人与计算机的图灵测试</p>
+
+        <h2 id="2-作用"   >
+          <a href="#2-作用" class="heading-link"><i class="fas fa-link"></i></a>2.作用</h2>
+      <p>用于区分计算机与人，为了降低在很少的时间内对我们战点的一个访问频率<br>原理：就是将一串随机生成的字符串画到图片上</p>
+
+        <h2 id="3-制作验证码"   >
+          <a href="#3-制作验证码" class="heading-link"><i class="fas fa-link"></i></a>3.制作验证码</h2>
+      <figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 绘制验证码</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line">$w = <span class="number">100</span>;</span><br><span class="line">$h = <span class="number">30</span>;</span><br><span class="line">$len = <span class="number">4</span>;</span><br><span class="line">putCode($w,$h,$len);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">putCode</span><span class="params">($w,$h,$len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//1.创建画布</span></span><br><span class="line">	$img = imagecreatetruecolor($w, $h);</span><br><span class="line">	<span class="comment">//2.分配颜色</span></span><br><span class="line">	$color = imagecolorallocate($img, mt_rand(<span class="number">210</span>, <span class="number">250</span>), mt_rand(<span class="number">210</span>, <span class="number">250</span>), mt_rand(<span class="number">210</span>, <span class="number">250</span>));</span><br><span class="line">	<span class="comment">//3.填充颜色</span></span><br><span class="line">	imagefill($img, <span class="number">0</span>, <span class="number">0</span>, $color);</span><br><span class="line">	<span class="comment">//4.绘制字母</span></span><br><span class="line">	$code = getCode($len);</span><br><span class="line">	<span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; strlen($code); $i++) &#123;</span><br><span class="line">    	$color = imagecolorallocate($img, mt_rand(<span class="number">100</span>, <span class="number">200</span>), mt_rand(<span class="number">100</span>, <span class="number">200</span>), mt_rand(<span class="number">100</span>, <span class="number">200</span>));</span><br><span class="line">    	imagettftext($img, mt_rand(<span class="number">18</span>, <span class="number">24</span>), mt_rand(<span class="number">-15</span>, <span class="number">15</span>), <span class="number">18</span> * ($i + <span class="number">1</span>), <span class="number">25</span>, $color, <span class="string">'msyh.ttc'</span>, $code[$i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//5.绘制干扰线</span></span><br><span class="line">	<span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; <span class="number">5</span>; $i++) &#123;</span><br><span class="line">    	$color = imagecolorallocate($img, mt_rand(<span class="number">0</span>, <span class="number">255</span>), mt_rand(<span class="number">0</span>, <span class="number">255</span>), mt_rand(<span class="number">0</span>, <span class="number">255</span>));</span><br><span class="line">    	imageline($img, mt_rand(<span class="number">0</span>, <span class="number">100</span>), mt_rand(<span class="number">0</span>, <span class="number">30</span>), mt_rand(<span class="number">0</span>, <span class="number">100</span>), mt_rand(<span class="number">0</span>, <span class="number">30</span>), $color);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//6.输出</span></span><br><span class="line">	header(<span class="string">'content-type:image/jpg'</span>);</span><br><span class="line">	imagejpeg($img);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//生成随机字符串</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getCode</span><span class="params">($len)</span></span>&#123;</span><br><span class="line">	$charset = <span class="string">'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'</span>;</span><br><span class="line">	$code = <span class="string">''</span>;</span><br><span class="line">	<span class="keyword">for</span>($i=<span class="number">0</span>;$i&lt;$len;$i++)&#123;</span><br><span class="line">	    $code .= $charset[mt_rand(<span class="number">0</span>,<span class="number">62</span>)];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> $code;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="三、水印"   >
+          <a href="#三、水印" class="heading-link"><i class="fas fa-link"></i></a>三、水印</h1>
+      
+        <h2 id="1-水印的作用"   >
+          <a href="#1-水印的作用" class="heading-link"><i class="fas fa-link"></i></a>1.水印的作用</h2>
+      <p>版本保护<br>宣传的目的</p>
+
+        <h2 id="2-水印的原理"   >
+          <a href="#2-水印的原理" class="heading-link"><i class="fas fa-link"></i></a>2.水印的原理</h2>
+      <p>在用户的图片上，“印上”公司的logo或者写上公司的名字、网址。</p>
+
+        <h2 id="3-制作水印"   >
+          <a href="#3-制作水印" class="heading-link"><i class="fas fa-link"></i></a>3.制作水印</h2>
+      <pre><code>语法：imagecopymerge(dest,src,d_x,d_y,s_x,s_y,s_w,s_h,op);
+</code></pre><p>说明：</p>
+<ul>
+<li>dest 目标图片(用户图片)</li>
+<li>src 原图片(公司logo)</li>
+<li>d_x,d_y 目标图片上的某个点</li>
+<li>s_x,s_y 原图片上的某个点</li>
+<li>s_w,s_y 表示宽，高</li>
+<li>op 表示透明度</li>
+</ul>
+<p>在 src 图片从 s_x，s_y 为起点复制 s_w 为宽，s_h 为高的区域放在dest图片以 d_x，d_y 表示的一个点上。</p>
+
+        <h2 id="4-示例程序"   >
+          <a href="#4-示例程序" class="heading-link"><i class="fas fa-link"></i></a>4.示例程序</h2>
+      <figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//用户上传的图片</span></span><br><span class="line">$dest = <span class="string">'2.jpg'</span>;</span><br><span class="line">$src = <span class="string">'tx.jpg'</span>;</span><br><span class="line">water($dest,$src,<span class="number">2</span>);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * water() 水印函数参数说明</span></span><br><span class="line"><span class="comment"> * $dest 用户上传的图片</span></span><br><span class="line"><span class="comment"> * $src  水印logo</span></span><br><span class="line"><span class="comment"> * $seat 1为左上角，2位右上角，3为左下角，4为右下角，5为中间 默认为1即左上角</span></span><br><span class="line"><span class="comment"> * $op 透明度 默认为50</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">water</span><span class="params">($dest,$src,$seat=<span class="number">1</span>,$op=<span class="number">50</span>)</span> //封装制作水印函数</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">	    $destsize = getimagesize($dest);<span class="comment">//取得用户图片的大小</span></span><br><span class="line">	    $srcsize = getimagesize($src);<span class="comment">//取得水印图的大小</span></span><br><span class="line">	    <span class="keyword">switch</span> ($seat)&#123;</span><br><span class="line">	        <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">	            $d_x = <span class="number">0</span>;</span><br><span class="line">	            $d_y = <span class="number">0</span>;</span><br><span class="line">	            <span class="keyword">break</span>;</span><br><span class="line">	        <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">	            $d_x = $destsize[<span class="number">0</span>] - $srcsize[<span class="number">0</span>];</span><br><span class="line">	            $d_y = <span class="number">0</span>;</span><br><span class="line">	            <span class="keyword">break</span>;</span><br><span class="line">	        <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">	            $d_x = <span class="number">0</span>;</span><br><span class="line">	            $d_y = $destsize[<span class="number">1</span>] - $srcsize[<span class="number">1</span>];</span><br><span class="line">	            <span class="keyword">break</span>;</span><br><span class="line">	        <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">	            $d_x = $destsize[<span class="number">0</span>] - $srcsize[<span class="number">0</span>];</span><br><span class="line">	            $d_y = $destsize[<span class="number">1</span>] - $srcsize[<span class="number">1</span>];</span><br><span class="line">	            <span class="keyword">break</span>;</span><br><span class="line">	        <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">	            $d_x = ($destsize[<span class="number">0</span>] - $srcsize[<span class="number">0</span>])/<span class="number">2</span>;</span><br><span class="line">	            $d_y = ($destsize[<span class="number">1</span>] - $srcsize[<span class="number">1</span>])/<span class="number">2</span>;</span><br><span class="line">	            <span class="keyword">break</span>;</span><br><span class="line">	    &#125;</span><br><span class="line">	    <span class="comment">//将已有图片读取到画布中</span></span><br><span class="line">	    $image = createFrom($dest);</span><br><span class="line">	    $logo = createFrom($src);</span><br><span class="line">	</span><br><span class="line">	    <span class="comment">//制作水印</span></span><br><span class="line">	    imagecopymerge($image, $logo, $d_x, $d_y, <span class="number">0</span>, <span class="number">0</span>, $srcsize[<span class="number">0</span>], $srcsize[<span class="number">1</span>], $op);</span><br><span class="line">	    <span class="comment">//输出画布</span></span><br><span class="line">	    header(<span class="string">'content-type:image/jpg'</span>);</span><br><span class="line">	    imagejpeg($image);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">createFrom</span><span class="params">($file)</span> //将根据图片类型创建画布类型的功能封装成函数</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">	    $info = getimagesize($file);</span><br><span class="line">	    <span class="keyword">switch</span> ($info[<span class="string">'mime'</span>]) &#123;</span><br><span class="line">	        <span class="keyword">case</span> <span class="string">'image/jpeg'</span>:</span><br><span class="line">	            $img = imagecreatefromjpeg($file);</span><br><span class="line">	            <span class="keyword">break</span>;</span><br><span class="line">	        <span class="keyword">case</span> <span class="string">'image/png'</span>:</span><br><span class="line">	            $img = imagecreatefrompng($file);</span><br><span class="line">	            <span class="keyword">break</span>;</span><br><span class="line">	        <span class="keyword">case</span> <span class="string">'image/gif'</span>:</span><br><span class="line">	            $img = imagecreatefromgif($file);</span><br><span class="line">	            <span class="keyword">break</span>;</span><br><span class="line">	    &#125;</span><br><span class="line">	    <span class="keyword">return</span> $img;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="四、缩略图"   >
+          <a href="#四、缩略图" class="heading-link"><i class="fas fa-link"></i></a>四、缩略图</h1>
+      
+        <h2 id="1-缩略图的作用"   >
+          <a href="#1-缩略图的作用" class="heading-link"><i class="fas fa-link"></i></a>1.缩略图的作用</h2>
+      <ol>
+<li>节省带宽</li>
+<li>增加用户的体验度</li>
+</ol>
+
+        <h2 id="2-缩略图的原理"   >
+          <a href="#2-缩略图的原理" class="heading-link"><i class="fas fa-link"></i></a>2.缩略图的原理</h2>
+      <p>将用户图片等比例缩放到一个给定的画布中。</p>
+
+        <h2 id="3-制作缩略图"   >
+          <a href="#3-制作缩略图" class="heading-link"><i class="fas fa-link"></i></a>3.制作缩略图</h2>
+      <pre><code>语法：imagecopyresampled(dest,src,d_x,d_y,s_x,s_y,d_w,d_h,s_w,s_h);
+</code></pre><p>说明：</p>
+<ul>
+<li>dest 目标图片(框)</li>
+<li>src 用户图片</li>
+<li>d_x,d_y 目标图片上的某个点</li>
+<li>d_w,d_h 表示宽，高</li>
+<li>s_x,s_y 原图片上的某个点</li>
+<li>s_w,s_y 表示宽，高</li>
+</ul>
+<p>在 src 上从 s_x,s_y 为起点，截取以 s_w 为宽，s_w 为高的区域放在 dest 画布上以 d_x，d_y 为顶点，以 d_w 为宽，d_h 为高的区域</p>
+
+        <h2 id="4-示例程序-1"   >
+          <a href="#4-示例程序-1" class="heading-link"><i class="fas fa-link"></i></a>4.示例程序</h2>
+      <figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 缩略图</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">$d_w = <span class="number">1000</span>;</span><br><span class="line">$d_h = <span class="number">500</span>;</span><br><span class="line">$file = <span class="string">'2.jpg'</span>;</span><br><span class="line">thumb($d_w,$d_h,$file);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">thumb</span><span class="params">($d_w,$d_h,$file)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//创建画布(框的大小)</span></span><br><span class="line">    $imgDest = imagecreatetruecolor($d_w, $d_h);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//填充颜色</span></span><br><span class="line">    $color = imagecolorallocate($imgDest, <span class="number">240</span>, <span class="number">240</span>, <span class="number">240</span>);</span><br><span class="line">    imagefill($imgDest, <span class="number">0</span>, <span class="number">0</span>, $color);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//由用户的图片创建画布</span></span><br><span class="line">    $img = createFrom($file);</span><br><span class="line">    $infoSrc = getimagesize($file);</span><br><span class="line">    $s_w = $infoSrc[<span class="number">0</span>];<span class="comment">//获取用户图片的宽</span></span><br><span class="line">    $s_h = $infoSrc[<span class="number">1</span>];<span class="comment">//获取用户图片的高</span></span><br><span class="line">    $f_h = $d_h;</span><br><span class="line">    $f_w = $s_w / $s_h * $f_h;</span><br><span class="line">    <span class="keyword">if</span> ($f_w &gt; $d_w) &#123;</span><br><span class="line">        $f_w = $d_w;</span><br><span class="line">        $f_h = $s_h * $f_w / $s_w;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//计算imgDest上所放置的起点位置(居中放置)</span></span><br><span class="line">    $posX = ($d_w - $f_w) / <span class="number">2</span>;</span><br><span class="line">    $posy = ($d_h - $f_h) / <span class="number">2</span>;</span><br><span class="line">    <span class="comment">//采样合并</span></span><br><span class="line">    imagecopyresampled($imgDest, $img, $posX, $posy, <span class="number">0</span>, <span class="number">0</span>, $f_w, $f_h, $s_w, $s_h);</span><br><span class="line"><span class="comment">//输出背景</span></span><br><span class="line">    header(<span class="string">'content-type:image/jpg'</span>);</span><br><span class="line">    imagejpeg($imgDest);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createFrom</span><span class="params">($file)</span> //将根据图片类型创建画布类型的功能封装成函数</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $info = getimagesize($file);</span><br><span class="line">    <span class="keyword">switch</span> ($info[<span class="string">'mime'</span>]) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'image/jpeg'</span>:</span><br><span class="line">            $img = imagecreatefromjpeg($file);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'image/png'</span>:</span><br><span class="line">            $img = imagecreatefrompng($file);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'image/gif'</span>:</span><br><span class="line">            $img = imagecreatefromgif($file);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> $img;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure></div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://www.7ten7.top">7TEN7</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://www.7ten7.top/2019/01/26/php%E7%BB%98%E5%9B%BE%E6%8A%80%E6%9C%AF/">http://www.7ten7.top/2019/01/26/php%E7%BB%98%E5%9B%BE%E6%8A%80%E6%9C%AF/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/php/">php</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2019/03/02/TP5.1+PHPMailer%E5%AE%9E%E7%8E%B0%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81%E5%8A%9F%E8%83%BD/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">TP5.1+PHPMailer实现邮件发送功能</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2019/01/02/%E7%9B%B2%E6%B3%A8%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"><span class="paginator-prev__text">盲注总结</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、绘画的基本操作"><span class="toc-number">1.</span> <span class="toc-text">
+          一、绘画的基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-前提"><span class="toc-number">1.1.</span> <span class="toc-text">
+          1.前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-创建画布"><span class="toc-number">1.2.</span> <span class="toc-text">
+          2.创建画布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-分配颜色"><span class="toc-number">1.3.</span> <span class="toc-text">
+          3.分配颜色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-填充颜色"><span class="toc-number">1.4.</span> <span class="toc-text">
+          4.填充颜色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-基本图形的绘制"><span class="toc-number">1.5.</span> <span class="toc-text">
+          5.基本图形的绘制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#绘制矩形"><span class="toc-number">1.5.1.</span> <span class="toc-text">
+          绘制矩形</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#绘制直线"><span class="toc-number">1.5.2.</span> <span class="toc-text">
+          绘制直线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#绘制字母"><span class="toc-number">1.5.3.</span> <span class="toc-text">
+          绘制字母</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#绘制汉字"><span class="toc-number">1.5.4.</span> <span class="toc-text">
+          绘制汉字</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-输出画布"><span class="toc-number">1.6.</span> <span class="toc-text">
+          6.输出画布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-从图片创建画布"><span class="toc-number">1.7.</span> <span class="toc-text">
+          7.从图片创建画布</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、验证码"><span class="toc-number">2.</span> <span class="toc-text">
+          二、验证码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-什么是验证码"><span class="toc-number">2.1.</span> <span class="toc-text">
+          1.什么是验证码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-作用"><span class="toc-number">2.2.</span> <span class="toc-text">
+          2.作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-制作验证码"><span class="toc-number">2.3.</span> <span class="toc-text">
+          3.制作验证码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、水印"><span class="toc-number">3.</span> <span class="toc-text">
+          三、水印</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-水印的作用"><span class="toc-number">3.1.</span> <span class="toc-text">
+          1.水印的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-水印的原理"><span class="toc-number">3.2.</span> <span class="toc-text">
+          2.水印的原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-制作水印"><span class="toc-number">3.3.</span> <span class="toc-text">
+          3.制作水印</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-示例程序"><span class="toc-number">3.4.</span> <span class="toc-text">
+          4.示例程序</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、缩略图"><span class="toc-number">4.</span> <span class="toc-text">
+          四、缩略图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-缩略图的作用"><span class="toc-number">4.1.</span> <span class="toc-text">
+          1.缩略图的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-缩略图的原理"><span class="toc-number">4.2.</span> <span class="toc-text">
+          2.缩略图的原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-制作缩略图"><span class="toc-number">4.3.</span> <span class="toc-text">
+          3.制作缩略图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-示例程序-1"><span class="toc-number">4.4.</span> <span class="toc-text">
+          4.示例程序</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/author/author.png" alt="avatar"></div><p class="sidebar-ov-author__text">7TEN7</p></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-rss"><a class="sidebar-ov-feed-rss__link" href="/atom.xml" target="_blank" rel="noopener"><span class="sidebar-ov-feed-rss__icon"><i class="fas fa-rss"></i></span><span>RSS 订阅</span></a></span></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">55</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__devider"></span><span>7TEN7</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="255,255,255" opacity="1" count="200" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'Nzl7LsK4moQuOsIfeWfbc8Rz-gzGzoHsz',
+    appKey: '5xmoJuWrMWHpI7pwtJviyIh6',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.5.0"></script><script src="/js/stun-boot.js?v=2.5.0"></script><script src="/js/scroll.js?v=2.5.0"></script><script src="/js/header.js?v=2.5.0"></script><script src="/js/sidebar.js?v=2.5.0"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/shizuku.model.json"},"display":{"position":"right","width":260,"height":380,"vOffset":5},"mobile":{"show":true},"log":false});</script></body></html>

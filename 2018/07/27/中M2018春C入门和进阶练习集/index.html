@@ -1,0 +1,2214 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.5.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.5.0" type="image/png" sizes="32x32"><meta name="google-site-verification" content="QDXQenTtxQ6MwW-M_7k9lw39Kq7F4pwFO0u1QAPYlDE"><meta name="description" content="暑假学C语言过程中写过的题目和答案，自己写的答案肯定还是存在错误的                      7-6 重要的话说三遍（5 分）       这道超级简单的题目没有任何输入。 你只需要把这句很重要的话 —— “I’m gonna WIN!”——连续输出三遍就可以了。 注意每遍占一行，除了每行的回车不能有任何多余字符。 12345678#include &lt;stdio.h&gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="中M2018春C入门和进阶练习集">
+<meta property="og:url" content="http://www.7ten7.top/2018/07/27/%E4%B8%ADM2018%E6%98%A5C%E5%85%A5%E9%97%A8%E5%92%8C%E8%BF%9B%E9%98%B6%E7%BB%83%E4%B9%A0%E9%9B%86/index.html">
+<meta property="og:site_name" content="7TEN7&#39;s Blog">
+<meta property="og:description" content="暑假学C语言过程中写过的题目和答案，自己写的答案肯定还是存在错误的                      7-6 重要的话说三遍（5 分）       这道超级简单的题目没有任何输入。 你只需要把这句很重要的话 —— “I’m gonna WIN!”——连续输出三遍就可以了。 注意每遍占一行，除了每行的回车不能有任何多余字符。 12345678#include &lt;stdio.h&gt;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.imgur.com/vQvZeDj.png">
+<meta property="article:published_time" content="2018-07-26T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-05-04T17:11:24.588Z">
+<meta property="article:author" content="7TEN7">
+<meta property="article:tag" content="C语言">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/vQvZeDj.png"><title>中M2018春C入门和进阶练习集 | 7TEN7's Blog</title><link ref="canonical" href="http://www.7ten7.top/2018/07/27/%E4%B8%ADM2018%E6%98%A5C%E5%85%A5%E9%97%A8%E5%92%8C%E8%BF%9B%E9%98%B6%E7%BB%83%E4%B9%A0%E9%9B%86/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.5.0"><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" data-ad-client="ca-pub-4793862971469188" async=""></script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"simple","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: true,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/friends/"><span class="header-nav-menu-item__icon"><i class="fas fa-link"></i></span><span class="header-nav-menu-item__text">友链</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">中M2018春C入门和进阶练习集</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2018-07-27</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">18.1k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">146分</span></span></div></header><div class="post-body"><blockquote>
+<p>暑假学C语言过程中写过的题目和答案，自己写的答案肯定还是存在错误的</p>
+</blockquote>
+
+        <h4 id="7-6-重要的话说三遍（5-分）"   >
+          <a href="#7-6-重要的话说三遍（5-分）" class="heading-link"><i class="fas fa-link"></i></a>7-6 重要的话说三遍（5 分）</h4>
+      <p>这道超级简单的题目没有任何输入。</p>
+<p>你只需要把这句很重要的话 —— “I’m gonna WIN!”——连续输出三遍就可以了。</p>
+<p>注意每遍占一行，除了每行的回车不能有任何多余字符。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"I'm gonna WIN!\n"</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"I'm gonna WIN!\n"</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"I'm gonna WIN!\n"</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<a id="more"></a>
+
+        <h4 id="7-8-I-Love-GPLT（5-分）"   >
+          <a href="#7-8-I-Love-GPLT（5-分）" class="heading-link"><i class="fas fa-link"></i></a>7-8 I Love GPLT（5 分）</h4>
+      <p>这道超级简单的题目没有任何输入。</p>
+<p>你只需要把这句很重要的话 —— I Love GPLT ——竖着输出就可以了。</p>
+<p>所谓“竖着输出”，是指每个字符占一行（包括空格），即每行只能有1个字符和回车。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"I\n \nL\no\nv\ne\n \nG\nP\nL\nT\n"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="7-4-输出带框文字（5-分）"   >
+          <a href="#7-4-输出带框文字（5-分）" class="heading-link"><i class="fas fa-link"></i></a>7-4 输出带框文字（5 分）</h4>
+      <p>本题要求编写程序，输出指定的带框文字。</p>
+<p>输入格式：<br>本题无输入</p>
+<p>输出格式：<br>按照下列格式输出带框文字。</p>
+<p>************<br>　Welcome<br>************</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"************\n"</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"  Welcome\n"</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"************\n"</span>);</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="7-3-输出菱形图案（5-分）"   >
+          <a href="#7-3-输出菱形图案（5-分）" class="heading-link"><i class="fas fa-link"></i></a>7-3 输出菱形图案（5 分）</h4>
+      <p>本题要求编写程序，输出指定的由“A”组成的菱形图案。</p>
+<p>输入格式：<br>本题无输入</p>
+<p>输出格式：<br>按照下列格式输出由“A”组成的菱形图案。</p>
+<p>　A<br>A　 A<br>　A</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"  A\n"</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"A   A\n"</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"  A\n"</span>);</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="7-13-输出倒三角图案（5-分）"   >
+          <a href="#7-13-输出倒三角图案（5-分）" class="heading-link"><i class="fas fa-link"></i></a>7-13 输出倒三角图案（5 分）</h4>
+      <p>本题要求编写程序，输出指定的由“*”组成的倒三角图案。</p>
+<p>输入格式:<br>本题目没有输入。</p>
+<p>输出格式:<br>按照下列格式输出由“*”组成的倒三角图案。</p>
+<p>* * * *<br>&nbsp;* * *<br>&nbsp;&nbsp;* *<br>&nbsp;&nbsp;&nbsp;*</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"* * * *\n"</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">" * * *\n"</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"  * *\n"</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"   *\n"</span>);</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="7-15-厘米换算英尺英寸（15-分）"   >
+          <a href="#7-15-厘米换算英尺英寸（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-15 厘米换算英尺英寸（15 分）</h4>
+      <p>如果已知英制长度的英尺foot和英寸inch的值，那么对应的米是(foot+inch/12)×0.3048。现在，如果用户输入的是厘米数，那么对应英制长度的英尺和英寸是多少呢？别忘了1英尺等于12英寸。</p>
+<p>输入格式：<br>输入在一行中给出1个正整数，单位是厘米。</p>
+<p>输出格式：<br>在一行中输出这个厘米数对应英制长度的英尺和英寸的整数值，中间用空格分开。</p>
+<p>输入样例：<br>170<br>输出样例：<br>5 6<br><figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cm , foot , inch;</span><br><span class="line">    <span class="keyword">double</span> h ;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;cm);</span><br><span class="line">    foot = cm / <span class="number">30.48</span>;</span><br><span class="line">    h = cm/<span class="number">30.48</span>-foot;</span><br><span class="line">    inch = h * <span class="number">12</span> ; 		</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d"</span>,foot,inch);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure></p>
+
+        <h4 id="7-1-计算摄氏温度（10-分）"   >
+          <a href="#7-1-计算摄氏温度（10-分）" class="heading-link"><i class="fas fa-link"></i></a>7-1 计算摄氏温度（10 分）</h4>
+      <p>给定一个华氏温度F，本题要求编写程序，计算对应的摄氏温度C。计算公式：C=5×(F−32)/9。题目保证输入与输出均在整型范围内。</p>
+<p>输入格式:<br>输入在一行中给出一个华氏温度。</p>
+<p>输出格式:<br>在一行中按照格式“Celsius = C”输出对应的摄氏温度C的整数值。</p>
+<p>输入样例:<br>150<br>输出样例:<br>Celsius = 65<br><figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> f;</span><br><span class="line">    <span class="keyword">int</span> c;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;f);</span><br><span class="line">    c=<span class="keyword">int</span>(<span class="number">5</span>*(f<span class="number">-32</span>)/<span class="number">9.0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Celsius = %d"</span>,c);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure></p>
+
+        <h4 id="7-9-是不是太胖了（5-分）"   >
+          <a href="#7-9-是不是太胖了（5-分）" class="heading-link"><i class="fas fa-link"></i></a>7-9 是不是太胖了（5 分）</h4>
+      <p>据说一个人的标准体重应该是其身高（单位：厘米）减去100、再乘以0.9所得到的公斤数。已知市斤是公斤的两倍。现给定某人身高，请你计算其标准体重应该是多少？（顺便也悄悄给自己算一下吧……）</p>
+<p>输入格式：<br>输入第一行给出一个正整数H（100 &lt; H ≤ 300），为某人身高。</p>
+<p>输出格式：<br>在一行中输出对应的标准体重，单位为市斤，保留小数点后1位。</p>
+<p>输入样例：<br>169<br>输出样例：<br>124.2</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">height</span> ;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">double</span> tizhong;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;<span class="built_in">height</span>);</span><br><span class="line"></span><br><span class="line">    tizhong = ( (<span class="built_in">height</span> - <span class="number">100</span>) * <span class="number">0.9</span> ) * <span class="number">2</span> ;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%.1f"</span>,tizhong);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;	</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h4 id="7-2-求整数均值（10-分）"   >
+          <a href="#7-2-求整数均值（10-分）" class="heading-link"><i class="fas fa-link"></i></a>7-2 求整数均值（10 分）</h4>
+      <p>本题要求编写程序，计算4个整数的和与平均值。题目保证输入与输出均在整型范围内。</p>
+<p>输入格式:<br>输入在一行中给出4个整数，其间以空格分隔。</p>
+<p>输出格式:<br>在一行中按照格式“Sum = 和; Average = 平均值”顺序输出和与平均值，其中平均值精确到小数点后一位。</p>
+<p>输入样例:<br>1 2 3 4<br>输出样例:<br>Sum = 10; Average = 2.5<br><figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">double</span> a , b , c , d , sum , average;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%lf %lf %lf %lf"</span>,&amp;a,&amp;b,&amp;c,&amp;d);</span><br><span class="line"></span><br><span class="line">    sum = a+b+b+d;</span><br><span class="line">    average = (a+b+c+d)/<span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Sum = %g; Average = %.1f"</span>,sum,average);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;	</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure></p>
+
+        <h4 id="7-14-算术入门之加减乘除（10-分）"   >
+          <a href="#7-14-算术入门之加减乘除（10-分）" class="heading-link"><i class="fas fa-link"></i></a>7-14 算术入门之加减乘除（10 分）</h4>
+      <p>对于输入的两个整数，按照要求输出其和差积商。</p>
+<p>输入格式:<br>在一行内输入两个不超过100的非负整数a和b，中间以一个空格间隔，且保证b不为0。</p>
+<p>输出格式:<br>共四行，格式是：</p>
+<p>[a] + [b] = [a+b]<br>[a] - [b] = [a-b]<br>[a] <em> [b] = [a</em>b]<br>[a] / [b] = [a/b]<br>其中，带有方括号的内容（如[a]、[b]、[a+b]等）表示相应整数或运算结果的值，在输出时要用实际的值代替。</p>
+<p>并且：如果a能够被b整除，那么a/b应输出为整数格式，否则a/b输出为带两位小数的格式。</p>
+<p>提示：注意表达式中的空格。</p>
+<p>输入样例1:<br>6 3<br>输出样例1:<br>6 + 3 = 9<br>6 - 3 = 3<br>6 <em> 3 = 18<br>6 / 3 = 2<br>输入样例2:<br>8 6<br>输出样例2:<br>8 + 6 = 14<br>8 - 6 = 2<br>8 </em> 6 = 48<br>8 / 6 = 1.33</p>
+<pre><code>#include&lt;stdio.h&gt;
+int main()
+{
+double a,b;
+scanf(&quot;%lf %lf&quot;,&amp;a,&amp;b);
+printf(&quot;%g + %g = %g\n&quot;,a,b,a+b);
+printf(&quot;%g - %g = %g\n&quot;,a,b,a-b);
+printf(&quot;%g * %g = %g\n&quot;,a,b,a*b);
+printf(&quot;%g / %g = %.3g&quot;,a,b,a/b);
+   return 0 ;
+}
+</code></pre>
+        <h4 id="7-5-计算平均分（5-分）"   >
+          <a href="#7-5-计算平均分（5-分）" class="heading-link"><i class="fas fa-link"></i></a>7-5 计算平均分（5 分）</h4>
+      <p>已知某位学生的数学、英语和计算机课程的成绩分别是87分、72分和93分，求该生3门课程的平均成绩（结果按整型输出）。</p>
+<p>输入格式：<br>本题无输入</p>
+<p>输出格式：<br>按照下列格式输出结果：</p>
+<p>math = 87, eng = 72, comp = 93, average = 计算所得的平均成绩</p>
+<pre><code>#include&lt;stdio.h&gt;
+int main()
+{
+
+int math = 87 , eng = 72 , comp = 93 , average ; 
+
+average = ( math + eng + comp ) / 3 ;
+
+printf(&quot;math = %d, eng = %d, comp = %d, average = %d&quot; , math , eng , comp ,average ) ;
+
+   return 0 ;
+}
+</code></pre>
+        <h4 id="7-18-日期格式化（5-分）"   >
+          <a href="#7-18-日期格式化（5-分）" class="heading-link"><i class="fas fa-link"></i></a>7-18 日期格式化（5 分）</h4>
+      <p>世界上不同国家有不同的写日期的习惯。比如美国人习惯写成“月-日-年”，而中国人习惯写成“年-月-日”。下面请你写个程序，自动把读入的美国格式的日期改写成中国习惯的日期。</p>
+<p>输入格式：<br>输入在一行中按照“mm-dd-yyyy”的格式给出月、日、年。题目保证给出的日期是1900年元旦至今合法的日期。</p>
+<p>输出格式：<br>在一行中按照“yyyy-mm-dd”的格式给出年、月、日。</p>
+<p>输入样例：<br>03-15-2017<br>输出样例：<br>2017-03-15</p>
+<pre><code>#include&lt;stdio.h&gt;
+int main()
+{
+  int y,m,d;
+  scanf(&quot;%d-%d-%d&quot;,&amp;m,&amp;d,&amp;y);
+  printf(&quot;%d-%.2d-%.2d&quot;,y,m,d);
+}
+</code></pre>
+        <h4 id="7-7-后天（5-分）"   >
+          <a href="#7-7-后天（5-分）" class="heading-link"><i class="fas fa-link"></i></a>7-7 后天（5 分）</h4>
+      <p>如果今天是星期三，后天就是星期五；如果今天是星期六，后天就是星期一。我们用数字1到7对应星期一到星期日。给定某一天，请你输出那天的“后天”是星期几。</p>
+<p>输入格式：<br>输入第一行给出一个正整数D（1 ≤ D ≤ 7），代表星期里的某一天。</p>
+<p>输出格式：<br>在一行中输出D天的后天是星期几。</p>
+<p>输入样例：<br>3<br>输出样例：<br>5</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main(){
+
+    int D ;
+    scanf(&quot;%d&quot;,&amp;D);
+    if (D == 1) {
+        D = 3 ;
+    } 
+    else if (D == 2){
+        D = 4 ;
+    }
+    else if (D == 3){
+        D = 5 ;
+    }
+    else if (D == 4){
+        D = 6 ;
+    }
+    else if (D == 5){
+        D = 7 ;
+    }
+    else if (D == 6){
+        D = 1 ;
+    }
+    else if (D == 7){
+        D = 2 ;
+    }
+
+    printf(&quot;%d&quot;,D);
+    return 0 ;
+}
+</code></pre>
+        <h4 id="7-16-然后是几点（15-分）"   >
+          <a href="#7-16-然后是几点（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-16 然后是几点（15 分）</h4>
+      <p>有时候人们用四位数字表示一个时间，比如1106表示11点零6分。现在，你的程序要根据起始时间和流逝的时间计算出终止时间。</p>
+<p>读入两个数字，第一个数字以这样的四位数字表示当前时间，第二个数字表示分钟数，计算当前时间经过那么多分钟后是几点，结果也表示为四位数字。当小时为个位数时，没有前导的零，即5点30分表示为530。注意，第二个数字表示的分钟数可能超过60，也可能是负数。</p>
+<p>输入格式：<br>输入在一行中给出2个整数，分别是四位数字表示的起始时间、以及流逝的分钟数，其间以空格分隔。注意：在起始时间中，当小时为个位数时，没有前导的零，即5点30分表示为530；流逝的分钟数可能超过60，也可能是负数。</p>
+<p>输出格式：<br>输出四位数字表示的终止时间。题目保证起始时间和终止时间在同一天内。</p>
+<p>输入样例：<br>1120 110<br>输出样例：<br>1310</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main(){
+
+    int hours , min , sj , time , hours2 , min2 ,h1 ,h2;
+    scanf(&quot;%d%d&quot;,&amp;sj , &amp;time);
+    hours = sj / 100; //获取输入时间的小时数 
+    min = sj % 100;    //获取输入时间的分钟数 
+    hours2 = time / 60 ;  //求输入时间的小时数 
+    min2 = time % 60 ;    //求输入时间的分钟数 
+
+    h1 = ( (hours+hours2) * 60 + min + min2 ) / 60 ;
+    h2 = ( (hours+hours2) * 60 + min + min2 ) % 60 ;
+
+    printf(&quot;%d%.2d&quot;,h1,h2);
+</code></pre><p>​<br>​<br>​        return 0 ;<br>​    }</p>
+
+        <h4 id="7-17-BCD解密（10-分）"   >
+          <a href="#7-17-BCD解密（10-分）" class="heading-link"><i class="fas fa-link"></i></a>7-17 BCD解密（10 分）</h4>
+      <p>BCD数是用一个字节来表达两位十进制的数，每四个比特表示一位。所以如果一个BCD数的十六进制是0x12，它表达的就是十进制的12。但是小明没学过BCD，把所有的BCD数都当作二进制数转换成十进制输出了。于是BCD的0x12被输出成了十进制的18了！</p>
+<p>现在，你的程序要读入这个错误的十进制数，然后输出正确的十进制数。提示：你可以把18转换回0x12，然后再转换回12。</p>
+<p>输入格式：<br>输入在一行中给出一个[0, 153]范围内的正整数，保证能转换回有效的BCD数，也就是说这个整数转换成十六进制时不会出现A-F的数字。</p>
+<p>输出格式：<br>输出对应的十进制数。</p>
+<p>输入样例：<br>18<br>输出样例：<br>12</p>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main(){
+  int e;
+  scanf(&quot;%d&quot;, &amp;e);
+  int n = e/16*10 + (e % 16);
+  printf(&quot;%d\n&quot;, n);
+
+  return 0;
+}
+</code></pre>
+        <h4 id="7-16-计算符号函数的值（10-分）"   >
+          <a href="#7-16-计算符号函数的值（10-分）" class="heading-link"><i class="fas fa-link"></i></a>7-16 计算符号函数的值（10 分）</h4>
+      <p>对于任一整数n，符号函数sign(n)的定义如下：<br>
+        <img   class="lazyload lazyload-gif"
+          src="/images/loading.svg" data-src="https://i.imgur.com/vQvZeDj.png"  alt="">
+      </p>
+<p>请编写程序计算该函数对任一输入整数的值。</p>
+<p>输入格式:<br>输入在一行中给出整数n。</p>
+<p>输出格式:<br>在一行中按照格式“sign(n) = 函数值”输出该整数n对应的函数值。</p>
+<p>输入样例1:<br>10<br>输出样例1:<br>sign(10) = 1<br>输入样例2:<br>0<br>输出样例2:<br>sign(0) = 0<br>输入样例3:<br>-98<br>输出样例3:<br>sign(-98) = -1</p>
+<pre><code>#include &lt;stdio.h&gt; 
+int main(){
+
+    int  n , sing;
+
+    scanf(&quot;%d&quot;,&amp;n);
+
+    if (n&lt;0) {
+        sing = -1;
+    }
+    else if (n==0) {
+        sing = 0;
+    }
+    else {
+        sing = 1;
+    }
+
+    printf(&quot;sign(%d) = %d&quot;,n,sing);
+
+    return 0 ;
+}
+</code></pre>
+        <h4 id="7-17-成绩转换（15-分）"   >
+          <a href="#7-17-成绩转换（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-17 成绩转换（15 分）</h4>
+      <p>本题要求编写程序将一个百分制成绩转换为五分制成绩。转换规则：</p>
+<p>大于等于90分为A；<br>小于90且大于等于80为B；<br>小于80且大于等于70为C；<br>小于70且大于等于60为D；<br>小于60为E。<br>输入格式:<br>输入在一行中给出一个整数的百分制成绩。</p>
+<p>输出格式:<br>在一行中输出对应的五分制成绩。</p>
+<p>输入样例:<br>90<br>输出样例:<br>    A</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main (){
+
+    int cj;
+    scanf(&quot;%d&quot;,&amp;cj);
+
+    if (cj&gt;=90) {
+        printf(&quot;A&quot;);
+    }
+
+    else if (cj&gt;=80) {
+        printf(&quot;B&quot;);    
+    }
+    else if (cj&gt;=70) {
+        printf(&quot;C&quot;);
+    }
+    else if (cj&gt;=60) {
+        printf(&quot;D&quot;);
+    }
+    else {
+        printf(&quot;E&quot;);
+    }
+
+    return 0 ;
+}
+</code></pre>
+        <h4 id="7-18-出租车计价（15-分）"   >
+          <a href="#7-18-出租车计价（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-18 出租车计价（15 分）</h4>
+      <p>本题要求根据某城市普通出租车收费标准编写程序进行车费计算。具体标准如下：</p>
+<p>起步里程为3公里，起步费10元；<br>超起步里程后10公里内，每公里2元；<br>超过10公里以上的部分加收50%的回空补贴费，即每公里3元；<br>营运过程中，因路阻及乘客要求临时停车的，按每5分钟2元计收（不足5分钟则不收费）。<br>输入格式:<br>输入在一行中给出输入行驶里程（单位为公里，精确到小数点后1位）与等待时间（整数，单位为分钟），其间以空格分隔。</p>
+<p>输出格式:<br>在一行中输出乘客应支付的车费（单位为元），结果四舍五入，保留到元。</p>
+<p>输入样例1:<br>2.6 2<br>输出样例1:<br>10<br>输入样例2:<br>5.1 4<br>输出样例2:<br>14<br>输入样例3:<br>12.5 9<br>输出样例3:<br>34</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+
+    double fy,lc;
+    int dd;
+    scanf(&quot;%lf %d&quot;,&amp;lc , &amp;dd);
+
+    if (lc&gt;10) {
+        fy = 24 + (lc-10) * 3 + dd/5*2;
+    }
+    else if (lc&gt;3) {
+        fy = 10 + (lc-3) * 2 + dd/5*2;
+    }
+    else if (lc&gt;0) {
+        fy = 10 + dd/5*2;
+    }
+    else {
+        fy = dd/5*2;
+    }
+    printf(&quot;%.0f&quot;,fy);
+
+    return 0 ;
+}
+</code></pre>
+        <h4 id="7-19-计算天数（15-分）"   >
+          <a href="#7-19-计算天数（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-19 计算天数（15 分）</h4>
+      <p>本题要求编写程序计算某年某月某日是该年中的第几天。</p>
+<p>输入格式:<br>输入在一行中按照格式“yyyy/mm/dd”（即“年/月/日”）给出日期。注意：闰年的判别条件是该年年份能被4整除但不能被100整除、或者能被400整除。闰年的2月有29天。</p>
+<p>输出格式:<br>在一行输出日期是该年中的第几天。</p>
+<p>输入样例1:<br>2009/03/02<br>输出样例1:<br>61<br>输入样例2:<br>2000/03/02<br>输出样例2:<br>62</p>
+<pre><code>/*
+28/29day 2
+30day  4 6 9 11
+31day 1 3 5 7 8 10 12
+使用数组建立月份和月份天数的对应关系     
+*/
+
+#include &lt;stdio.h&gt;
+int main (){
+int rnts[12] = {31,29,31,30,31,30,31,31,30,31,30,31}    ; //数组记录闰年每个月的天数 
+int frts[12] = {31,28,31,30,31,30,31,31,30,31,30,31}    ; //数组记录非闰年每个月的天数 
+int year,month,day,sum;
+int i = 0 ;
+scanf(&quot;%d/%d/%d&quot;,&amp;year,&amp;month,&amp;day) ; //接受输入 
+
+if (year%4 == 0&amp;&amp;year%100 != 0 || year%400 == 0) //判断是否为闰年 
+    {   
+
+    for (i=0;i &lt; month;i++)  //for循环统计天数 
+    {
+        sum = sum + rnts[i];
+    }
+
+    sum = sum + day ;
+    printf(&quot;%d&quot;,sum-rnts[month-1]);    //输出结果 
+}
+
+else 
+    {
+    for (i=0;i &lt; month;i++) //for循环统计天数
+    {
+        sum = sum + frts[i];
+    }
+
+    sum = sum + day ;
+    printf(&quot;%d&quot;,sum-frts[month-1]);    //输出结果
+}
+
+    return 0 ;
+} 
+</code></pre>
+        <h4 id="7-20-简单计算器（20-分）"   >
+          <a href="#7-20-简单计算器（20-分）" class="heading-link"><i class="fas fa-link"></i></a>7-20 简单计算器（20 分）</h4>
+      <p>模拟简单运算器的工作。假设计算器只能进行加减乘除运算，运算数和结果都是整数，四种运算符的优先级相同，按从左到右的顺序计算。</p>
+<p>输入格式:<br>输入在一行中给出一个四则运算算式，没有空格，且至少有一个操作数。遇等号”=”说明输入结束。</p>
+<p>输出格式:<br>在一行中输出算式的运算结果，或者如果除法分母为0或有非法运算符，则输出错误信息“ERROR”。</p>
+<p>输入样例:<br>1+2*10-10/2=<br>输出样例:<br>10</p>
+<pre><code>#include&lt;stdio.h&gt;
+int main()
+{
+    int value1,value2;
+    int sum=0;
+    char ch;
+    scanf(&quot;%d&quot;,&amp;value1);
+    while((ch=getchar())!=&apos;=&apos;)
+    {
+        scanf(&quot;%d&quot;,&amp;value2);
+        if(ch==&apos;/&apos;&amp;&amp;value2==0){
+                printf(&quot;ERROR\n&quot;);
+                return 0;
+
+        }
+        switch(ch)
+        {
+            case &apos;+&apos;:sum=value1+value2;break;
+            case &apos;-&apos;:sum=value1-value2;break;
+            case &apos;*&apos;:sum=value1*value2;break;
+            case &apos;/&apos;:sum=value1/value2;break;
+            default:printf(&quot;ERROR\n&quot;);return 0;
+
+        }
+        value1=sum;
+</code></pre><p>​<br>​        }<br>​        printf(“%d\n”,value1);<br>​        return 0;<br>​    }</p>
+
+        <h4 id="7-21-超速判断（10-分）"   >
+          <a href="#7-21-超速判断（10-分）" class="heading-link"><i class="fas fa-link"></i></a>7-21 超速判断（10 分）</h4>
+      <p>模拟交通警察的雷达测速仪。输入汽车速度，如果速度超出60 mph，则显示“Speeding”，否则显示“OK”。</p>
+<p>输入格式：<br>输入在一行中给出1个不超过500的非负整数，即雷达测到的车速。</p>
+<p>输出格式：<br>在一行中输出测速仪显示结果，格式为：Speed: V - S，其中V是车速，S或者是Speeding、或者是OK。</p>
+<p>输入样例1：<br>40<br>输出样例1：<br>Speed: 40 - OK<br>输入样例2：<br>75<br>输出样例2：<br>Speed: 75 - Speeding</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main (){
+
+int v;
+scanf(&quot;%d&quot;,&amp;v);
+
+if (v&lt;=60) {
+    printf(&quot;Speed: %d - OK&quot;,v);
+
+}
+else {
+    printf(&quot;Speed: %d - Speeding&quot;,v);
+}
+</code></pre><p>​<br>​    return 0 ;<br>}</p>
+
+        <h4 id="7-22-用天平找小球（10-分）"   >
+          <a href="#7-22-用天平找小球（10-分）" class="heading-link"><i class="fas fa-link"></i></a>7-22 用天平找小球（10 分）</h4>
+      <p>三个球A、B、C，大小形状相同且其中有一个球与其他球重量不同。要求找出这个不一样的球。</p>
+<p>输入格式：<br>输入在一行中给出3个正整数，顺序对应球A、B、C的重量。</p>
+<p>输出格式：<br>在一行中输出唯一的那个不一样的球。</p>
+<p>输入样例：<br>1 1 2<br>输出样例：<br>C</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main (){
+    int a,b,c;
+    scanf(&quot;%d %d %d&quot;,&amp;a,&amp;b,&amp;c);
+    if (a==b) {
+        printf(&quot;C&quot;);
+    }
+    else if (a==c) {
+        printf(&quot;B&quot;);
+    }
+    else {
+        printf(&quot;A&quot;);
+    }
+
+    return 0 ;
+} 
+</code></pre>
+        <h4 id="7-23-分段计算居民水费（10-分）"   >
+          <a href="#7-23-分段计算居民水费（10-分）" class="heading-link"><i class="fas fa-link"></i></a>7-23 分段计算居民水费（10 分）</h4>
+      <p>为鼓励居民节约用水，自来水公司采取按用水量阶梯式计价的办法，居民应交水费y（元）与月用水量x（吨）相关：当x不超过15吨时，y=4x/3；超过后，y=2.5x−17.5。请编写程序实现水费的计算。</p>
+<p>输入格式：<br>输入在一行中给出非负实数x。</p>
+<p>输出格式：<br>在一行输出应交的水费，精确到小数点后2位。</p>
+<p>输入样例1：<br>12<br>输出样例1：<br>16.00<br>输入样例2：<br>16<br>输出样例2：<br>22.50</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main (){
+     int x ;
+     double y;
+     scanf(&quot;%d&quot;,&amp;x) ;
+     if (x &lt;= 15){
+
+         y = 4*x/3.0 ;    
+     }
+    else {
+
+        y = 2.5*x - 17.5 ;        
+    }
+
+    printf(&quot;%.2f&quot;,y);
+
+    return 0 ;
+}
+</code></pre>
+        <h4 id="7-24-猜数字游戏（15-分）"   >
+          <a href="#7-24-猜数字游戏（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-24 猜数字游戏（15 分）</h4>
+      <p>猜数字游戏是令游戏机随机产生一个100以内的正整数，用户输入一个数对其进行猜测，需要你编写程序自动对其与随机产生的被猜数进行比较，并提示大了（“Too big”），还是小了（“Too small”），相等表示猜到了。如果猜到，则结束程序。程序还要求统计猜的次数，如果1次猜出该数，提示“Bingo!”；如果3次以内猜到该数，则提示“Lucky You!”；如果超过3次但是在N（&gt;3）次以内（包括第N次）猜到该数，则提示“Good Guess!”；如果超过N次都没有猜到，则提示“Game Over”，并结束程序。如果在到达N次之前，用户输入了一个负数，也输出“Game Over”，并结束程序。</p>
+<p>输入格式:<br>输入第一行中给出两个不超过100的正整数，分别是游戏机产生的随机数、以及猜测的最大次数N。最后每行给出一个用户的输入，直到出现负数为止。</p>
+<p>输出格式:<br>在一行中输出每次猜测相应的结果，直到输出猜对的结果或“Game Over”则结束。</p>
+<p>输入样例:<br>58 4<br>70<br>50<br>56<br>58<br>60<br>-2<br>输出样例:<br>Too big<br>Too small<br>Too small<br>Good Guess!</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main (){
+    int sjs,N,daan;
+    int i=0 ;  //定义已猜测次数i 
+    scanf(&quot;%d %d&quot;,&amp;sjs,&amp;N);       // 输入游戏产生的随机数，以及猜测的最大次数N 
+
+    do {
+        scanf(&quot;%d&quot;,&amp;daan) ;       //输入每次的猜测结果 
+
+        if (daan &lt; 0){           //检测用户是否输入了负数 
+            printf(&quot;Game Over\n&quot;) ;
+            break ;
+        }
+        else if (daan&gt;sjs ) {         //判断输入的猜测是否比产生的随机数大 
+
+            i++    ;
+            if (i&gt;N) {  //如果猜测次数已经大于最大猜测次数N 就输出game over 并退出循环 
+                printf(&quot;Game Over\n&quot;) ;
+                break ; 
+            }
+            printf (&quot;Too big\n&quot;) ;        
+        }
+
+        else if (daan&lt;sjs) {     //判断输入的猜测是否比产生的随机数小 
+
+            i++ ;
+            if (i&gt;N) {  //如果猜测次数已经大于最大猜测次数N就输出game over 并退出循环 
+                printf(&quot;Game Over\n&quot;) ;
+                break ;
+            }
+            printf (&quot;Too small\n&quot;);
+        }
+</code></pre><p>​<br>​            else {     //猜测结果与产生的随机数相同<br>​                i++ ;<br>​                if (i == 1) {  //一次就猜到<br>​                    printf(“Bingo!\n”) ;<br>​                }<br>​<br>                else if (i &gt; N) { //超过N次也没猜测到<br>                    printf(“Game Over\n”) ;<br>                }</p>
+<pre><code>else if (i &gt; 3 ) { //猜测次数在N和3之间 
+    printf(&quot;Good Guess!\n&quot;) ;
+}
+
+else if (i &lt;= 3) { //3次以内猜到 
+    printf(&quot;Lucky You!\n&quot;) ;
+}
+</code></pre><p>​<br>​            }</p>
+<p>​<br>​        }   while (daan != sjs) ;</p>
+<p>​<br>​            return 0;<br>​    } </p>
+
+        <h4 id="7-25-求奇数和（15-分）"   >
+          <a href="#7-25-求奇数和（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-25 求奇数和（15 分）</h4>
+      <p>本题要求计算给定的一系列正整数中奇数的和。</p>
+<p>输入格式:<br>输入在一行中给出一系列正整数，其间以空格分隔。当读到零或负整数时，表示输入结束，该数字不要处理。</p>
+<p>输出格式:<br>在一行中输出正整数序列中奇数的和。</p>
+<p>输入样例:<br>8 7 4 3 70 5 6 101 -1<br>输出样例:<br>116</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main(){
+int n;
+int sum = 0 ;
+do {
+    scanf(&quot;%d&quot; ,&amp;n) ;
+    if (n%2 == 1) {
+
+    sum = sum + n ;
+}
+
+} while (n &gt; 0) ;
+
+printf(&quot;%d&quot;,sum) ;
+
+  return 0;
+}
+</code></pre>
+        <h4 id="7-26-最大公约数和最小公倍数（15-分）"   >
+          <a href="#7-26-最大公约数和最小公倍数（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-26 最大公约数和最小公倍数（15 分）</h4>
+      <p>本题要求两个给定正整数的最大公约数和最小公倍数。</p>
+<p>输入格式:<br>输入在一行中给出两个正整数M和N（≤1000）。</p>
+<p>输出格式:<br>在一行中顺序输出M和N的最大公约数和最小公倍数，两数字间以1空格分隔。</p>
+<p>输入样例:<br>511 292<br>输出样例:<br>73 2044</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int M,N ;
+    int min ;
+    scanf(&quot;%d %d&quot;,&amp;M,&amp;N) ;
+
+    if (M&lt;N) {
+        min = M;
+    }
+    else {
+        min = N ;
+    }
+
+    int ret = 0;
+    int i ;
+    for (i=1;i&lt;=min;i++) {
+
+        if (M%i == 0) {
+            if (N%i == 0) {
+                ret = i;
+            }
+        }
+    }
+    printf(&quot;%d %d&quot;,ret,M*N/ret) ;
+</code></pre><p>​<br>​        return 0 ;<br>​    }</p>
+
+        <h4 id="7-27-兔子繁衍问题（15-分）"   >
+          <a href="#7-27-兔子繁衍问题（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-27 兔子繁衍问题（15 分）</h4>
+      <p>一对兔子，从出生后第3个月起每个月都生一对兔子。小兔子长到第3个月后每个月又生一对兔子。假如兔子都不死，请问第1个月出生的一对兔子，至少需要繁衍到第几个月时兔子总数才可以达到N对？</p>
+<p>输入格式:<br>输入在一行中给出一个不超过10000的正整数N。</p>
+<p>输出格式:<br>在一行中输出兔子总数达到N最少需要的月数。</p>
+<p>输入样例:<br>30<br>输出样例:<br>9</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main(){
+//兔子繁殖问题 斐波那契数列    
+
+    int a[10000] = {1,1} ; 
+    int i = 2 ;
+
+    do {
+        a[i] = a[i-1] + a[i-2] ;
+        i++;
+
+    } while (i&lt;10000) ;  //将第一个月到的第10000个月的兔子数量依次存入数组a[10000]； 
+</code></pre><p>​<br>​<br>​<br>​        int sum = 0;<br>​        int x = 0;<br>​        int n;<br>​        scanf(“%d”,&amp;n) ;</p>
+<p>​<br>​        do {<br>​<br>            sum = a[x] ;<br>            x++;<br>        } while (sum&lt;n) ;</p>
+<pre><code>printf(&quot;%d&quot;,x) ;
+</code></pre><p>​<br>​        return 0 ;<br>​    } </p>
+
+        <h4 id="7-28-求整数的位数及各位数字之和（15-分）"   >
+          <a href="#7-28-求整数的位数及各位数字之和（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-28 求整数的位数及各位数字之和（15 分）</h4>
+      <p>对于给定的正整数N，求它的位数及其各位数字之和。</p>
+<p>输入格式：<br>输入在一行中给出一个不超过10<br>​9<br>​​ 的正整数N。</p>
+<p>输出格式：<br>在一行中输出N的位数及其各位数字之和，中间用一个空格隔开。</p>
+<p>输入样例：<br>321<br>输出样例：<br>3 6</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main () {
+    int i ;
+    int n;
+    scanf(&quot;%d&quot;,&amp;n);
+    int b = 0 ;
+    int sum = 0 ;
+    int m = n ;
+    while (n&gt;0) {
+        n = n/10 ;
+        b++ ;
+
+    }
+    int a = 1 ;
+    int f ;
+    for (a=1 ;a&lt;=b;a++) {
+
+    f = m % 10 ;
+    m = m / 10 ;
+    sum = sum + f ;
+</code></pre><p>​<br>​        }    </p>
+<p>​<br>​<br>​<br>​    printf(“%d %d”,b,sum);    </p>
+<p>​<br>​        return 0 ;<br>​    }</p>
+
+        <h4 id="7-29-二分法求多项式单根（20-分）"   >
+          <a href="#7-29-二分法求多项式单根（20-分）" class="heading-link"><i class="fas fa-link"></i></a>7-29 二分法求多项式单根（20 分）</h4>
+      <p>二分法求函数根的原理为：如果连续函数f(x)在区间[a,b]的两个端点取值异号，即f(a)f(b)&lt;0，则它在这个区间内至少存在1个根r，即f(r)=0。</p>
+<p>二分法的步骤为：</p>
+<p>检查区间长度，如果小于给定阈值，则停止，输出区间中点(a+b)/2；否则<br>如果f(a)f(b)&lt;0，则计算中点的值f((a+b)/2)；<br>如果f((a+b)/2)正好为0，则(a+b)/2就是要求的根；否则<br>如果f((a+b)/2)与f(a)同号，则说明根在区间[(a+b)/2,b]，令a=(a+b)/2，重复循环；<br>如果f((a+b)/2)与f(b)同号，则说明根在区间[a,(a+b)/2]，令b=(a+b)/2，重复循环。<br>本题目要求编写程序，计算给定3阶多项式f(x)=a<br>​3<br>​​ x<br>​3<br>​​ +a<br>​2<br>​​ x<br>​2<br>​​ +a<br>​1<br>​​ x+a<br>​0<br>​​ 在给定区间[a,b]内的根。</p>
+<p>输入格式：<br>输入在第1行中顺序给出多项式的4个系数a<br>​3<br>​​ 、a<br>​2<br>​​ 、a<br>​1<br>​​ 、a<br>​0<br>​​ ，在第2行中顺序给出区间端点a和b。题目保证多项式在给定区间内存在唯一单根。</p>
+<p>输出格式：<br>在一行中输出该多项式在该区间内的根，精确到小数点后2位。</p>
+<p>输入样例：<br>3 -1 -3 1<br>-0.5 0.5<br>输出样例：<br>0.33</p>
+<pre><code>#include &lt;stdio.h&gt;
+double a3,a2,a1,a0;
+double f(double n) ;
+int main() {
+
+    double a,b;
+    scanf(&quot;%lf%lf%lf%lf&quot;,&amp;a3,&amp;a2,&amp;a1,&amp;a0) ;
+    scanf(&quot;%lf%lf&quot;,&amp;a,&amp;b) ;
+    if ((f(a)*f(b))&gt;0) {
+        printf(&quot;%f&quot;,(a+b)/2) ;
+    } 
+    else {
+        while(a &lt;= b - 0.001 &amp;&amp; f(a) * f(b) &lt;= 0) {  
+            if(    f((a+b)/2) == 0  ) {
+                break ; 
+            } 
+            else if(f((a+b)/2) &lt; 0) {
+                if (f(a) &gt;0 ) {
+                    b = (a+b)/2 ;
+                }
+                else {
+                    a = (a+b)/2 ;
+                }
+            }
+            else if (f((a+b)/2) &gt; 0) {
+                if ( f(a) &gt; 0) {
+                    a = (a+b)/2 ;
+                } 
+                else {
+                    b = (a+b)/2 ;
+                }
+            }
+
+        }
+    }
+    printf(&quot;%.2f&quot;,(a+b)/2) ; 
+    return 0;
+}
+
+double f(double n) {
+    double x = n;
+    double sum = a3*x*x*x+a2*x*x+a1*x+a0;
+    return sum;
+}
+</code></pre>
+        <h4 id="7-30-念数字（15-分）"   >
+          <a href="#7-30-念数字（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-30 念数字（15 分）</h4>
+      <p>输入一个整数，输出每个数字对应的拼音。当整数为负数时，先输出fu字。十个数字对应的拼音如下：</p>
+<p>0: ling<br>1: yi<br>2: er<br>3: san<br>4: si<br>5: wu<br>6: liu<br>7: qi<br>8: ba<br>9: jiu<br>输入格式：<br>输入在一行中给出一个整数，如：1234。</p>
+<p>提示：整数包括负数、零和正数。</p>
+<p>输出格式：<br>在一行中输出这个整数对应的拼音，每个数字的拼音之间用空格分开，行末没有最后的空格。如 yi er san si。</p>
+<p>输入样例：<br>-600<br>输出样例：<br>fu liu ling ling</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main (){
+    int n ,i=1;
+    scanf(&quot;%d&quot;,&amp;n);
+
+    if (n&lt;0) {
+        printf(&quot;fu &quot;) ;
+        n = -n ;
+    }
+    int m =n;
+    while (n &gt; 9) {
+        n = n /10 ;
+        i=i*10 ;        
+    }
+
+    do {
+         int f=m/i;
+         switch (f) {
+             case 0 : printf(&quot;ling&quot;) ;break;
+             case 1 : printf(&quot;yi&quot;)   ;break;
+             case 2 : printf(&quot;er&quot;)   ;break;
+             case 3 : printf(&quot;san&quot;)  ;break;
+             case 4 : printf(&quot;si&quot;)   ;break;
+             case 5 : printf(&quot;wu&quot;)   ;break;
+             case 6 : printf(&quot;liu&quot;)  ;break;
+             case 7 : printf(&quot;qi&quot;)   ;break;
+             case 8 : printf(&quot;ba&quot;)   ;break;
+             case 9 : printf(&quot;jiu&quot;)  ;break;
+         }
+
+         if (i&gt;9) {
+         printf(&quot; &quot;);
+    }
+    m = m % i ;
+    i = i/10 ;
+    } while (i&gt;0) ;
+</code></pre><p>​<br>​<br>​<br>​        return 0 ;<br>​    }</p>
+
+        <h4 id="7-31-掉入陷阱的数字（15-分）"   >
+          <a href="#7-31-掉入陷阱的数字（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-31 掉入陷阱的数字（15 分）</h4>
+      <p>对任意一个自然数N<br>​0<br>​​ ，先将其各位数字相加求和，再将其和乘以3后加上1，变成一个新自然数N<br>​1<br>​​ ；然后对N<br>​1<br>​​ 重复这种操作，可以产生新自然数N<br>​2<br>​​ ；……多次重复这种操作，运算结果最终会得到一个固定不变的数N<br>​k<br>​​ ，就像掉入一个数字“陷阱”。</p>
+<p>本题要求对输入的自然数，给出其掉入“陷阱”的过程。</p>
+<p>输入格式:<br>在一行内给出一个自然数N<br>​0<br>​​ （N<br>​0<br>​​ &lt;30000）。</p>
+<p>输出格式:<br>对于输入的N<br>​0<br>​​ ，逐行输出其掉入陷阱的步骤。第i行描述N掉入陷阱的第i步，格式为： i:N<br>​i<br>​​  （i≥1）。当某一步得到的自然数结果N<br>​k<br>​​ (k≥1)与上一步N<br>​k−1<br>​​ 相同时，停止输出。</p>
+<p>输入样例:<br>5<br>输出样例:<br>1:16<br>2:22<br>3:13<br>4:13</p>
+<pre><code>#include &lt;stdio.h&gt;
+int qiuhe(int n) ;
+int main (){
+    int p;
+    scanf(&quot;%d&quot;,&amp;p) ; 
+    int number = 0;
+    int z;
+    while(p != z) {
+        number++;
+        z = p;
+        p = qiuhe(p) ;
+        printf(&quot;%d:%d\n&quot;,number,p) ;
+
+    }
+    return 0 ;
+}
+int qiuhe(int n) {
+    int i = 0 ;
+    int m = n ;
+    while (n &gt; 0) {
+        n = n /10 ;
+        i++ ;        
+    }
+    int f,a,sum=0;
+    for (a=1;a&lt;=i;a++) {
+
+        f = m %10 ;
+        m = m /10 ;
+        sum = sum + f ;            
+    }
+    return sum*3+1; //ÉèÖÃÒ»¸ö¸÷Î»ÊýÇóºÍµÄº¯Êý 
+}
+</code></pre>
+        <h4 id="7-32-求交错序列前N项和（15-分）"   >
+          <a href="#7-32-求交错序列前N项和（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-32 求交错序列前N项和（15 分）</h4>
+      <p>本题要求编写程序，计算交错序列 1-2/3+3/5-4/7+5/9-6/11+… 的前N项之和。</p>
+<p>输入格式:<br>输入在一行中给出一个正整数N。</p>
+<p>输出格式:<br>在一行中输出部分和的值，结果保留三位小数。</p>
+<p>输入样例:<br>5<br>输出样例:<br>0.917</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main () {
+
+    int n;
+    int m = 1 ;
+    double sum = 0;
+    scanf(&quot;%d&quot;,&amp;n) ;
+    while (m&lt;=n) {
+        if (m%2 == 1) {
+
+            sum = sum + m/ (2.0*m -1) ;
+            m++ ;
+        }
+        else {
+            sum = sum - m/ (2.0*m -1) ;
+            m++ ;    
+        }
+    }
+    printf(&quot;%.3f&quot;,sum) ;
+</code></pre><p>​<br>​        return 0 ;<br>​    }</p>
+
+        <h4 id="7-33-统计素数并求和（20-分）"   >
+          <a href="#7-33-统计素数并求和（20-分）" class="heading-link"><i class="fas fa-link"></i></a>7-33 统计素数并求和（20 分）</h4>
+      <p>本题要求统计给定整数M和N区间内素数的个数并对它们求和。</p>
+<p>输入格式:<br>输入在一行中给出两个正整数M和N（1≤M≤N≤500）。</p>
+<p>输出格式:<br>在一行中顺序输出M和N区间内素数的个数以及它们的和，数字间以空格分隔。</p>
+<p>输入样例:<br>10 31<br>输出样例:<br>7 143</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main(){
+    int m,n;
+    scanf(&quot;%d %d&quot;,&amp;m,&amp;n) ;
+    int i,j;
+    int sum = 0 ;
+    int number = 0;
+    for(i=m;i&lt;=n;i++) {
+        int numb = 1;
+        if (i&lt;2) {
+            numb = 0;
+        }
+        for(j=2;j&lt;i;j++) {
+            if(i%j == 0) {
+                numb = 0;
+                break;
+            }
+        }
+        if(numb ==1) {
+            sum = sum + i;
+            number++;
+        }
+    }    
+    printf(&quot;%d %d&quot;,number,sum) ;
+    return 0;
+}
+</code></pre>
+        <h4 id="7-34-求分数序列前N项和（15-分）"   >
+          <a href="#7-34-求分数序列前N项和（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-34 求分数序列前N项和（15 分）</h4>
+      <p>本题要求编写程序，计算序列 2/1+3/2+5/3+8/5+… 的前N项之和。注意该序列从第2项起，每一项的分子是前一项分子与分母的和，分母是前一项的分子。</p>
+<p>输入格式:<br>输入在一行中给出一个正整数N。</p>
+<p>输出格式:<br>在一行中输出部分和的值，精确到小数点后两位。题目保证计算结果不超过双精度范围。</p>
+<p>输入样例:<br>20<br>输出样例:<br>32.66</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    double sum = 2.0 ;
+    int i = 1;
+    int N ;    
+    double fz = 2.0,fm = 1.0,fz2=0.0;
+    scanf(&quot;%d&quot;,&amp;N) ;
+    while (i&lt;N) {
+
+        fz2=fz;
+        fz=fz+fm;
+        fm=fz2;      //求出第N项的值 
+        sum = sum +(fz/fm);
+        i++;
+        }
+</code></pre><p>​<br>​<br>​        printf(“%.2f”,sum);<br>​        return 0 ;<br>​    }</p>
+
+        <h4 id="7-35-猴子吃桃问题（15-分）"   >
+          <a href="#7-35-猴子吃桃问题（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-35 猴子吃桃问题（15 分）</h4>
+      <p>一只猴子第一天摘下若干个桃子，当即吃了一半，还不过瘾，又多吃了一个；第二天早上又将剩下的桃子吃掉一半，又多吃了一个。以后每天早上都吃了前一天剩下的一半加一个。到第N天早上想再吃时，见只剩下一个桃子了。问：第一天共摘了多少个桃子？</p>
+<p>输入格式:<br>输入在一行中给出正整数N（1&lt;N≤10）。</p>
+<p>输出格式:<br>在一行中输出第一天共摘了多少个桃子。</p>
+<p>输入样例:<br>3<br>输出样例:<br>10</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    double sum = 2.0 ;
+    int i = 1;
+    int N ;    
+    double fz = 2.0,fm = 1.0,fz2=0.0;
+    scanf(&quot;%d&quot;,&amp;N) ;
+    while (i&lt;N) {
+
+        fz2=fz;
+        fz=fz+fm;
+        fm=fz2;      //求出第N项的值 
+        sum = sum +(fz/fm);
+        i++;
+        }
+</code></pre><p>​<br>​<br>​        printf(“%.2f”,sum);<br>​        return 0 ;<br>​    }</p>
+
+        <h4 id="7-36-韩信点兵（10-分）"   >
+          <a href="#7-36-韩信点兵（10-分）" class="heading-link"><i class="fas fa-link"></i></a>7-36 韩信点兵（10 分）</h4>
+      <p>在中国数学史上，广泛流传着一个“韩信点兵”的故事：韩信是汉高祖刘邦手下的大将，他英勇善战，智谋超群，为汉朝建立了卓越的功劳。据说韩信的数学水平也非常高超，他在点兵的时候，为了知道有多少兵，同时又能保住军事机密，便让士兵排队报数：</p>
+<p>按从1至5报数，记下最末一个士兵报的数为1；<br>再按从1至6报数，记下最末一个士兵报的数为5；<br>再按从1至7报数，记下最末一个士兵报的数为4；<br>最后按从1至11报数，最末一个士兵报的数为10；<br>请编写程序计算韩信至少有多少兵。</p>
+<p>输入格式：<br>本题无输入</p>
+<p>输出格式：<br>输出韩信至少拥有的士兵人数。</p>
+<pre><code>#include &lt;stdio.h&gt; 
+int main () { 
+int n = 1;
+for(n=21;;n++){
+
+
+    if(n%5==1 &amp;&amp; n%6==5 &amp;&amp; n%7==4 &amp;&amp; n%11==10){
+
+        printf(&quot;%d&quot;,n) ;
+        break;
+
+    }
+</code></pre><p>​<br>​    }</p>
+<p>​<br>​        return 0 ;<br>​    }</p>
+
+        <h4 id="7-37-输出整数各位数字（15-分）"   >
+          <a href="#7-37-输出整数各位数字（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-37 输出整数各位数字（15 分）</h4>
+      <p>本题要求编写程序，对输入的一个整数，从高位开始逐位分割并输出它的各位数字。</p>
+<p>输入格式：<br>输入在一行中给出一个长整型范围内的非负整数。</p>
+<p>输出格式：<br>从高位开始逐位输出该整数的各位数字，每个数字后面有一个空格。</p>
+<p>输入样例：<br>123456<br>输出样例：<br>1 2 3 4 5 6 </p>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main()
+
+{
+    int n, mask;
+    scanf(&quot;%d&quot;, &amp;n);
+    mask = 1;
+    while (n / mask &gt; 9)
+    {
+        mask *= 10;
+    }
+    while (mask &gt; 0)
+    {
+        printf(&quot;%d &quot;, n / mask);
+        n %= mask;
+        mask /= 10;
+    }
+
+    return 0;
+}
+</code></pre>
+        <h4 id="7-38-支票面额（15-分）"   >
+          <a href="#7-38-支票面额（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-38 支票面额（15 分）</h4>
+      <p>一个采购员去银行兑换一张y元f分的支票，结果出纳员错给了f元y分。采购员用去了n分之后才发觉有错，于是清点了余额尚有2y元2f分，问该支票面额是多少？</p>
+<p>输入格式：<br>输入在一行中给出小于100的正整数n。</p>
+<p>输出格式：<br>在一行中按格式y.f输出该支票的原始面额。如果无解，则输出No Solution。</p>
+<p>输入样例1：<br>23<br>输出样例1：<br>25.51<br>输入样例2：<br>22<br>输出样例2：<br>No Solution</p>
+<pre><code>#include &lt;stdio.h&gt; 
+int main() {
+    int n,f,y,c=0;
+    scanf(&quot;%d&quot;,&amp;n) ;
+    for (y=0;y&lt;100;y++) {
+        for(f=y;f&lt;100;f++) {
+            if (199*y+n == 98*f) {
+                printf(&quot;%d.%d&quot;,y,f) ;
+                c=1;
+            }        
+        }        
+    }
+    if (c==0) {
+        printf(&quot;No Solution&quot;) ;
+    }
+
+    return 0 ;
+}
+</code></pre>
+        <h4 id="7-39-龟兔赛跑（20-分）"   >
+          <a href="#7-39-龟兔赛跑（20-分）" class="heading-link"><i class="fas fa-link"></i></a>7-39 龟兔赛跑（20 分）</h4>
+      <p>乌龟与兔子进行赛跑，跑场是一个矩型跑道，跑道边可以随地进行休息。乌龟每分钟可以前进3米，兔子每分钟前进9米；兔子嫌乌龟跑得慢，觉得肯定能跑赢乌龟，于是，每跑10分钟回头看一下乌龟，若发现自己超过乌龟，就在路边休息，每次休息30分钟，否则继续跑10分钟；而乌龟非常努力，一直跑，不休息。假定乌龟与兔子在同一起点同一时刻开始起跑，请问T分钟后乌龟和兔子谁跑得快？</p>
+<p>输入格式：<br>输入在一行中给出比赛时间T（分钟）。</p>
+<p>输出格式：<br>在一行中输出比赛的结果：乌龟赢输出@<em>@，兔子赢输出^</em>^，平局则输出-_-；后跟1空格，再输出胜利者跑完的距离。</p>
+<p>输入样例：<br>242<br>输出样例：<br>@_@ 726</p>
+<pre><code>#include &lt;stdio.h&gt; 
+#include &lt;string.h&gt;
+int main() {
+    int m,i,xiuxi = 0;
+    int gui = 0 , tuzi = 0;
+    scanf(&quot;%d&quot;,&amp;m) ;
+    for (i=0;i&lt;m;i++) {
+        gui += 3 ;
+        if ( gui&lt;tuzi &amp;&amp; i%10==0 &amp;&amp; xiuxi == 0) {
+            xiuxi = 30;
+        }
+            if (xiuxi == 0) {
+                tuzi += 9 ;
+            }
+            else {
+                xiuxi--;
+            }
+
+    }
+
+    char bq[5] ;
+    int cj;
+    if (tuzi &gt; gui) {
+        strcpy(bq,&quot;^_^&quot;) ;
+        cj = tuzi;
+    }
+    else if (gui &gt; tuzi) {
+        strcpy(bq,&quot;@_@&quot;) ;
+        cj = gui ;
+    }
+    else {
+        strcpy(bq,&quot;-_-&quot;) ;
+    }
+    printf(&quot;%s %d&quot;,bq,cj) ;
+</code></pre><p>​<br>​        return 0 ;<br>​    }</p>
+
+        <h4 id="7-40-到底是不是太胖了（10-分）"   >
+          <a href="#7-40-到底是不是太胖了（10-分）" class="heading-link"><i class="fas fa-link"></i></a>7-40 到底是不是太胖了（10 分）</h4>
+      <p>据说一个人的标准体重应该是其身高（单位：厘米）减去100、再乘以0.9所得到的公斤数。真实体重与标准体重误差在10%以内都是完美身材（即 | 真实体重 − 标准体重 | &lt; 标准体重×10%）。已知市斤是公斤的两倍。现给定一群人的身高和实际体重，请你告诉他们是否太胖或太瘦了。</p>
+<p>输入格式：<br>输入第一行给出一个正整数N（≤ 20）。随后N行，每行给出两个整数，分别是一个人的身高H（120 &lt; H &lt; 200；单位：厘米）和真实体重W（50 &lt; W ≤ 300；单位：市斤），其间以空格分隔。</p>
+<p>输出格式：<br>为每个人输出一行结论：如果是完美身材，输出You are wan mei!；如果太胖了，输出You are tai pang le!；否则输出You are tai shou le!。</p>
+<p>输入样例：<br>3<br>169 136<br>150 81<br>178 155</p>
+<p>输出样例：<br>You are wan mei!<br>You are tai shou le!<br>You are tai pang le!</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+int main() {
+    int n,i=1,sg,tz;
+    double bztz,fw1,fw2,tz1;
+
+    scanf(&quot;%d&quot;,&amp;n);
+    while (i&lt;=n) {
+
+    scanf(&quot;%d %d&quot;,&amp;sg,&amp;tz) ;//输入身高和真实体重 
+
+    bztz =  (sg-100.0)*1.8 ;  //计算标准体重并赋值给变量 bztz  
+    fw1 = bztz*1.1;  //计算标准体重的最大值，并赋值给 fw 
+    fw2 = bztz*0.9;
+</code></pre><p>​<br>​<br>​         if (tz&gt;fw1) {<br>​            printf(“You are tai pang le!\n”);<br>​<br>        }</p>
+<pre><code>    else if(tz&lt;=fw2){
+        printf(&quot;You are tai shou le!\n&quot;);    
+    }
+
+    else {
+        printf(&quot;You are wan mei!\n&quot;);
+
+    }
+
+    i ++;    
+    }
+
+    return 0 ;
+}
+</code></pre>
+        <h4 id="7-41-计算阶乘和（10-分）"   >
+          <a href="#7-41-计算阶乘和（10-分）" class="heading-link"><i class="fas fa-link"></i></a>7-41 计算阶乘和（10 分）</h4>
+      <p>对于给定的正整数N，需要你计算 S=1!+2!+3!+…+N!。</p>
+<p>输入格式：<br>输入在一行中给出一个不超过10的正整数N。</p>
+<p>输出格式：<br>在一行中输出S的值。</p>
+<p>输入样例：<br>3<br>输出样例：<br>9</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main(){
+
+    int n;
+    int sum = 1,sums = 0,h = 1,i = 1;
+    scanf(&quot;%d&quot;,&amp;n) ;
+    while (i&lt;=n) {
+        while (h&lt;=i){
+            sum = sum * h;
+            h++;
+        }
+        sums = sums + sum ;
+        i++;
+    }
+    printf(&quot;%d&quot;,sums) ;
+
+    return 0 ;
+}
+</code></pre>
+        <h4 id="7-42-整除光棍（20-分）"   >
+          <a href="#7-42-整除光棍（20-分）" class="heading-link"><i class="fas fa-link"></i></a>7-42 整除光棍（20 分）</h4>
+      <p>这里所谓的“光棍”，并不是指单身汪啦~ 说的是全部由1组成的数字，比如1、11、111、1111等。传说任何一个光棍都能被一个不以5结尾的奇数整除。比如，111111就可以被13整除。 现在，你的程序要读入一个整数x，这个整数一定是奇数并且不以5结尾。然后，经过计算，输出两个数字：第一个数字s，表示x乘以s是一个光棍，第二个数字n是这个光棍的位数。这样的解当然不是唯一的,题目要求你输出最小的解。</p>
+<p>提示：一个显然的办法是逐渐增加光棍的位数，直到可以整除x为止。但难点在于，s可能是个非常大的数 —— 比如，程序输入31，那么就输出3584229390681和15，因为31乘以3584229390681的结果是111111111111111，一共15个1。</p>
+<p>输入格式：<br>输入在一行中给出一个不以5结尾的正奇数x（&lt;1000）。</p>
+<p>输出格式：<br>在一行中输出相应的最小的s和n，其间以1个空格分隔。</p>
+<p>输入样例：<br>31<br>输出样例：<br>3584229390681 15</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+
+    int x, n = 0;
+    long long y = 0,s = 0;
+    scanf(&quot;%d&quot;,&amp;x) ;
+    do {
+        y = y*10 + 1;
+        n ++ ;
+        s = y / x;
+</code></pre><p>​<br>​        } while (y%x != 0) ;<br>​<br>        printf(“%lld %d”,s,n) ;</p>
+<p>​<br>​        return 0 ;<br>​    }</p>
+
+        <h4 id="7-43-Shuffling-Machine（20-分）"   >
+          <a href="#7-43-Shuffling-Machine（20-分）" class="heading-link"><i class="fas fa-link"></i></a>7-43 Shuffling Machine（20 分）</h4>
+      <p>Shuffling is a procedure used to randomize a deck of playing cards. Because standard shuffling techniques are seen as weak, and in order to avoid “inside jobs” where employees collaborate with gamblers by performing inadequate shuffles, many casinos employ automatic shuffling machines. Your task is to simulate a shuffling machine.</p>
+<p>The machine shuffles a deck of 54 cards according to a given random order and repeats for a given number of times. It is assumed that the initial status of a card deck is in the following order:</p>
+<p>S1, S2, …, S13,<br>H1, H2, …, H13,<br>C1, C2, …, C13,<br>D1, D2, …, D13,<br>J1, J2<br>where “S” stands for “Spade”, “H” for “Heart”, “C” for “Club”, “D” for “Diamond”, and “J” for “Joker”. A given order is a permutation of distinct integers in [1, 54]. If the number at the i-th position is j, it means to move the card from position i to position j. For example, suppose we only have 5 cards: S3, H5, C1, D13 and J2. Given a shuffling order {4, 2, 5, 3, 1}, the result will be: J2, H5, D13, S3, C1. If we are to repeat the shuffling again, the result will be: C1, H5, S3, J2, D13.</p>
+<p>Input Specification:<br>Each input file contains one test case. For each case, the first line contains a positive integer K (≤20) which is the number of repeat times. Then the next line contains the given order. All the numbers in a line are separated by a space.</p>
+<p>Output Specification:<br>For each test case, print the shuffling results in one line. All the cards are separated by a space, and there must be no extra space at the end of the line.</p>
+<p>Sample Input:<br>2<br>36 52 37 38 3 39 40 53 54 41 11 12 13 42 43 44 2 4 23 24 25 26 27 6 7 8 48 49 50 51 9 10 14 15 16 5 17 18 19 1 20 21 22 28 29 30 31 32 33 34 35 45 46 47<br>Sample Output:<br>S7 C11 C10 C12 S1 H7 H8 H9 D8 D9 S11 S12 S13 D10 D11 D12 S3 S4 S6 S10 H1 H2 C13 D2 D3 D4 H6 H3 D13 J1 J2 C1 C2 C3 C4 D1 S5 H5 H11 H12 C6 C7 C8 C9 S2 S8 S9 H10</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int k;
+    int star[55] , bh[55] , ch[55];
+    char num[] = {&quot;SHCDJ&quot;} ;
+    scanf(&quot;%d&quot;,&amp;k);
+    int i,j;
+    for (i=1;i&lt;55;i++){
+        scanf(&quot;%d&quot;,&amp;star[i]) ; //输入洗牌要变化的位置，存储到数组star
+        bh[i] = i; //同时生成牌，用数字1-54来代替，这也是for循环从1开始的原因 
+    }
+    for (j=1;j&lt;=k;j++) {  //控制洗牌次数 
+        for(i=1;i&lt;55;i++) {
+            ch[i] = bh[i] ;  //将bh数组的元素存入到ch数组中，用来洗牌 
+        }
+        for(i=1;i&lt;55;i++){    //开始洗牌    
+        bh[star[i]] = ch[i] ; //根据题意，因为此时bh和ch数组完全相同， 
+        }                     //所以只要按照star数组的洗牌要求，将ch[i]中的数字，替换到bh[star[i]]的位置即可； 
+
+    }
+    for (i=1;i&lt;55;i++) {
+        bh[i] = bh[i] - 1;//要将1-54转换成字母，若不减1，bh[i]/13，无法转换成对应的字母 
+        printf(&quot;%c%d&quot;,num[bh[i]/13],bh[i]%13+1);
+        if (i != 54) {
+            printf(&quot; &quot;);//若输出不是最后一个则输出一个空格 
+        }
+    }
+
+    return 0;
+} 
+</code></pre>
+        <h4 id="7-44-黑洞数（20-分）"   >
+          <a href="#7-44-黑洞数（20-分）" class="heading-link"><i class="fas fa-link"></i></a>7-44 黑洞数（20 分）</h4>
+      <p>黑洞数也称为陷阱数，又称“Kaprekar问题”，是一类具有奇特转换特性的数。</p>
+<p>任何一个各位数字不全相同的三位数，经有限次“重排求差”操作，总会得到495。最后所得的495即为三位黑洞数。所谓“重排求差”操作即组成该数的数字重排后的最大数减去重排后的最小数。（6174为四位黑洞数。）</p>
+<p>例如，对三位数207：</p>
+<p>第1次重排求差得：720 - 27 ＝ 693；<br>第2次重排求差得：963 - 369 ＝ 594；<br>第3次重排求差得：954 - 459 ＝ 495；<br>以后会停留在495这一黑洞数。如果三位数的3个数字全相同，一次转换后即为0。</p>
+<p>任意输入一个三位数，编程给出重排求差的过程。</p>
+<p>输入格式：<br>输入在一行中给出一个三位数。</p>
+<p>输出格式：<br>按照以下格式输出重排求差的过程：</p>
+<p>序号: 数字重排后的最大数 - 重排后的最小数 = 差值<br>序号从1开始，直到495出现在等号右边为止。</p>
+<p>输入样例：<br>123<br>输出样例：<br>1: 321 - 123 = 198<br>2: 981 - 189 = 792<br>3: 972 - 279 = 693<br>4: 963 - 369 = 594<br>5: 954 - 459 = 495</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int ch[3] ;
+    int n , i , t , k = 0 , a = 0;
+    int max,min;
+    scanf(&quot;%d&quot;,&amp;n) ;
+    if (n == 495) {
+        printf(&quot;1: 954 - 459 = 495&quot;) ;  //如果输入的495，则特殊处理，直接输出这种情况； 
+    } 
+    while(n != 495) {
+</code></pre><p>​<br>​        ch[0] = n / 100 ;<br>​        ch[1] = (n / 10) % 10 ;<br>​        ch[2] = (n % 100) % 10;  //将输入的数字逐位存储到数组ch中；<br>​<br>        for (i=0;i&lt;3;i++) {<br>            for(t=i+1;t&lt;3;t++) {<br>                if(ch[i]&lt;ch[t]) {<br>                    k = ch[i] ;<br>                    ch[i] = ch[t] ;<br>                    ch[t] = k ;<br>                }<br>            }<br>        }  //将数组中的数，从大到小，排列到ch[0] ch[1] ch[2]<br>        max = ch[0]<em>100 + ch[1]</em>10 +ch[2];  //计算最大值<br>        min = ch[2]<em>100 + ch[1]</em>10 +ch[0];  //计算最小值<br>        n = max - min;  //计算差值<br>        a++;  //计数<br>        if (ch[0] == ch[1] &amp;&amp; ch[1] == ch[2]) {<br>        printf(“%d: %d - %d = %d”,a,max,min,n);<br>        break;<br>        }<br>        printf(“%d: %d - %d = %d”,a,max,min,n);<br>        if (n != 495 ) {<br>            printf(“\n”) ;<br>        }<br>        }<br>        return 0 ;<br>    }</p>
+
+        <h4 id="7-45-找完数（20-分）"   >
+          <a href="#7-45-找完数（20-分）" class="heading-link"><i class="fas fa-link"></i></a>7-45 找完数（20 分）</h4>
+      <p>所谓完数就是该数恰好等于除自身外的因子之和。例如：6=1+2+3，其中1、2、3为6的因子。本题要求编写程序，找出任意两正整数m和n之间的所有完数。</p>
+<p>输入格式：<br>输入在一行中给出2个正整数m和n（1&lt;m≤n≤10000），中间以空格分隔。</p>
+<p>输出格式：<br>逐行输出给定范围内每个完数的因子累加形式的分解式，每个完数占一行，格式为“完数 = 因子1 + 因子2 + … + 因子k”，其中完数和因子均按递增顺序给出。若区间内没有完数，则输出“None”。</p>
+<p>输入样例：<br>2 30<br>输出样例：<br>6 = 1 + 2 + 3<br>28 = 1 + 2 + 4 + 7 + 14</p>
+<pre><code>#include&lt;stdio.h&gt;
+int main(){
+    int n,m,i,j,sum,num=0;
+    scanf(&quot;%d %d&quot;,&amp;m,&amp;n);
+    for(i=m;i&lt;=n;i++){
+        if(i==1) continue;    //1不是完数 
+        sum=1;
+        for(j=2;j&lt;i;j++)    //因子数之和 
+            if(i%j==0) sum+=j;
+        if(sum==i){        //之和相等，既是完数 
+            printf(&quot;%d = 1&quot;,i);    //每一项都有1
+            for(j=2;j&lt;i;j++)    
+                if(i%j==0) 
+                    printf(&quot; + %d&quot;,j);    //之后再加上后面的因子 
+            printf(&quot;\n&quot;);
+            num++;
+        }
+    }
+    if(num==0) printf(&quot;None\n&quot;); //num是用来统计出现的完数个数 
+    return 0;
+}
+</code></pre>
+        <h4 id="7-46-爬动的蠕虫（15-分）"   >
+          <a href="#7-46-爬动的蠕虫（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-46 爬动的蠕虫（15 分）</h4>
+      <p>一条蠕虫长1寸，在一口深为N寸的井的底部。已知蠕虫每1分钟可以向上爬U寸，但必须休息1分钟才能接着往上爬。在休息的过程中，蠕虫又下滑了D寸。就这样，上爬和下滑重复进行。请问，蠕虫需要多长时间才能爬出井？</p>
+<p>这里要求不足1分钟按1分钟计，并且假定只要在某次上爬过程中蠕虫的头部到达了井的顶部，那么蠕虫就完成任务了。初始时，蠕虫是趴在井底的（即高度为0）。</p>
+<p>输入格式：<br>输入在一行中顺序给出3个正整数N、U、D，其中D&lt;U，N不超过100。</p>
+<p>输出格式：<br>在一行中输出蠕虫爬出井的时间，以分钟为单位。</p>
+<p>输入样例：<br>12 3 1<br>输出样例：<br>11</p>
+<pre><code>#include &lt;stdio.h&gt; 
+int main(){
+    int n,u,d;
+    int h = 0 ,i = 0;
+</code></pre><p>​<br>​        scanf(“%d%d%d”,&amp;n,&amp;u,&amp;d) ;<br>​        while (h&lt;n) {<br>​<br>            i++;<br>            if (i%2 == 1) {<br>                h = h + u;<br>            }<br>            else {<br>                h = h - d;<br>            }</p>
+<pre><code>    }
+    printf(&quot;%d&quot;,i);
+
+    return 0 ;
+}
+</code></pre>
+        <h4 id="7-47-二进制的前导的零（10-分）"   >
+          <a href="#7-47-二进制的前导的零（10-分）" class="heading-link"><i class="fas fa-link"></i></a>7-47 二进制的前导的零（10 分）</h4>
+      <p>计算机内部用二进制来表达所有的值。一个十进制的数字，比如18，在一个32位的计算机内部被表达为00000000000000000000000000011000。可以看到，从左边数过来，在第一个1之前，有27个0。我们把这些0称作前导的零。</p>
+<p>现在，你的任务是写一个程序，输入一个整数，输出在32位表达下它前导的零的个数。</p>
+<p>输入格式:<br>一个整数，在32位的整数可以表达的范围内。</p>
+<p>输出格式:<br>一个整数，表达输入被表达为一个32位的二进制数时，在第一个1之前的0的数量。</p>
+<p>输入样例:<br>256<br>输出样例:<br>23</p>
+<pre><code>#include &lt;stdio.h&gt; 
+int main () {
+    int a[32];
+    int n,m;
+    scanf(&quot;%d&quot;,&amp;n) ;
+    int i = 0 ;
+    if (n==0) {
+        printf(&quot;32&quot;) ;
+    }
+    else if (n&lt;0) {
+        printf(&quot;0&quot;) ;
+    }
+    else{
+
+    while(n&gt;0) {
+        a[i] = n % 2;
+        n = n / 2; 
+        i++;
+    } 
+    for(i=31;i&gt;0;i--) {
+        if(a[i] == 1) {
+            m = i+1 ;
+        }
+
+    }
+    printf(&quot;%d&quot;,32-m) ;
+    }
+    return 0 ;
+}
+</code></pre>
+        <h4 id="7-48-求组合数（15-分）"   >
+          <a href="#7-48-求组合数（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-48 求组合数（15 分）</h4>
+      <p>本题要求编写程序，根据公式C<br>​n<br>​m<br>​​ =<br>​m!(n−m)!<br>​<br>​n!<br>​​ 算出从n个不同元素中取出m个元素（m≤n）的组合数。</p>
+<p>建议定义和调用函数fact(n)计算n!，其中n的类型是int，函数类型是double。</p>
+<p>输入格式:<br>输入在一行中给出两个正整数m和n（m≤n），以空格分隔。</p>
+<p>输出格式:<br>按照格式“result = 组合数计算结果”输出。题目保证结果在double类型范围内。</p>
+<p>输入样例:<br>2 7<br>输出样例:<br>result = 21</p>
+<pre><code>#include &lt;stdio.h&gt;
+double fact(int n) ; 
+int main() {
+    double result;
+    int n,m;
+    scanf(&quot;%d %d&quot;,&amp;m,&amp;n);
+    result =( fact(n) )/( fact(m) * fact(n-m) ) ;
+    printf(&quot;result = %g&quot;,result) ;
+</code></pre><p>​<br>​        return 0 ;<br>​    }<br>​    double fact(int n) {<br>​        int i = 1;<br>​        double sum = 1 ;<br>​        while(i&lt;=n) {<br>​            sum = sum * i;<br>​            i++;<br>​        }<br>​        return sum;<br>​    }</p>
+
+        <h4 id="7-49-Have-Fun-with-Numbers（20-分）"   >
+          <a href="#7-49-Have-Fun-with-Numbers（20-分）" class="heading-link"><i class="fas fa-link"></i></a>7-49 Have Fun with Numbers（20 分）</h4>
+      <p>Notice that the number 123456789 is a 9-digit number consisting exactly the numbers from 1 to 9, with no duplication. Double it we will obtain 246913578, which happens to be another 9-digit number consisting exactly the numbers from 1 to 9, only in a different permutation. Check to see the result if we double it again!</p>
+<p>Now you are suppose to check if there are more numbers with this property. That is, double a given number with k digits, you are to tell if the resulting number consists of only a permutation of the digits in the original number.</p>
+<p>Input Specification:<br>Each input contains one test case. Each case contains one positive integer with no more than 20 digits.</p>
+<p>Output Specification:<br>For each test case, first print in a line “Yes” if doubling the input number gives a number that consists of only a permutation of the digits in the original number, or “No” if not. Then in the next line, print the doubled number.</p>
+<p>Sample Input:<br>1234567899<br>Sample Output:<br>Yes<br>2469135798</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main() {
+    char ah[21] ;
+    char bh[21] ;
+    gets(ah) ;
+    int len = strlen(ah) ;
+    int i,j , flag1 = 1 ,abs,m=0,s;
+
+    if ((ah[0]-&apos;0&apos;)*2&gt;= 10) {  //Èç¹ûµÚÒ»Î»&gt;=5£¬*2µ¼ÖÂÎ»Êý¸Ä±ä ¿Ï¶¨²»ÏàµÈ 
+        bh[0]=&apos;1&apos;;
+        flag1 = 0;
+    }
+    for (i=len-1;i&gt;=0;i--) { //´Ó×îºóÒ»Î»¿ªÊ¼*2 
+        if( (ah[i] - &apos;0&apos;) * 2 &gt;=10 ) {
+            s = (ah[i] - &apos;0&apos;) * 2 %10+m;
+            bh[i+1] = s+&apos;0&apos;;
+            m = 1;
+        }
+        else{
+            s = (ah[i] - &apos;0&apos;) * 2 + m;
+            bh[i+1] = s+&apos;0&apos;;
+            m = 0;
+        }
+    }
+    int flag = 1;
+    for (i=1;i&lt;=len;i++) {
+        for (j=0;j&lt;len;j++) {
+            if(ah[j] == bh[i]) {
+                ah[j] = &apos;a&apos; ;
+                break;
+            }
+        }
+    }
+    for (i=1;i&lt;len;i++) {
+        if(ah[i] != &apos;a&apos;) {
+            flag = 0;
+            break;
+        }
+    }
+    if (flag==0) {
+        printf(&quot;No\n&quot;);
+    }
+    else{
+        printf(&quot;Yes\n&quot;);
+    }
+    if(flag1==0) {
+        for(i=0;i&lt;=len;i++){
+            printf(&quot;%c&quot;,bh[i]) ;    
+        }
+
+    }
+    else{
+        for(i=1;i&lt;=len;i++){
+            printf(&quot;%c&quot;,bh[i]) ;    
+        }
+    }
+    return 0 ;
+}
+</code></pre>
+        <h4 id="7-50-近似求PI（15-分）"   >
+          <a href="#7-50-近似求PI（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-50 近似求PI（15 分）</h4>
+      <p>本题要求编写程序，根据下式求π的近似值，直到最后一项小于给定精度eps。</p>
+<p>2<br>​<br>​π<br>​​ =1+<br>​3<br>​<br>​1!<br>​​ +<br>​3×5<br>​<br>​2!<br>​​ +<br>​3×5×7<br>​<br>​3!<br>​​ +⋯+<br>​3×5×⋯×(2×i+1)<br>​<br>​i!<br>​​ +⋯</p>
+<p>输入格式：<br>输入在一行中给出精度eps，可以使用以下语句来读输入：</p>
+<p>scanf(“%le”, &amp;eps);<br>输出格式：<br>在一行内，按照以下格式输出π的近似值（保留小数点后5位）：</p>
+<p>PI = 近似值<br>输入样例：<br>1E-5<br>输出样例：<br>PI = 3.14158</p>
+<pre><code>#include&lt;stdio.h&gt;  
+int main()  
+{  
+    double x;  
+    double i = 2, d = 3;//i从第二项开始，d为第二项分母  
+    double temp=1,n = 1, n1 = 2, sum = 1;  
+    scanf(&quot;%lf&quot;, &amp;x);
+    while (temp &gt;= x)  
+    {  
+        temp = n / d;//每一项的单项  
+        sum += temp;
+        n = n*n1;//分子  
+        n1++;  
+        d = d*(2 * i + 1);//分母 
+        i++;  
+    }  
+    printf(&quot;%.6f\n&quot;, sum*2); 
+    return 0;  
+}
+</code></pre>
+        <h4 id="7-51-求n以内最大的k个素数以及它们的和（20-分）"   >
+          <a href="#7-51-求n以内最大的k个素数以及它们的和（20-分）" class="heading-link"><i class="fas fa-link"></i></a>7-51 求n以内最大的k个素数以及它们的和（20 分）</h4>
+      <p>本题要求计算并输出不超过n的最大的k个素数以及它们的和。</p>
+<p>输入格式:<br>输入在一行中给出n(10≤n≤10000)和k(1≤k≤10)的值。</p>
+<p>输出格式:<br>在一行中按下列格式输出:</p>
+<p>素数1+素数2+…+素数k=总和值<br>其中素数按递减顺序输出。若n以内不够k个素数，则按实际个数输出。</p>
+<p>输入样例1:<br>1000 10<br>输出样例1:<br>997+991+983+977+971+967+953+947+941+937=9664<br>输入样例2:<br>12 6<br>输出样例2:<br>11+7+5+3+2=28</p>
+<pre><code>#include &lt;stdio.h&gt; 
+int sushu(int n);  //定义一个函数判断输入n是否为素数，若是素数返回n，不是素数返回0； 
+int main() {
+    int n,k,sum = 0,i=0;
+    scanf(&quot;%d %d&quot;,&amp;n,&amp;k) ;
+    do {
+</code></pre><p>​<br>​            if (sushu(n) != 0) //如果sushu（n）不返回0，说明n为素数<br>​            {<br>​            printf(“%d”,n);<br>​            i++;//计数，记录素数的个数<br>​            if (i &lt; k &amp;&amp; n &gt; 2) //判断是否需要打印 + 号<br>​            {<br>​                printf(“+”);<br>​            }<br>​            sum = sum + n ;//求素数的合 </p>
+<p>​<br>​            }<br>​<br>        n–;//n依次递减 </p>
+<pre><code>    }    while(i&lt;k&amp;&amp;n&gt;0) ;//当已经求得的素数个数小于k个，并且n&gt;0时继续循环 
+
+printf(&quot;=%d&quot;,sum) ;    //  \b去掉结尾多余的一个+号，输出素数和的结果 
+
+    return 0 ;
+}
+int sushu(int n) {
+
+    int i = 2;
+    while(i&lt;=n) {
+        if (n%i==0) {
+            break; 
+        }
+        i++;
+    }
+    if (i==n) {
+
+        return n;    
+    }
+return 0;    
+}
+</code></pre>
+        <h4 id="7-52-数组元素循环右移问题（20-分）"   >
+          <a href="#7-52-数组元素循环右移问题（20-分）" class="heading-link"><i class="fas fa-link"></i></a>7-52 数组元素循环右移问题（20 分）</h4>
+      <p>一个数组A中存有N（&gt;0）个整数，在不允许使用另外数组的前提下，将每个整数循环向右移M（≥0）个位置，即将A中的数据由（A<br>​0<br>​​ A<br>​1<br>​​ ⋯A<br>​N−1<br>​​ ）变换为（A<br>​N−M<br>​​ ⋯A<br>​N−1<br>​​ A<br>​0<br>​​ A<br>​1<br>​​ ⋯A<br>​N−M−1<br>​​ ）（最后M个数循环移至最前面的M个位置）。如果需要考虑程序移动数据的次数尽量少，要如何设计移动的方法？</p>
+<p>输入格式:<br>每个输入包含一个测试用例，第1行输入N（1≤N≤100）和M（≥0）；第2行输入N个整数，之间用空格分隔。</p>
+<p>输出格式:<br>在一行中输出循环右移M位以后的整数序列，之间用空格分隔，序列结尾不能有多余空格。</p>
+<p>输入样例:<br>6 2<br>1 2 3 4 5 6<br>输出样例:<br>5 6 1 2 3 4</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+int n,m,i,g,q,ans,p;
+scanf(&quot;%d %d&quot;,&amp;n,&amp;m) ;
+int a[n-1] ;
+for (i=0;i&lt;=n-1;i++) {
+    scanf(&quot;%d&quot;,&amp;a[i]) ;
+} 
+for (p=1;p&lt;=m;p++) {
+
+    for (q=n-1;q&gt;0;q--) {
+        ans = a[q] ;
+        a[q] = a[q-1] ;
+        a[q-1] = ans ;
+
+    }
+}  
+for (g=0;g&lt;=n-1;g++){
+    printf(&quot;%d&quot;,a[g]) ;
+    if (g&lt;n-1) {
+        printf(&quot; &quot;) ;
+    }    
+}
+    return 0;
+}
+</code></pre>
+        <h4 id="7-53-求最大值及其下标（20-分）"   >
+          <a href="#7-53-求最大值及其下标（20-分）" class="heading-link"><i class="fas fa-link"></i></a>7-53 求最大值及其下标（20 分）</h4>
+      <p>本题要求编写程序，找出给定的n个数中的最大值及其对应的最小下标（下标从0开始）。</p>
+<p>输入格式:<br>输入在第一行中给出一个正整数n（1&lt;n≤10）。第二行输入n个整数，用空格分开。</p>
+<p>输出格式:<br>在一行中输出最大值及最大值的最小下标，中间用一个空格分开。</p>
+<p>输入样例:<br>6<br>2 8 10 1 9 10<br>输出样例:<br>10 2</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n,i;
+    scanf(&quot;%d&quot;,&amp;n);
+    int a[n];
+    for (i=0;i&lt;n;i++) {
+        scanf(&quot;%d&quot;,&amp;a[i]) ;    
+    }
+
+    int m;
+    int p = 0;
+    for(m=1;m&lt;n;m++) {
+        if( a[m]&gt;a[p] ) {
+            p = m;
+
+        }
+    }
+    printf(&quot;%d %d&quot;,a[p],p) ;
+
+    return 0 ;
+} 
+</code></pre>
+        <h4 id="7-54-将数组中的数逆序存放（20-分）"   >
+          <a href="#7-54-将数组中的数逆序存放（20-分）" class="heading-link"><i class="fas fa-link"></i></a>7-54 将数组中的数逆序存放（20 分）</h4>
+      <p>本题要求编写程序，将给定的n个整数存入数组中，将数组中的这n个数逆序存放，再按顺序输出数组中的元素。</p>
+<p>输入格式:<br>输入在第一行中给出一个正整数n（1≤n≤10）。第二行输入n个整数，用空格分开。</p>
+<p>输出格式:<br>在一行中输出这n个整数的处理结果，相邻数字中间用一个空格分开，行末不得有多余空格。</p>
+<p>输入样例:<br>4<br>10 8 1 2<br>输出样例:<br>2 1 8 10</p>
+<pre><code>#include &lt;stdio.h&gt; 
+int main() {
+    int n,i;
+    scanf(&quot;%d&quot;,&amp;n) ;
+    int a[n] , b[n];
+    int m , t ,x;
+    for(i=0;i&lt;n;i++) {
+        scanf(&quot;%d&quot;,&amp;a[i]) ;
+    }
+    m = n-1;
+    for (t=0;t&lt;n;t++) {
+        b[t] = a[m] ;
+        m-- ; 
+    }
+    for (x=0;x&lt;n;x++) {
+        printf(&quot;%d&quot;,b[x]) ;
+        if(x&lt;n-1) {
+            printf(&quot; &quot;);
+        }
+    }    
+    return 0 ;
+}
+</code></pre>
+        <h4 id="7-55-矩阵运算（20-分）"   >
+          <a href="#7-55-矩阵运算（20-分）" class="heading-link"><i class="fas fa-link"></i></a>7-55 矩阵运算（20 分）</h4>
+      <p>给定一个n×n的方阵，本题要求计算该矩阵除副对角线、最后一列和最后一行以外的所有元素之和。副对角线为从矩阵的右上角至左下角的连线。</p>
+<p>输入格式:<br>输入第一行给出正整数n（1&lt;n≤10）；随后n行，每行给出n个整数，其间以空格分隔。</p>
+<p>输出格式:<br>在一行中给出该矩阵除副对角线、最后一列和最后一行以外的所有元素之和。</p>
+<p>输入样例:<br>4<br>2 3 4 1<br>5 6 1 1<br>7 1 8 1<br>1 1 1 1<br>输出样例:<br>35</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+int n;
+scanf(&quot;%d&quot;,&amp;n) ;
+int a[n][n] ;
+int i , j;
+for (i=0;i&lt;n;i++) {
+    for (j=0;j&lt;n;j++) {
+        scanf (&quot;%d&quot;,&amp;a[i][j]) ;
+    }    
+}
+int sum;
+for (i=0;i&lt;n;i++) {
+    for (j=0;j&lt;n;j++) {
+    sum = sum + a[i][j] ;
+    }    
+}    //计算所有元素的和    
+int x,y;
+for(x=1;x&lt;n;x++) {        
+    sum = sum - a[n-1][x];     //所有元素的和减去最后一列的和，但不包括开始的端点    
+}        
+for(y=1;y&lt;n-1;y++) {           
+    sum = sum - a[y][n-1]; //所有元素的和减去最后一行的和，但不包括两个端点         
+}    
+int f=1;
+int t;
+for(t=0;t&lt;n;t++) {
+    sum = sum - a[t][n-f] ;//所有元素的和减去最对角元素和
+    f++;
+}
+
+printf(&quot;%d&quot;,sum);
+
+return 0 ;
+}
+</code></pre>
+        <h4 id="7-56-找鞍点（20-分）"   >
+          <a href="#7-56-找鞍点（20-分）" class="heading-link"><i class="fas fa-link"></i></a>7-56 找鞍点（20 分）</h4>
+      <p>一个矩阵元素的“鞍点”是指该位置上的元素值在该行上最大、在该列上最小。</p>
+<p>本题要求编写程序，求一个给定的n阶方阵的鞍点。</p>
+<p>输入格式：<br>输入第一行给出一个正整数n（1≤n≤6）。随后n行，每行给出n个整数，其间以空格分隔。</p>
+<p>输出格式：<br>输出在一行中按照“行下标 列下标”（下标从0开始）的格式输出鞍点的位置。如果鞍点不存在，则输出“NONE”。题目保证给出的矩阵至多存在一个鞍点。</p>
+<p>输入样例1：<br>4<br>1 7 4 1<br>4 8 3 6<br>1 6 1 2<br>0 7 8 9<br>输出样例1：<br>2 1</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n;
+    scanf(&quot;%d&quot;,&amp;n);
+    int a[n][n];
+    int i , j ; 
+    for (i=0;i&lt;n;i++){
+        for(j=0;j&lt;n;j++){
+            scanf(&quot;%d&quot;,&amp;a[i][j]);
+        }
+    }
+
+    for (i=0;i&lt;n;i++){
+    int max = 0 , m = 0,t;
+        for(j=1;j&lt;n;j++){
+            if (a[i][max] &lt; a[i][j]) {
+                max = j;  //寻找行最大值 
+            }
+        }
+        for(t=0;t&lt;n;t++) {
+            if (a[t][max] &lt; a[m][max]) {
+                m = t;  //寻找列最小值 
+            }
+        }
+        if (a[m][max] == a[i][max])    {   //如果一个数是行最大值同时又是列最小值，那么它就是鞍点 
+
+            printf(&quot;%d %d&quot;,m,max) ;  
+            return 0 ;
+
+        }
+</code></pre><p>​<br>​<br>​        }<br>​<br>        printf(“NONE”) ;<br>        return 0 ;<br>    }</p>
+
+        <h4 id="7-57-查找整数（10-分）"   >
+          <a href="#7-57-查找整数（10-分）" class="heading-link"><i class="fas fa-link"></i></a>7-57 查找整数（10 分）</h4>
+      <p>本题要求从输入的N个整数中查找给定的X。如果找到，输出X的位置（从0开始数）；如果没有找到，输出“Not Found”。</p>
+<p>输入格式：<br>输入在第一行中给出两个正整数N（≤20）和X，第二行给出N个整数。数字均不超过长整型，其间以空格分隔。</p>
+<p>输出格式：<br>在一行中输出X的位置，或者“Not Found”。</p>
+<p>输入样例1：<br>5 7<br>3 5 7 1 9<br>输出样例1：<br>2<br>输入样例2：<br>5 7<br>3 5 8 1 9<br>输出样例2：<br>Not Found</p>
+<pre><code>#include &lt;stdio.h&gt; 
+int main() {
+    int n,x;
+    scanf(&quot;%d %d&quot;,&amp;n,&amp;x) ;
+    int a[n] ,i;
+    for(i=0;i&lt;n;i++) {
+        scanf(&quot;%d&quot;,&amp;a[i]) ;
+    }
+    int y = -1;
+    for(i=0;i&lt;n;i++) {
+        if(a[i]==x) {
+            y = i;
+            break;
+        }
+    }
+
+    if (y!= -1) {
+        printf(&quot;%d&quot;,y) ;
+    }
+    else {
+        printf(&quot;Not Found&quot;) ;
+    }
+
+    return 0 ;
+}
+</code></pre>
+        <h4 id="7-58-求整数序列中出现次数最多的数（15-分）"   >
+          <a href="#7-58-求整数序列中出现次数最多的数（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-58 求整数序列中出现次数最多的数（15 分）</h4>
+      <p>本题要求统计一个整型序列中出现次数最多的整数及其出现次数。</p>
+<p>输入格式：<br>输入在一行中给出序列中整数个数N（0&lt;N≤1000），以及N个整数。数字间以空格分隔。</p>
+<p>输出格式：<br>在一行中输出出现次数最多的整数及其出现次数，数字间以空格分隔。题目保证这样的数字是唯一的。</p>
+<p>输入样例：<br>10 3 2 -1 5 3 4 3 0 3 2<br>输出样例：<br>3 4</p>
+<pre><code>#include &lt;stdio.h&gt;
+int main() {
+    int n , i , j;
+    scanf(&quot;%d&quot;,&amp;n) ;
+    int a[n] ,b[n];
+    for (i=0;i&lt;n;i++) {
+        scanf(&quot;%d&quot;,&amp;a[i]) ;
+    }
+
+    for (j=0;j&lt;n;j++) {
+        int sum = 0;
+        for (i=0;i&lt;n;i++) {
+            if(a[j]==a[i]) {
+                sum ++;
+                b[j] = sum ;
+            }
+        }
+    }
+//    for (i=0;i&lt;n;i++) {
+//        printf(&quot;%d &quot;,b[i]) ;
+//    }
+    int    p = 0 ;
+    for (i=1;i&lt;n;i++) {
+        if(b[i]&gt;b[i-1]) {
+            p = i;
+        }
+    }
+    printf(&quot;%d %d&quot;,a[p] , b[p]) ;
+    return 0 ;
+}
+</code></pre>
+        <h4 id="7-59-字符串逆序（15-分）"   >
+          <a href="#7-59-字符串逆序（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-59 字符串逆序（15 分）</h4>
+      <p>输入一个字符串，对该字符串进行逆序，输出逆序后的字符串。</p>
+<p>输入格式：<br>输入在一行中给出一个不超过80个字符长度的、以回车结束的非空字符串。</p>
+<p>输出格式：<br>在一行中输出逆序后的字符串。</p>
+<p>输入样例：<br>Hello World!<br>输出样例：<br>!dlroW olleH</p>
+<pre><code>#include &lt;stdio.h&gt; 
+int main() {
+    char a[80] , b[80] ,ch;
+    int i ,j , cnt = 0;
+    for (i=0;ch != &apos;\n&apos;;i++) {
+        ch = getchar() ;
+        a[i] = ch ;
+        cnt ++;
+
+    }
+    int m = cnt-2 ;
+    for (j=0;j&lt;cnt;j++) {
+        b[j] = a[m] ;
+        m--;
+
+    }
+    printf(&quot;%s&quot;,b) ;
+    return 0;
+}
+</code></pre>
+        <h4 id="7-60-删除重复字符（20-分）"   >
+          <a href="#7-60-删除重复字符（20-分）" class="heading-link"><i class="fas fa-link"></i></a>7-60 删除重复字符（20 分）</h4>
+      <p>本题要求编写程序，将给定字符串去掉重复的字符后，按照字符ASCII码顺序从小到大排序后输出。</p>
+<p>输入格式：<br>输入是一个以回车结束的非空字符串（少于80个字符）。</p>
+<p>输出格式：<br>输出去重排序后的结果字符串。</p>
+<p>输入样例：<br>ad2f3adjfeainzzzv<br>输出样例：<br>23adefijnvz</p>
+<pre><code>#include &lt;stdio.h&gt; 
+#include &lt;string.h&gt;
+
+int main() {
+    char ch[81],bh[81];
+    scanf(&quot;%s&quot;,ch) ;
+    int i,j,t=0;
+    for(i=0;i&lt;strlen(ch);i++) {
+        int flag = 0;
+        for (j=i+1;j&lt;strlen(ch);j++) {
+
+            if(ch[i] == ch[j]) {
+                flag = 1;                    
+            }    
+        }    
+            if(flag == 0) {
+                bh[t] = ch[i] ;
+                t++;
+            }
+
+    }
+    char dh;
+    for (i=0;i&lt;t-1;i++) {
+        for (j=i+1;j&lt;t-1;j++) 
+        if( bh[i] &gt; bh[j] ) {
+            dh = bh[i] ;
+            bh[i] = bh[j] ;
+            bh[j] = dh ;
+
+        }    
+    }    
+    for(i=0;i&lt;strlen(bh);i++){        
+    printf(&quot;%c&quot;, bh[i]) ;
+    }
+</code></pre><p>​<br>​<br>​        return 0 ;<br>​    }</p>
+
+        <h4 id="7-61-找最长的字符串（15-分）"   >
+          <a href="#7-61-找最长的字符串（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-61 找最长的字符串（15 分）</h4>
+      <p>本题要求编写程序，针对输入的N个字符串，输出其中最长的字符串。</p>
+<p>输入格式：<br>输入第一行给出正整数N；随后N行，每行给出一个长度小于80的非空字符串，其中不会出现换行符，空格，制表符。</p>
+<p>输出格式：<br>在一行中用以下格式输出最长的字符串：</p>
+<p>The longest is: 最长的字符串<br>如果字符串的长度相同，则输出先输入的字符串。</p>
+<p>输入样例：<br>5<br>li<br>wang<br>zhang<br>jin<br>xiang<br>输出样例：<br>The longest is: zhang</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+int main() {
+    int n;
+    scanf(&quot;%d&quot;,&amp;n) ;
+    char a[80] ;
+    char b[80] ;
+    int long1 = 0;
+    int i;
+    fflush(stdin);
+    for(i=1;i&lt;=n;i++) {
+    gets(a) ;
+        if(strlen(a)&gt;long1 ) {
+            long1 = strlen(a) ;
+            strcpy(b,a) ;
+        }        
+    }
+    printf(&quot;The longest is: %s&quot;,b);
+</code></pre><p>​<br>​        return 0;<br>​    }</p>
+
+        <h4 id="7-62-切分表达式——写个tokenizer吧（20-分）"   >
+          <a href="#7-62-切分表达式——写个tokenizer吧（20-分）" class="heading-link"><i class="fas fa-link"></i></a>7-62 切分表达式——写个tokenizer吧（20 分）</h4>
+      <p>[先说点出题背景]</p>
+<p>这个题是为低年级同学、学C语言的同学准备的，因为，对这部分同学，这个题目编写起来略有一点复杂。如果是高年级、学过了正则表达式（Regular Expression）的同学或者学过了Java等OO语言的同学做这个题，应当发现这题比较简单吧。哦，对了，什么是tokenizer？请自行查询解决。反正在此处不应翻译成“令牌解析器”。</p>
+<p>[正题]</p>
+<p>四则运算表达式由运算数（必定包含数字，可能包含正或负符号、小数点）、运算符（包括+、-、*、/）以及小括号（(和)）组成，每个运算数、运算符和括号都是一个token（标记）。现在，对于给定的一个四则运算表达式，请把她的每个token切分出来。题目保证给定的表达式是正确的，不需要做有效性检查。</p>
+<p>输入格式:<br>在一行中给出长度不超过40个字符的表达式，其中没有空格，仅由上文中token的字符组成</p>
+<p>输出格式:<br>依次输出表达式中的tokens，每个token占一行。</p>
+<p>输入样例:<br>32<em>((2-2)+5)/(-15)<br>输出样例:<br>32
+</em><br>(<br>(<br>2<br>-<br>2<br>)<br>+<br>5<br>)<br>/<br>(<br>-15<br>)</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+int main() {
+    char ch[40] ;
+    int i;
+    scanf(&quot;%s&quot;,&amp;ch) ;
+    for (i=0;i&lt;strlen(ch);i++) {
+        printf(&quot;%c&quot;,ch[i]) ;
+        if(ch[i+1] &lt; &apos;0&apos; ||ch[i] &lt;&apos;0&apos; ) {
+            if(ch[i+1]&gt;&apos;0&apos;&amp;&amp;ch[i-1]==&apos;(&apos;&amp;&amp;ch[i]==&apos;-&apos;) {
+
+            }
+            else if(ch[i] == &apos;.&apos;||ch[i+1]==&apos;.&apos;) {
+
+            }
+
+            else {
+            printf(&quot;\n&quot;) ;
+            }
+        }
+    }
+
+    return 0 ;
+}
+</code></pre>
+        <h4 id="7-63-查验身份证（15-分）"   >
+          <a href="#7-63-查验身份证（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-63 查验身份证（15 分）</h4>
+      <p>一个合法的身份证号码由17位地区、日期编号和顺序编号加1位校验码组成。校验码的计算规则如下：</p>
+<p>首先对前17位数字加权求和，权重分配为：{7，9，10，5，8，4，2，1，6，3，7，9，10，5，8，4，2}；然后将计算的和对11取模得到值Z；最后按照以下关系对应Z值与校验码M的值：</p>
+<p>Z：0 1 2 3 4 5 6 7 8 9 10<br>M：1 0 X 9 8 7 6 5 4 3 2<br>现在给定一些身份证号码，请你验证校验码的有效性，并输出有问题的号码。</p>
+<p>输入格式：<br>输入第一行给出正整数N（≤100）是输入的身份证号码的个数。随后N行，每行给出1个18位身份证号码。</p>
+<p>输出格式：<br>按照输入的顺序每行输出1个有问题的身份证号码。这里并不检验前17位是否合理，只检查前17位是否全为数字且最后1位校验码计算准确。如果所有号码都正常，则输出All passed。</p>
+<p>输入样例1：<br>4<br>320124198808240056<br>12010X198901011234<br>110108196711301866<br>37070419881216001X<br>输出样例1：<br>12010X198901011234<br>110108196711301866<br>37070419881216001X<br>输入样例2：<br>2<br>320124198808240056<br>110108196711301862<br>输出样例2：<br>All passed</p>
+<pre><code>#include &lt;stdio.h&gt; 
+int main() {
+    int weight[] = {7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2} ;
+    char m[] = &quot;10X98765432&quot;;
+    int n , i , j;
+
+    scanf(&quot;%d&quot;,&amp;n) ;
+
+    char number[n][19];
+
+    for (i=0;i&lt;n;i++) {
+        scanf(&quot;%s&quot;,number[i]) ;
+    }
+
+    int flag = 1;
+
+    for(i=0;i&lt;n;i++) {
+        int sum = 0;
+        for(j=0;j&lt;17;j++) {
+            sum += (number[i][j]-&apos;0&apos;) * weight[j] ; 
+        }
+        int over = sum % 11 ;
+        if ( m[over]  != number[i][17] ) {
+            flag = 0;
+            printf(&quot;%s\n&quot;,number[i]) ;            
+        }
+    }
+    if (flag) {
+        printf(&quot;All passed&quot;) ;
+    }            
+    return 0;
+}
+</code></pre>
+        <h4 id="7-64-最长对称子串（25-分）"   >
+          <a href="#7-64-最长对称子串（25-分）" class="heading-link"><i class="fas fa-link"></i></a>7-64 最长对称子串（25 分）</h4>
+      <p>对给定的字符串，本题要求你输出最长对称子串的长度。例如，给定Is PAT&amp;TAP symmetric?，最长对称子串为s PAT&amp;TAP s，于是你应该输出11。</p>
+<p>输入格式：<br>输入在一行中给出长度不超过1000的非空字符串。</p>
+<p>输出格式：<br>在一行中输出最长对称子串的长度。</p>
+<p>输入样例：<br>Is PAT&amp;TAP symmetric?<br>输出样例：<br>11</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+int main() {
+    char ch[10001] ;
+    gets(ch) ;
+    int len , i;
+    len = strlen(ch) ;
+    int max = 1;
+    for(i=1;i&lt;len-1;i++) {
+        int    x = i-1 , y = i+1 , ans = 1;
+        while (ch[x]==ch[y]&amp;&amp;x&gt;=0&amp;&amp;y&lt;=len) {
+            x--;
+            y++;
+            ans+=2;
+        }
+        if(ans&gt;max) {
+            max = ans ;
+        }
+    }
+
+    for(i=1;i&lt;len-1;i++) {
+        int    x = i , y = i+1 , ans = 0;
+        while (ch[x]==ch[y]&amp;&amp;x&gt;=0&amp;&amp;y&lt;=len) {
+            x--;
+            y++;
+            ans+=2;
+        }
+        if(ans&gt;max) {
+            max = ans ;
+        }
+    }
+    printf(&quot;%d&quot;,max) ;
+    return 0;
+}
+</code></pre>
+        <h4 id="7-65-平面向量加法（15-分）"   >
+          <a href="#7-65-平面向量加法（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-65 平面向量加法（15 分）</h4>
+      <p>本题要求编写程序，计算两个二维平面向量的和向量。</p>
+<p>输入格式:<br>输入在一行中按照“x<br>​1<br>​​  y<br>​1<br>​​  x<br>​2<br>​​  y<br>​2<br>​​ ”的格式给出两个二维平面向量v<br>​1<br>​​ =(x<br>​1<br>​​ ,y<br>​1<br>​​ )和v<br>​2<br>​​ =(x<br>​2<br>​​ ,y<br>​2<br>​​ )的分量。</p>
+<p>输出格式:<br>在一行中按照(x, y)的格式输出和向量，坐标输出小数点后一位（注意不能输出−0.0）。</p>
+<p>输入样例:<br>3.5 -2.7 -13.9 8.7<br>输出样例:<br>(-10.4, 6.0)</p>
+<pre><code>#include&lt;stdio.h&gt;  
+int main()  
+{     
+    double x1,y1,x2,y2;  
+    double x,y;  
+    scanf(&quot;%lf%lf%lf%lf&quot;,&amp;x1,&amp;y1,&amp;x2,&amp;y2);  
+    x=x1+x2;  
+    y=y1+y2;  
+    if(x &lt; 0.05 &amp;&amp; x &gt; -0.05)    
+       x = 0.0;    
+    if(y &lt; 0.05 &amp;&amp; y &gt; -0.05)    
+       y = 0.0;   
+    printf(&quot;(%.1f, %.1f)&quot;,x,y);  
+    return 0;  
+}
+</code></pre>
+        <h4 id="7-66-找出总分最高的学生（15-分）"   >
+          <a href="#7-66-找出总分最高的学生（15-分）" class="heading-link"><i class="fas fa-link"></i></a>7-66 找出总分最高的学生（15 分）</h4>
+      <p>给定N个学生的基本信息，包括学号（由5个数字组成的字符串）、姓名（长度小于10的不包含空白字符的非空字符串）和3门课程的成绩（[0,100]区间内的整数），要求输出总分最高学生的姓名、学号和总分。</p>
+<p>输入格式：<br>输入在一行中给出正整数N（≤10）。随后N行，每行给出一位学生的信息，格式为“学号 姓名 成绩1 成绩2 成绩3”，中间以空格分隔。</p>
+<p>输出格式：<br>在一行中输出总分最高学生的姓名、学号和总分，间隔一个空格。题目保证这样的学生是唯一的。</p>
+<p>输入样例：<br>5<br>00001 huanglan 78 83 75<br>00002 wanghai 76 80 77<br>00003 shenqiang 87 83 76<br>10001 zhangfeng 92 88 78<br>21987 zhangmeng 80 82 75<br>输出样例：<br>zhangfeng 10001 258</p>
+<pre><code>#include &lt;stdio.h&gt; 
+#include &lt;string.h&gt;
+struct xsxx {
+        char xh[6];
+        char xm[11];
+        int cj1;
+        int cj2;
+        int cj3;
+    };
+
+struct jl {
+    char xm[11];
+    char xh[6];
+    int cj;
+};
+int main() {
+    struct xsxx a;
+    struct jl b;
+    int n,i;
+    scanf(&quot;%d&quot;,&amp;n);
+    int sum = 0;
+    for(i=1;i&lt;=n;i++) {    
+    scanf(&quot;%s %s %d %d %d&quot;,a.xh,a.xm,&amp;a.cj1,&amp;a.cj2,&amp;a.cj3) ;
+        if( b.cj&lt;(a.cj1+a.cj2+a.cj3) ) {
+            b.cj = a.cj1+a.cj2+a.cj3 ;
+            strcpy(b.xm , a.xm) ;
+            strcpy(b.xh , a.xh) ;
+        }
+    }
+    printf(&quot;%s %s %d&quot;,b.xm,b.xh,b.cj) ;
+
+    return 0;
+}
+</code></pre>
+        <h4 id="6-1-使用函数求素数和（20-分）"   >
+          <a href="#6-1-使用函数求素数和（20-分）" class="heading-link"><i class="fas fa-link"></i></a>6-1 使用函数求素数和（20 分）</h4>
+      <p>本题要求实现一个判断素数的简单函数、以及利用该函数计算给定区间内素数和的函数。</p>
+<p>素数就是只能被1和自身整除的正整数。注意：1不是素数，2是素数。</p>
+<p>函数接口定义：<br>int prime( int p );<br>int PrimeSum( int m, int n );<br>其中函数prime当用户传入参数p为素数时返回1，否则返回0；函数PrimeSum返回区间[m, n]内所有素数的和。题目保证用户传入的参数m≤n。</p>
+<p>裁判测试程序样例：</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;    
+int prime( int p );
+int PrimeSum( int m, int n );
+
+int main()
+{
+int m, n, p;
+
+scanf(&quot;%d %d&quot;, &amp;m, &amp;n);
+printf(&quot;Sum of ( &quot;);
+for( p=m; p&lt;=n; p++ ) {
+if( prime(p) != 0 )
+printf(&quot;%d &quot;, p);
+}
+printf(&quot;) = %d\n&quot;, PrimeSum(m, n));
+
+return 0;
+    }
+</code></pre><p>/<em> 你的代码将被嵌在这里 </em>/<br>输入样例：<br>-1 10<br>输出样例：<br>Sum of ( 2 3 5 7 ) = 17</p>
+<pre><code>int prime( int p ){
+    int flag = 1;
+    int i;
+    if (p&lt;2) {
+        flag = 0;
+    }
+    for (i=2;i&lt;p;i++) {
+
+        if (p%i == 0) {
+            flag = 0;
+            break;
+        }
+    }
+    return flag;    
+} 
+int PrimeSum( int m, int n ){
+    int i,j;
+    int sum = 0 ;
+    for(i=m;i&lt;=n;i++) {
+        int numb = 1;
+        if (i&lt;2) {
+            numb = 0;
+        }
+        for(j=2;j&lt;i;j++) {
+            if(i%j == 0) {
+                numb = 0;
+                break;
+            }
+        }
+        if(numb ==1) {
+            sum = sum + i;
+        }
+    }    
+    return sum;
+}
+</code></pre>
+        <h4 id="6-2-使用函数验证哥德巴赫猜想（20-分）"   >
+          <a href="#6-2-使用函数验证哥德巴赫猜想（20-分）" class="heading-link"><i class="fas fa-link"></i></a>6-2 使用函数验证哥德巴赫猜想（20 分）</h4>
+      <p>本题要求实现一个判断素数的简单函数，并利用该函数验证哥德巴赫猜想：任何一个不小于6的偶数均可表示为两个奇素数之和。素数就是只能被1和自身整除的正整数。注意：1不是素数，2是素数。</p>
+<p>函数接口定义：<br>int prime( int p );<br>void Goldbach( int n );<br>其中函数prime当用户传入参数p为素数时返回1，否则返回0；函数Goldbach按照格式“n=p+q”输出n的素数分解，其中p≤q均为素数。又因为这样的分解不唯一（例如24可以分解为5+19，还可以分解为7+17），要求必须输出所有解中p最小的解。</p>
+<p>裁判测试程序样例：</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+
+int prime( int p );
+void Goldbach( int n );
+
+int main()
+{
+    int m, n, i, cnt;
+
+    scanf(&quot;%d %d&quot;, &amp;m, &amp;n);
+    if ( prime(m) != 0 ) printf(&quot;%d is a prime number\n&quot;, m);
+    if ( m &lt; 6 ) m = 6;
+    if ( m%2 ) m++;
+    cnt = 0;
+    for( i=m; i&lt;=n; i+=2 ) {
+        Goldbach(i);
+        cnt++;
+        if ( cnt%5 ) printf(&quot;, &quot;);
+        else printf(&quot;\n&quot;);
+    }
+
+    return 0;
+}
+</code></pre><p>/<em> 你的代码将被嵌在这里 </em>/<br>输入样例：<br>89 100<br>输出样例：<br>89 is a prime number<br>90=7+83, 92=3+89, 94=5+89, 96=7+89, 98=19+79<br>100=3+97, </p>
+<pre><code>int prime( int p ){
+    int flag = 1;
+    int i;
+    if (p&lt;2) {
+        flag = 0;
+    }
+    for (i=2;i&lt;p;i++) {
+
+        if (p%i == 0) {
+            flag = 0;
+            break;
+        }
+    }
+    return flag;    
+} 
+void Goldbach( int n ){
+    int i,p,q;
+    for(i=2;i&lt;n;i++) {
+        if(prime(i)) {
+            p = i;
+        }
+        q = n - p;
+        if(prime(q)) {
+            printf(&quot;%d=%d+%d&quot;,n,p,q) ;
+            break;
+        }
+    }
+}
+</code></pre>
+        <h4 id="6-3-判断回文字符串（20-分）"   >
+          <a href="#6-3-判断回文字符串（20-分）" class="heading-link"><i class="fas fa-link"></i></a>6-3 判断回文字符串（20 分）</h4>
+      <p>本题要求编写函数，判断给定的一串字符是否为“回文”。所谓“回文”是指顺读和倒读都一样的字符串。如“XYZYX”和“xyzzyx”都是回文。</p>
+<p>函数接口定义：<br>bool palindrome( char <em>s );<br>函数palindrome判断输入字符串char </em>s是否为回文。若是则返回true，否则返回false。</p>
+<p>裁判测试程序样例：</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+#define MAXN 20
+typedef enum {false, true} bool;
+
+bool palindrome( char *s );
+
+int main()
+{
+    char s[MAXN];
+
+    scanf(&quot;%s&quot;, s);
+    if ( palindrome(s)==true )
+        printf(&quot;Yes\n&quot;);
+    else
+        printf(&quot;No\n&quot;);
+    printf(&quot;%s\n&quot;, s);
+
+    return 0;
+}
+</code></pre><p>/<em> 你的代码将被嵌在这里 </em>/<br>输入样例1：<br>thisistrueurtsisiht<br>输出样例1：<br>Yes<br>thisistrueurtsisiht<br>输入样例2：<br>thisisnottrue<br>输出样例2：<br>No<br>thisisnottrue</p>
+<pre><code>bool palindrome( char *s ){
+    int i,j,num;
+    bool a = true; 
+    if(strlen(s) ==1) {    
+
+    }
+    else if(strlen(s)%2 != 0) {
+        num = (strlen(s)+1) / 2 - 1;
+        for(i=0;i&lt;num;i++) {            
+                if(s[i] != s[ (strlen(s)-1)-i] ) {
+                    a = false;
+                    break;
+                }        
+            }        
+    }    
+    else {
+        num = (strlen(s) / 2) - 1 ;
+        for(i=0;i&lt;=num;i++) {
+            if(s[i] != s[ (strlen(s)-1)-i] ) {
+                    a = false;
+                    break;
+                }        
+        }
+    }
+    return a;    
+}
+</code></pre>
+        <h4 id="6-4-查找子串（20-分）"   >
+          <a href="#6-4-查找子串（20-分）" class="heading-link"><i class="fas fa-link"></i></a>6-4 查找子串（20 分）</h4>
+      <p>本题要求实现一个字符串查找的简单函数。</p>
+<p>函数接口定义：<br>char <em>search( char </em>s, char *t );<br>函数search在字符串s中查找子串t，返回子串t在s中的首地址。若未找到，则返回NULL。</p>
+<p>裁判测试程序样例：</p>
+<pre><code>#include &lt;stdio.h&gt;
+#define MAXS 30
+
+char *search(char *s, char *t);
+void ReadString( char s[] ); /* 裁判提供，细节不表 */
+
+int main()
+{
+    char s[MAXS], t[MAXS], *pos;
+
+    ReadString(s);
+    ReadString(t);
+    pos = search(s, t);
+    if ( pos != NULL )
+        printf(&quot;%d\n&quot;, pos - s);
+    else
+        printf(&quot;-1\n&quot;);
+
+    return 0;
+}
+</code></pre><p>/<em> 你的代码将被嵌在这里 </em>/<br>输入样例1：<br>The C Programming Language<br>ram<br>输出样例1：<br>10<br>输入样例2：<br>The C Programming Language<br>bored<br>输出样例2：<br>-1</p>
+<pre><code>#include &lt;string.h&gt;
+
+char *search( char *s, char *t ){
+  int i, j, k=0, slen, tlen;
+  char *p=NULL;
+  slen = strlen(s);
+  tlen = strlen(t);
+
+  for (i=0; i&lt;slen; i++){
+    j=i;
+    while(s[j]==t[k]){
+      k++;
+      j++;
+    }
+    if(k&gt;=tlen){
+      p = &amp;s[i];
+      return p;
+    }
+    k=0;
+  }
+  return p;
+}
+</code></pre></div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://www.7ten7.top">7TEN7</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://www.7ten7.top/2018/07/27/%E4%B8%ADM2018%E6%98%A5C%E5%85%A5%E9%97%A8%E5%92%8C%E8%BF%9B%E9%98%B6%E7%BB%83%E4%B9%A0%E9%9B%86/">http://www.7ten7.top/2018/07/27/%E4%B8%ADM2018%E6%98%A5C%E5%85%A5%E9%97%A8%E5%92%8C%E8%BF%9B%E9%98%B6%E7%BB%83%E4%B9%A0%E9%9B%86/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/C%E8%AF%AD%E8%A8%80/">C语言</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2018/09/13/php%E7%AC%94%E8%AE%B0(%E4%B8%80)/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">php笔记(一)</span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-6-重要的话说三遍（5-分）"><span class="toc-number">1.</span> <span class="toc-text">
+          7-6 重要的话说三遍（5 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-8-I-Love-GPLT（5-分）"><span class="toc-number">2.</span> <span class="toc-text">
+          7-8 I Love GPLT（5 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-4-输出带框文字（5-分）"><span class="toc-number">3.</span> <span class="toc-text">
+          7-4 输出带框文字（5 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-输出菱形图案（5-分）"><span class="toc-number">4.</span> <span class="toc-text">
+          7-3 输出菱形图案（5 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-13-输出倒三角图案（5-分）"><span class="toc-number">5.</span> <span class="toc-text">
+          7-13 输出倒三角图案（5 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-15-厘米换算英尺英寸（15-分）"><span class="toc-number">6.</span> <span class="toc-text">
+          7-15 厘米换算英尺英寸（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-1-计算摄氏温度（10-分）"><span class="toc-number">7.</span> <span class="toc-text">
+          7-1 计算摄氏温度（10 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-9-是不是太胖了（5-分）"><span class="toc-number">8.</span> <span class="toc-text">
+          7-9 是不是太胖了（5 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-2-求整数均值（10-分）"><span class="toc-number">9.</span> <span class="toc-text">
+          7-2 求整数均值（10 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-14-算术入门之加减乘除（10-分）"><span class="toc-number">10.</span> <span class="toc-text">
+          7-14 算术入门之加减乘除（10 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-5-计算平均分（5-分）"><span class="toc-number">11.</span> <span class="toc-text">
+          7-5 计算平均分（5 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-18-日期格式化（5-分）"><span class="toc-number">12.</span> <span class="toc-text">
+          7-18 日期格式化（5 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-7-后天（5-分）"><span class="toc-number">13.</span> <span class="toc-text">
+          7-7 后天（5 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-16-然后是几点（15-分）"><span class="toc-number">14.</span> <span class="toc-text">
+          7-16 然后是几点（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-17-BCD解密（10-分）"><span class="toc-number">15.</span> <span class="toc-text">
+          7-17 BCD解密（10 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-16-计算符号函数的值（10-分）"><span class="toc-number">16.</span> <span class="toc-text">
+          7-16 计算符号函数的值（10 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-17-成绩转换（15-分）"><span class="toc-number">17.</span> <span class="toc-text">
+          7-17 成绩转换（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-18-出租车计价（15-分）"><span class="toc-number">18.</span> <span class="toc-text">
+          7-18 出租车计价（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-19-计算天数（15-分）"><span class="toc-number">19.</span> <span class="toc-text">
+          7-19 计算天数（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-20-简单计算器（20-分）"><span class="toc-number">20.</span> <span class="toc-text">
+          7-20 简单计算器（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-21-超速判断（10-分）"><span class="toc-number">21.</span> <span class="toc-text">
+          7-21 超速判断（10 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-22-用天平找小球（10-分）"><span class="toc-number">22.</span> <span class="toc-text">
+          7-22 用天平找小球（10 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-23-分段计算居民水费（10-分）"><span class="toc-number">23.</span> <span class="toc-text">
+          7-23 分段计算居民水费（10 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-24-猜数字游戏（15-分）"><span class="toc-number">24.</span> <span class="toc-text">
+          7-24 猜数字游戏（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-25-求奇数和（15-分）"><span class="toc-number">25.</span> <span class="toc-text">
+          7-25 求奇数和（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-26-最大公约数和最小公倍数（15-分）"><span class="toc-number">26.</span> <span class="toc-text">
+          7-26 最大公约数和最小公倍数（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-27-兔子繁衍问题（15-分）"><span class="toc-number">27.</span> <span class="toc-text">
+          7-27 兔子繁衍问题（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-28-求整数的位数及各位数字之和（15-分）"><span class="toc-number">28.</span> <span class="toc-text">
+          7-28 求整数的位数及各位数字之和（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-29-二分法求多项式单根（20-分）"><span class="toc-number">29.</span> <span class="toc-text">
+          7-29 二分法求多项式单根（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-30-念数字（15-分）"><span class="toc-number">30.</span> <span class="toc-text">
+          7-30 念数字（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-31-掉入陷阱的数字（15-分）"><span class="toc-number">31.</span> <span class="toc-text">
+          7-31 掉入陷阱的数字（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-32-求交错序列前N项和（15-分）"><span class="toc-number">32.</span> <span class="toc-text">
+          7-32 求交错序列前N项和（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-33-统计素数并求和（20-分）"><span class="toc-number">33.</span> <span class="toc-text">
+          7-33 统计素数并求和（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-34-求分数序列前N项和（15-分）"><span class="toc-number">34.</span> <span class="toc-text">
+          7-34 求分数序列前N项和（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-35-猴子吃桃问题（15-分）"><span class="toc-number">35.</span> <span class="toc-text">
+          7-35 猴子吃桃问题（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-36-韩信点兵（10-分）"><span class="toc-number">36.</span> <span class="toc-text">
+          7-36 韩信点兵（10 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-37-输出整数各位数字（15-分）"><span class="toc-number">37.</span> <span class="toc-text">
+          7-37 输出整数各位数字（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-38-支票面额（15-分）"><span class="toc-number">38.</span> <span class="toc-text">
+          7-38 支票面额（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-39-龟兔赛跑（20-分）"><span class="toc-number">39.</span> <span class="toc-text">
+          7-39 龟兔赛跑（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-40-到底是不是太胖了（10-分）"><span class="toc-number">40.</span> <span class="toc-text">
+          7-40 到底是不是太胖了（10 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-41-计算阶乘和（10-分）"><span class="toc-number">41.</span> <span class="toc-text">
+          7-41 计算阶乘和（10 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-42-整除光棍（20-分）"><span class="toc-number">42.</span> <span class="toc-text">
+          7-42 整除光棍（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-43-Shuffling-Machine（20-分）"><span class="toc-number">43.</span> <span class="toc-text">
+          7-43 Shuffling Machine（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-44-黑洞数（20-分）"><span class="toc-number">44.</span> <span class="toc-text">
+          7-44 黑洞数（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-45-找完数（20-分）"><span class="toc-number">45.</span> <span class="toc-text">
+          7-45 找完数（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-46-爬动的蠕虫（15-分）"><span class="toc-number">46.</span> <span class="toc-text">
+          7-46 爬动的蠕虫（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-47-二进制的前导的零（10-分）"><span class="toc-number">47.</span> <span class="toc-text">
+          7-47 二进制的前导的零（10 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-48-求组合数（15-分）"><span class="toc-number">48.</span> <span class="toc-text">
+          7-48 求组合数（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-49-Have-Fun-with-Numbers（20-分）"><span class="toc-number">49.</span> <span class="toc-text">
+          7-49 Have Fun with Numbers（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-50-近似求PI（15-分）"><span class="toc-number">50.</span> <span class="toc-text">
+          7-50 近似求PI（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-51-求n以内最大的k个素数以及它们的和（20-分）"><span class="toc-number">51.</span> <span class="toc-text">
+          7-51 求n以内最大的k个素数以及它们的和（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-52-数组元素循环右移问题（20-分）"><span class="toc-number">52.</span> <span class="toc-text">
+          7-52 数组元素循环右移问题（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-53-求最大值及其下标（20-分）"><span class="toc-number">53.</span> <span class="toc-text">
+          7-53 求最大值及其下标（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-54-将数组中的数逆序存放（20-分）"><span class="toc-number">54.</span> <span class="toc-text">
+          7-54 将数组中的数逆序存放（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-55-矩阵运算（20-分）"><span class="toc-number">55.</span> <span class="toc-text">
+          7-55 矩阵运算（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-56-找鞍点（20-分）"><span class="toc-number">56.</span> <span class="toc-text">
+          7-56 找鞍点（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-57-查找整数（10-分）"><span class="toc-number">57.</span> <span class="toc-text">
+          7-57 查找整数（10 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-58-求整数序列中出现次数最多的数（15-分）"><span class="toc-number">58.</span> <span class="toc-text">
+          7-58 求整数序列中出现次数最多的数（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-59-字符串逆序（15-分）"><span class="toc-number">59.</span> <span class="toc-text">
+          7-59 字符串逆序（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-60-删除重复字符（20-分）"><span class="toc-number">60.</span> <span class="toc-text">
+          7-60 删除重复字符（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-61-找最长的字符串（15-分）"><span class="toc-number">61.</span> <span class="toc-text">
+          7-61 找最长的字符串（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-62-切分表达式——写个tokenizer吧（20-分）"><span class="toc-number">62.</span> <span class="toc-text">
+          7-62 切分表达式——写个tokenizer吧（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-63-查验身份证（15-分）"><span class="toc-number">63.</span> <span class="toc-text">
+          7-63 查验身份证（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-64-最长对称子串（25-分）"><span class="toc-number">64.</span> <span class="toc-text">
+          7-64 最长对称子串（25 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-65-平面向量加法（15-分）"><span class="toc-number">65.</span> <span class="toc-text">
+          7-65 平面向量加法（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-66-找出总分最高的学生（15-分）"><span class="toc-number">66.</span> <span class="toc-text">
+          7-66 找出总分最高的学生（15 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-使用函数求素数和（20-分）"><span class="toc-number">67.</span> <span class="toc-text">
+          6-1 使用函数求素数和（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-使用函数验证哥德巴赫猜想（20-分）"><span class="toc-number">68.</span> <span class="toc-text">
+          6-2 使用函数验证哥德巴赫猜想（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-判断回文字符串（20-分）"><span class="toc-number">69.</span> <span class="toc-text">
+          6-3 判断回文字符串（20 分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-查找子串（20-分）"><span class="toc-number">70.</span> <span class="toc-text">
+          6-4 查找子串（20 分）</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/author/author.png" alt="avatar"></div><p class="sidebar-ov-author__text">7TEN7</p></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-rss"><a class="sidebar-ov-feed-rss__link" href="/atom.xml" target="_blank" rel="noopener"><span class="sidebar-ov-feed-rss__icon"><i class="fas fa-rss"></i></span><span>RSS 订阅</span></a></span></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">55</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__devider"></span><span>7TEN7</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="255,255,255" opacity="1" count="200" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'Nzl7LsK4moQuOsIfeWfbc8Rz-gzGzoHsz',
+    appKey: '5xmoJuWrMWHpI7pwtJviyIh6',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.5.0"></script><script src="/js/stun-boot.js?v=2.5.0"></script><script src="/js/scroll.js?v=2.5.0"></script><script src="/js/header.js?v=2.5.0"></script><script src="/js/sidebar.js?v=2.5.0"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/shizuku.model.json"},"display":{"position":"right","width":260,"height":380,"vOffset":5},"mobile":{"show":true},"log":false});</script></body></html>

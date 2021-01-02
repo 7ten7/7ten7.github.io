@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.5.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.5.0" type="image/png" sizes="32x32"><meta name="google-site-verification" content="QDXQenTtxQ6MwW-M_7k9lw39Kq7F4pwFO0u1QAPYlDE"><meta name="description" content="CTF       对于早上的CTF，唯一的感受就是自己的接触面太少。由于自己只学了 Web ，对于 CTF 的其他内容没有学习。然后这次的 CTF 的 Web 题又难的一批。最后也没有一个人能解出来。而这次的杂项和密码学还算简单，做出来的师傅很多。但是这两项我都没有去好好学过，只做过一些简单的杂项图片隐写(也只会个 binwalk 分离图片) 。这次杂项虽然也有图片隐写。但">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2019西湖论剑线下赛总结">
+<meta property="og:url" content="http://www.7ten7.top/2019/04/20/2019%20%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91%E7%BA%BF%E4%B8%8B%E8%B5%9B%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="7TEN7&#39;s Blog">
+<meta property="og:description" content="CTF       对于早上的CTF，唯一的感受就是自己的接触面太少。由于自己只学了 Web ，对于 CTF 的其他内容没有学习。然后这次的 CTF 的 Web 题又难的一批。最后也没有一个人能解出来。而这次的杂项和密码学还算简单，做出来的师傅很多。但是这两项我都没有去好好学过，只做过一些简单的杂项图片隐写(也只会个 binwalk 分离图片) 。这次杂项虽然也有图片隐写。但">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-04-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-04-20T14:14:09.866Z">
+<meta property="article:author" content="7TEN7">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="AWD">
+<meta name="twitter:card" content="summary"><title>2019西湖论剑线下赛总结 | 7TEN7's Blog</title><link ref="canonical" href="http://www.7ten7.top/2019/04/20/2019%20%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91%E7%BA%BF%E4%B8%8B%E8%B5%9B%E6%80%BB%E7%BB%93/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.5.0"><script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" data-ad-client="ca-pub-4793862971469188" async=""></script><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"simple","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: true,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.1"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/friends/"><span class="header-nav-menu-item__icon"><i class="fas fa-link"></i></span><span class="header-nav-menu-item__text">友链</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">2019西湖论剑线下赛总结</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2019-04-20</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.6k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">8分</span></span></div></header><div class="post-body">
+        <h1 id="CTF"   >
+          <a href="#CTF" class="heading-link"><i class="fas fa-link"></i></a>CTF</h1>
+      <p>对于早上的CTF，唯一的感受就是自己的接触面太少。由于自己只学了 Web ，对于 CTF 的其他内容没有学习。然后这次的 CTF 的 Web 题又难的一批。最后也没有一个人能解出来。而这次的杂项和密码学还算简单，做出来的师傅很多。但是这两项我都没有去好好学过，只做过一些简单的杂项图片隐写(也只会个 binwalk 分离图片) 。这次杂项虽然也有图片隐写。但没思路….密码学 RSA 的题做出来的师傅也很多，虽然上课讲过 RSA 算法但 CTF 里这种类似的密码学，我也没做过，不太清楚解题思路…</p>
+<a id="more"></a>
+<p>黑客是不能有短板的，只有大量的标准板和某一块长板。而通过这次 CTF 比赛，让我感觉到了自己是只有一块短板，然后剩下的板还没有…</p>
+<p>CTF 个人赛对一个人知识面的考验真很全面，平时打 CTF 线上赛都是以团队赛来打，一个人负责一块内容，每次赛后对于其他题目的解题思路自己也不去了解，也不是很有兴趣去了解。总觉得完成自己所学的，范围内的就可以了。但这次的 CTF 最后被零封的结果真的让我充分的意识到了自己的菜…</p>
+
+        <h1 id="AWD"   >
+          <a href="#AWD" class="heading-link"><i class="fas fa-link"></i></a>AWD</h1>
+      
+        <h2 id="过程"   >
+          <a href="#过程" class="heading-link"><i class="fas fa-link"></i></a>过程</h2>
+      <p>这是第一次打 AWD ，赛前已经想到了1000种被大佬锤烂的方法了。但是最后的结果是幸运的，在55支队伍中取得了第20名的成绩，差个4名就拿奖了=.=</p>
+<p>这一天的赛程安排，9:00-12:00 CTF ，13:00-17:00 AWD。然后这次我认为失误比较严重的是中午吃饭的时间没注意，等我们到赛场时，比赛已经开始了。大师傅们已经开火了，我们还在调试电脑和网络。然后前期就有点手忙脚乱。原本以为的有半小时的加固时间，好像也没有。</p>
+<p>这次给了两台服务器，都是 Web 服务器，其中一台是赛方自己写的 CMS ，预留洞最多的就是这台，其中还有一个是 root  权限建的 shell，拿到的账户 ctf 还没权限删除。然后一开始的慌乱也没想到这个洞这么利用。另一台的预留洞比较少，D盾就扫到了一个。但是这个洞我们也没看懂这么利用，不知道这么修，怕乱动，导致服务宕掉。随意就没管它了，因为第一台扫到的预留洞比较少。也修不来…就直接上了 WAF，还上了一个文件监控（这个文件监控还是起了很大作用的）。</p>
+<p>接下来我们主要针对第二台漏洞比较多的进行了修补。修补完了想分析流量看看大佬们是这么揍我们的。看了 WAF 监控下来的流量，发现流量里的内容是编码过的，还有大佬的流量混淆，这让我们根本找不到那一条请求成功了。这时候我想去看下 Apache 的访问记录，发现没权限访问…</p>
+<p>刚开始的半个小时，我们的成绩直接成了倒数第一名。但我们给两个两台服务器都上了 WAF 和 文件监控后，每轮掉的分都少了。每轮只有两个队伍在进攻我们。排名也在逐渐上升。</p>
+<p>转过头来看第一台服务器，发现一直被师傅们写 shell，但还好的是都一写上来就被文件监控删除了。基本加固完成后，试图去挖洞来进攻，但是由于三个人的代码审计能力都不行…洞也不会挖…</p>
+<p>就这样一直做着加固…然后比赛快过了一半了，才想到弱口令没检查…结果一查，发现两台服务器的后台都是弱口令….吓的我们急忙改了口令。然后抱着试一试的心态看看有没有队伍的口令没改…一看有些队伍的服务都已经宕掉了…还有的第二台服务器删的只剩了一个删不掉的 root 创建的 shell (感觉这就是我们虽然没进攻，但排名却一直在升的原因，我们的 WAF 和 文件监控让我们只有一两个师傅打我们，中间还有几轮没人攻击我们)。发现了弱口令之后才焕然大悟，那个删不了的 shell 只要登录进了后台就可以利用了，急忙用这个打了一波，发现只有一个队伍没改了，这个队还是一直把我们从头打到尾的队…赶紧趁机拿了一波分…</p>
+<p>比赛只剩一个小时的时候，我们的 web1服务器被两个队的师傅种上了不死马…这么样都删不掉…结果疯狂掉分…本来到了15 的然后又慢慢的掉了下来，掉到了20</p>
+
+        <h2 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a>总结</h2>
+      <ol>
+<li>代码审计能力极差(几乎没有)，导致了挖不到洞，有洞的话如果复杂一点，导致补也不会补….</li>
+<li>常规一点的不死马还能杀，非常规的马就束手无策了</li>
+<li>脚本编写能力差，这次到最后我们也只利用上了一个预留的删不掉的洞。而且最后还是手工测试的，本来完全可以写的自动化脚本直接跑的。</li>
+<li>经验不足</li>
+</ol>
+<p>赛后大佬们在群里讨论，web1服务，可以用 sudo 命令，当时比赛时我根本没想到这个点，觉得既然给了低权限的用户，那这么可能可以用 sudo 也没去试。如果当时能意识到，那么对于不死马也就有解决的策略了。</p>
+<p>还有师傅说可以提权到 root ，这当时也没想过…然后比赛中洞也挖不到，日志也审计不出来，就只能等着师傅们打过来，如果种了不死马，常规的不死马杀一下这样。最后只能靠 WAF 和 文件监控  两个脚本苟活</p>
+<p>所以说，经验也很重要，但毕竟是第一次，而且最后也拿了第 20 的成绩，感觉已经很不错了，毕竟这次高手很多…感觉都是神仙打架。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://www.7ten7.top">7TEN7</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://www.7ten7.top/2019/04/20/2019%20%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91%E7%BA%BF%E4%B8%8B%E8%B5%9B%E6%80%BB%E7%BB%93/">http://www.7ten7.top/2019/04/20/2019%20%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91%E7%BA%BF%E4%B8%8B%E8%B5%9B%E6%80%BB%E7%BB%93/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/CTF/">CTF</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.7ten7.top/tags/AWD/">AWD</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2019/05/11/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%80%BB%E7%BB%93/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">Phar://反序列化总结</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2019/04/05/PHP%E4%B8%ADSESSION%E5%BA%8F%E5%88%97%E5%8C%96/"><span class="paginator-prev__text">PHP 中 SESSION 序列化</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CTF"><span class="toc-number">1.</span> <span class="toc-text">
+          CTF</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AWD"><span class="toc-number">2.</span> <span class="toc-text">
+          AWD</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#过程"><span class="toc-number">2.1.</span> <span class="toc-text">
+          过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">2.2.</span> <span class="toc-text">
+          总结</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/author/author.png" alt="avatar"></div><p class="sidebar-ov-author__text">7TEN7</p></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-rss"><a class="sidebar-ov-feed-rss__link" href="/atom.xml" target="_blank" rel="noopener"><span class="sidebar-ov-feed-rss__icon"><i class="fas fa-rss"></i></span><span>RSS 订阅</span></a></span></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">55</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">32</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__devider"></span><span>7TEN7</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="255,255,255" opacity="1" count="200" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'Nzl7LsK4moQuOsIfeWfbc8Rz-gzGzoHsz',
+    appKey: '5xmoJuWrMWHpI7pwtJviyIh6',
+    notify: true,
+    verify: true,
+    placeholder: 'Just go go',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: true,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.5.0"></script><script src="/js/stun-boot.js?v=2.5.0"></script><script src="/js/scroll.js?v=2.5.0"></script><script src="/js/header.js?v=2.5.0"></script><script src="/js/sidebar.js?v=2.5.0"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/shizuku.model.json"},"display":{"position":"right","width":260,"height":380,"vOffset":5},"mobile":{"show":true},"log":false});</script></body></html>
