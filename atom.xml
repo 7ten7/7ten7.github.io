@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.7ten7.top/"/>
-  <updated>2021-01-02T18:57:59.087Z</updated>
+  <updated>2021-04-18T15:53:53.070Z</updated>
   <id>http://www.7ten7.top/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>另辟蹊径-Bypass宝塔Windows面板默认配置下的disable_funcaion</title>
+    <link href="http://www.7ten7.top/2021/04/18/2021-04-18-%E5%8F%A6%E8%BE%9F%E8%B9%8A%E5%BE%84-Bypass%E5%AE%9D%E5%A1%94Windows%E9%9D%A2%E6%9D%BF%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE%E4%B8%8B%E7%9A%84disable_funcaion/"/>
+    <id>http://www.7ten7.top/2021/04/18/2021-04-18-%E5%8F%A6%E8%BE%9F%E8%B9%8A%E5%BE%84-Bypass%E5%AE%9D%E5%A1%94Windows%E9%9D%A2%E6%9D%BF%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE%E4%B8%8B%E7%9A%84disable_funcaion/</id>
+    <published>2021-04-17T16:00:00.000Z</published>
+    <updated>2021-04-18T15:53:53.070Z</updated>
+    
+    <summary type="html">
+    
+      Here&#39;s something encrypted, password is required to continue reading.
+    
+    </summary>
+    
+    
+    
+      <category term="渗透测试" scheme="http://www.7ten7.top/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
   
   <entry>
     <title>对酒店房间自助售货机的支付漏洞挖掘</title>
@@ -439,27 +458,6 @@
       <category term="CTF" scheme="http://www.7ten7.top/tags/CTF/"/>
     
       <category term="AWD" scheme="http://www.7ten7.top/tags/AWD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MSSQL注入备忘录</title>
-    <link href="http://www.7ten7.top/2019/08/14/2019-08-14-MSSQL%E6%B3%A8%E5%85%A5%E5%A4%87%E5%BF%98%E5%BD%95/"/>
-    <id>http://www.7ten7.top/2019/08/14/2019-08-14-MSSQL%E6%B3%A8%E5%85%A5%E5%A4%87%E5%BF%98%E5%BD%95/</id>
-    <published>2019-08-13T16:00:00.000Z</published>
-    <updated>2020-04-23T12:58:35.061Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;暂时记录下 SQLServer 2008R2 注入的一些要点，因为不版本有差异性，对于差异性的内容，以后再补充&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="SQL注入" scheme="http://www.7ten7.top/tags/SQL%E6%B3%A8%E5%85%A5/"/>
     
   </entry>
   
