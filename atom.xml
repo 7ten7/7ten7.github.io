@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.7ten7.top/"/>
-  <updated>2021-04-18T15:53:53.070Z</updated>
+  <updated>2021-08-16T17:19:05.750Z</updated>
   <id>http://www.7ten7.top/</id>
   
   <author>
@@ -17,11 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>泛微OA_V8.1漏洞复现环境安装排坑</title>
+    <link href="http://www.7ten7.top/2021/08/16/2021-08-16-%E6%B3%9B%E5%BE%AEOA_V8.1%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E6%8E%92%E5%9D%91/"/>
+    <id>http://www.7ten7.top/2021/08/16/2021-08-16-%E6%B3%9B%E5%BE%AEOA_V8.1%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E6%8E%92%E5%9D%91/</id>
+    <published>2021-08-15T16:00:00.000Z</published>
+    <updated>2021-08-16T17:19:05.750Z</updated>
+    
+    <summary type="html">
+    
+      Here&#39;s something encrypted, password is required to continue reading.
+    
+    </summary>
+    
+    
+    
+      <category term="漏洞复现" scheme="http://www.7ten7.top/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
+    
+      <category term="泛微OA" scheme="http://www.7ten7.top/tags/%E6%B3%9B%E5%BE%AEOA/"/>
+    
+  </entry>
+  
+  <entry>
     <title>另辟蹊径-Bypass宝塔Windows面板默认配置下的disable_funcaion</title>
     <link href="http://www.7ten7.top/2021/04/18/2021-04-18-%E5%8F%A6%E8%BE%9F%E8%B9%8A%E5%BE%84-Bypass%E5%AE%9D%E5%A1%94Windows%E9%9D%A2%E6%9D%BF%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE%E4%B8%8B%E7%9A%84disable_funcaion/"/>
     <id>http://www.7ten7.top/2021/04/18/2021-04-18-%E5%8F%A6%E8%BE%9F%E8%B9%8A%E5%BE%84-Bypass%E5%AE%9D%E5%A1%94Windows%E9%9D%A2%E6%9D%BF%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE%E4%B8%8B%E7%9A%84disable_funcaion/</id>
     <published>2021-04-17T16:00:00.000Z</published>
-    <updated>2021-04-18T15:53:53.070Z</updated>
+    <updated>2021-08-16T17:05:53.746Z</updated>
     
     <summary type="html">
     
@@ -435,29 +456,6 @@
       <category term="writeup" scheme="http://www.7ten7.top/tags/writeup/"/>
     
       <category term="渗透" scheme="http://www.7ten7.top/tags/%E6%B8%97%E9%80%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CORS(跨域资源共享)漏洞</title>
-    <link href="http://www.7ten7.top/2019/09/06/2019-09-06-CORS(%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB)%E6%BC%8F%E6%B4%9E/"/>
-    <id>http://www.7ten7.top/2019/09/06/2019-09-06-CORS(%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB)%E6%BC%8F%E6%B4%9E/</id>
-    <published>2019-09-05T16:00:00.000Z</published>
-    <updated>2020-04-23T12:58:19.638Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;同源策略&quot;   &gt;
-          &lt;a href=&quot;#同源策略&quot; class=&quot;heading-link&quot;&gt;&lt;i class=&quot;fas fa-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;同源策略&lt;/h1&gt;
-      &lt;p&gt;同源策略是限制浏览器发起跨域的 http 请求。
-    
-    </summary>
-    
-    
-    
-      <category term="CTF" scheme="http://www.7ten7.top/tags/CTF/"/>
-    
-      <category term="AWD" scheme="http://www.7ten7.top/tags/AWD/"/>
     
   </entry>
   
